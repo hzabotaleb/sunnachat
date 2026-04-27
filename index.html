@@ -633,7 +633,7 @@ rb.addEventListener('touchstart',e=>{if(e.touches.length===2){iD=Math.hypot(e.to
 rb.addEventListener('touchmove',e=>{if(e.touches.length===2){const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);curZ=Math.max(ZMN,Math.min(ZMX,iZ*(d/iD)));applyZ();}},{passive:true});
 
 // ===== CHAT =====
-const ORKEY='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';
+const ORKEY='AIzaSyC_VrEMinzDeaJr4PDNs7sVzkALJvtZlMw';
 let hist=[],apiKey=ORKEY;
 document.getElementById('apiPanel').style.display='none';
 
@@ -705,16 +705,16 @@ async function sendMsg(){
   const btn=document.getElementById('sendBtn');btn.disabled=true;
   addTyping();
   try{
-    const reqHeaders=new Headers();
-    reqHeaders.set('Content-Type','application/json');
-    reqHeaders.set('Authorization','Bearer '+ORKEY);
-    reqHeaders.set('HTTP-Referer','https://sunnachat.com');
-    reqHeaders.set('X-Title','Sunnachat');
-    const body={model:'mistralai/mistral-7b-instruct:free',messages:[{role:'system',content:sysPrompt()},...hist]};
-    const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{method:'POST',headers:reqHeaders,body:JSON.stringify(body)});
+    const geminiMsgs=hist.slice(0,-1).map(m=>({role:m.role==='assistant'?'model':'user',parts:[{text:m.content}]}));
+    geminiMsgs.push({role:'user',parts:[{text:txt}]});
+    const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key='+ORKEY,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({system_instruction:{parts:[{text:sysPrompt()}]},contents:geminiMsgs,generationConfig:{maxOutputTokens:1000,temperature:0.7}})
+    });
     const data=await r.json();remTyping();
     if(data.error){addMsg('bot','خطأ: '+(data.error.message||'تحقق من مفتاح API'));btn.disabled=false;return;}
-    const reply=data.choices?.[0]?.message?.content||'عذراً، لم أتمكن من الإجابة.';
+    const reply=data.candidates?.[0]?.content?.parts?.[0]?.text||'عذراً، لم أتمكن من الإجابة.';
     addMsg('bot',reply);hist.push({role:'assistant',content:reply});
   }catch(e){remTyping();addMsg('bot','⚠️ خطأ: '+e.message);}
   btn.disabled=false;
