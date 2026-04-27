@@ -194,16 +194,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(15,14,11,0.9
 .art-tag{font-size:.65rem;background:var(--parchment-dark);color:var(--text-muted);padding:.15rem .45rem;border-radius:10px}
 .art-card-footer{margin-top:.75rem;display:flex;justify-content:flex-end}
 .art-read-btn{font-size:.75rem;color:var(--gold-dark);font-weight:700}
-{
-  file: "اسم الملف: articles/art_1777319201364.html
-",
-  title: "خداع المصطلحات في التفريق بين القرآن والكتاب ",
-  subtitle: "قراءة نقدية لكتاب ( الكتاب والقرآن) - ج ١",
-  category: "الرد على شحرور",
-  tags: ["خداع المصطلحات"],
-  date: "2026-04-27"
-},
-  /* Article full view */
+/* Article full view */
 .art-full{display:none;position:fixed;inset:0;z-index:300;background:var(--parchment);overflow-y:auto}
 .art-full.active{display:block}
 .art-full-bar{position:sticky;top:0;background:var(--ink);padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;z-index:10;border-bottom:1px solid rgba(201,151,58,.2)}
@@ -853,8 +844,8 @@ function renderArticles(){
             <div class="art-card-tags">${a.tags.map(t=>`<span class="art-tag">${t}</span>`).join('')}</div>
             <div class="art-card-footer">
               ${a.file
-                ? `<a href="articles/${a.file}" target="_blank" class="art-read-btn" style="text-decoration:none">قراءة المقال الكامل ←</a>`
-                : `<span class="art-read-btn" onclick="openArticle('${a.id}')" style="cursor:pointer">قراءة ملخص ←</span>`
+                ? `<a href="articles/${a.file}" target="_blank" class="art-read-btn" style="text-decoration:none;color:var(--gold-dark)">📄 قراءة المقال الكامل ←</a>`
+                : `<span style="font-size:.72rem;color:var(--text-muted);display:flex;align-items:center;gap:.3rem">⏳ قريباً — المقال قيد الإعداد</span>`
               }
             </div>
           </div>`).join('')}
