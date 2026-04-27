@@ -704,13 +704,15 @@ async function sendMsg(){
   const btn=document.getElementById('sendBtn');btn.disabled=true;
   addTyping();
   try{
-    const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':`Bearer ${apiKey}`,'HTTP-Referer':'https://sunnachat.com','X-Title':'Sunnachat'},
-      body:JSON.stringify({model:'meta-llama/llama-3.1-8b-instruct:free',messages:[{role:'system',content:sysPrompt()},...hist]})
-    });
+    const headers=new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('Authorization','Bearer '+apiKey);
+    headers.append('HTTP-Referer','https://sunnachat.com');
+    headers.append('X-Title','Sunnachat');
+    const body={model:'mistralai/mistral-7b-instruct:free',messages:[{role:'system',content:sysPrompt()},...hist]};
+    const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{method:'POST',headers:headers,body:JSON.stringify(body)});
     const data=await r.json();remTyping();
-    if(data.error){addMsg('bot',`⚠️ خطأ: ${data.error.message||'تحقق من مفتاح API'}`);btn.disabled=false;return;}
+    if(data.error){addMsg('bot','خطأ: '+(data.error.message||'تحقق من مفتاح API'));btn.disabled=false;return;}
     const reply=data.choices?.[0]?.message?.content||'عذراً، لم أتمكن من الإجابة.';
     addMsg('bot',reply);hist.push({role:'assistant',content:reply});
   }catch(e){remTyping();addMsg('bot','⚠️ خطأ: '+e.message);}
