@@ -633,7 +633,7 @@ rb.addEventListener('touchstart',e=>{if(e.touches.length===2){iD=Math.hypot(e.to
 rb.addEventListener('touchmove',e=>{if(e.touches.length===2){const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);curZ=Math.max(ZMN,Math.min(ZMX,iZ*(d/iD)));applyZ();}},{passive:true});
 
 // ===== CHAT =====
-let hist=[],apiKey=localStorage.getItem('sc_ak')||'';
+let hist=[],apiKey=localStorage.getItem('sc_ak')||'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';
 if(apiKey)document.getElementById('apiPanel').style.display='none';
 
 function saveKey(){
@@ -707,7 +707,7 @@ async function sendMsg(){
     const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':`Bearer ${apiKey}`,'HTTP-Referer':'https://sunnachat.com','X-Title':'سنة شات'},
-      body:JSON.stringify({model:'google/gemini-2.0-flash-exp:free',messages:[{role:'system',content:sysPrompt()},...hist]})
+      body:JSON.stringify({model:'meta-llama/llama-3.1-8b-instruct:free',messages:[{role:'system',content:sysPrompt()},...hist]})
     });
     const data=await r.json();remTyping();
     if(data.error){addMsg('bot',`⚠️ خطأ: ${data.error.message||'تحقق من مفتاح API'}`);btn.disabled=false;return;}
