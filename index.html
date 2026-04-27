@@ -354,10 +354,10 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
         <div class="sec-div"></div>
       </div>
       <div class="api-panel" id="apiPanel">
-        <h4>🔑 إعداد مفتاح Google Gemini API (مجاني)</h4>
-        <p>أدخل مفتاحك من <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--gold)">aistudio.google.com</a> — مجاني تماماً — يُحفظ في متصفحك فقط ولا يُرسل لأي خادم.</p>
+        <h4>🔑 إعداد مفتاح OpenRouter API (مجاني)</h4>
+        <p>أدخل مفتاحك من <a href="https://openrouter.ai/keys" target="_blank" style="color:var(--gold)">openrouter.ai</a> — مجاني تماماً — يُحفظ في متصفحك فقط ولا يُرسل لأي خادم.</p>
         <div class="api-row">
-          <input type="password" id="apiKeyInput" class="api-inp" placeholder="AIza..." dir="ltr">
+          <input type="password" id="apiKeyInput" class="api-inp" placeholder="sk-or-..." dir="ltr">
           <button class="api-save" onclick="saveKey()">حفظ ✓</button>
         </div>
       </div>
@@ -380,7 +380,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
           <button class="send-btn" id="sendBtn" onclick="sendMsg()">إرسال ➤</button>
         </div>
       </div>
-      <p style="color:rgba(255,255,255,.25);text-align:center;padding:.9rem;font-size:.72rem">يستخدم Google Gemini — مجاني — لا تُحفظ أي محادثة على خوادمنا — مراجع: dorar.net | islamweb.net | sunnah.com | islamqa.info</p>
+      <p style="color:rgba(255,255,255,.25);text-align:center;padding:.9rem;font-size:.72rem">يستخدم OpenRouter — مجاني — لا تُحفظ أي محادثة على خوادمنا — مراجع: dorar.net | islamweb.net | sunnah.com | islamqa.info</p>
     </div>
   </div>
 </div>
@@ -638,7 +638,7 @@ if(apiKey)document.getElementById('apiPanel').style.display='none';
 
 function saveKey(){
   const k=document.getElementById('apiKeyInput').value.trim();
-  if(!k.startsWith('AIza')){alert('يرجى إدخال مفتاح صحيح يبدأ بـ AIza');return;}
+  if(!k.startsWith('sk-or-')){alert('يرجى إدخال مفتاح صحيح يبدأ بـ sk-or-');return;}
   apiKey=k;localStorage.setItem('sc_ak',k);
   document.getElementById('apiPanel').style.display='none';
   addMsg('bot','✅ تم حفظ المفتاح! المساعد الذكي جاهز الآن.');
@@ -696,7 +696,7 @@ async function sendMsg(){
   if(!apiKey){
     document.getElementById('apiPanel').style.display='block';
     document.getElementById('apiPanel').scrollIntoView({behavior:'smooth'});
-    addMsg('bot','⚠️ يرجى إدخال مفتاح Google Gemini API أولاً.');return;
+    addMsg('bot','⚠️ يرجى إدخال مفتاح OpenRouter API أولاً.');return;
   }
   inp.value='';inp.style.height='auto';
   document.getElementById('sqWrap').style.display='none';
@@ -704,17 +704,14 @@ async function sendMsg(){
   const btn=document.getElementById('sendBtn');btn.disabled=true;
   addTyping();
   try{
-    const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,{
+    const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        system_instruction:{parts:[{text:sysPrompt()}]},
-        contents:hist.map(m=>({role:m.role==='assistant'?'model':'user',parts:[{text:m.content}]}))
-      })
+      headers:{'Content-Type':'application/json','Authorization':`Bearer ${apiKey}`,'HTTP-Referer':'https://sunnachat.com','X-Title':'سنة شات'},
+      body:JSON.stringify({model:'google/gemini-2.0-flash-exp:free',messages:[{role:'system',content:sysPrompt()},...hist]})
     });
     const data=await r.json();remTyping();
     if(data.error){addMsg('bot',`⚠️ خطأ: ${data.error.message||'تحقق من مفتاح API'}`);btn.disabled=false;return;}
-    const reply=data.candidates?.[0]?.content?.parts?.[0]?.text||'عذراً، لم أتمكن من الإجابة.';
+    const reply=data.choices?.[0]?.message?.content||'عذراً، لم أتمكن من الإجابة.';
     addMsg('bot',reply);hist.push({role:'assistant',content:reply});
   }catch(e){remTyping();addMsg('bot','⚠️ تعذر الاتصال. تحقق من مفتاح API واتصال الإنترنت.');}
   btn.disabled=false;
