@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سنة شات — مناقشات فكرية معاصرة</title>
+<meta name="description" content="الرد العلمي على شبهات منكري السنة النبوية بالحجج العلمية والدلائل الشرعية">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#c9973a;--gold-light:#e8c068;--gold-dark:#8b6420;--ink:#0f0e0b;--parchment:#faf6ee;--parchment-dark:#f0e8d5;--green-deep:#1a3d2b;--green-mid:#2d6a4f;--green-light:#40916c;--text-main:#1c1a14;--text-muted:#6b5e42;--border:#d4b896;--shadow:rgba(139,100,32,0.15)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--parchment);color:var(--text-main);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(201,151,58,0.03) 40px,rgba(201,151,58,0.03) 41px),repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(201,151,58,0.03) 40px,rgba(201,151,58,0.03) 41px);pointer-events:none;z-index:0}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(15,14,11,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--gold-dark);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.nav-logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.nav-logo-text{font-family:'Amiri',serif;font-size:1.3rem;color:var(--gold-light)}
+.nav-links{display:flex;gap:.25rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,.7);text-decoration:none;padding:.4rem .75rem;border-radius:6px;font-size:.85rem;font-weight:600;transition:all .2s}
+.nav-links a:hover{color:var(--gold-light);background:rgba(201,151,58,.1)}
+.nav-cta{background:linear-gradient(135deg,var(--gold),var(--gold-dark)) !important;color:var(--ink) !important;font-weight:700 !important;border-radius:20px !important}
+#home{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6rem 2rem 4rem;position:relative;text-align:center;background:linear-gradient(180deg,var(--green-deep) 0%,var(--ink) 60%,var(--parchment) 100%)}
+.hero-ornament{font-family:'Amiri',serif;font-size:4rem;color:var(--gold);opacity:.3;margin-bottom:1rem;animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero-badge{display:inline-block;border:1px solid var(--gold);color:var(--gold-light);padding:.3rem 1.2rem;border-radius:20px;font-size:.8rem;letter-spacing:.1em;margin-bottom:1.5rem;background:rgba(201,151,58,.08)}
+h1.hero-title{font-family:'Amiri',serif;font-size:clamp(2rem,6vw,3.8rem);color:white;line-height:1.3;margin-bottom:.5rem;text-shadow:0 2px 20px rgba(0,0,0,.5)}
+h1.hero-title span{color:var(--gold-light);display:block}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,.6);max-width:540px;line-height:1.8;margin:1rem auto 2.5rem}
+.hero-stats{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem}
+.stat-num{font-family:'Amiri',serif;font-size:2rem;color:var(--gold-light);font-weight:700;line-height:1}
+.stat-label{font-size:.75rem;color:rgba(255,255,255,.5);margin-top:.25rem}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-p{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--ink);padding:.8rem 2rem;border-radius:8px;font-weight:700;font-size:.95rem;text-decoration:none;border:none;cursor:pointer;transition:all .2s;font-family:'Cairo',sans-serif;display:inline-flex;align-items:center;gap:.5rem}
+.btn-p:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,151,58,.4)}
+.btn-s{background:transparent;color:white;padding:.8rem 2rem;border-radius:8px;font-weight:600;font-size:.95rem;text-decoration:none;border:1px solid rgba(255,255,255,.3);cursor:pointer;transition:all .2s;font-family:'Cairo',sans-serif}
+.btn-s:hover{border-color:var(--gold);color:var(--gold-light)}
+.sec-wrap{padding:5rem 2rem}
+.sec-inner{max-width:1200px;margin:0 auto}
+.sec-hdr{text-align:center;margin-bottom:3rem}
+.sec-label{font-size:.75rem;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:.75rem;display:block}
+.sec-title{font-family:'Amiri',serif;font-size:clamp(1.6rem,4vw,2.4rem);color:var(--text-main);line-height:1.3}
+.sec-divider{width:60px;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));margin:1rem auto 0;border-radius:2px}
+.pl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}
+.pl-card{background:white;border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .25s;box-shadow:0 2px 8px var(--shadow)}
+.pl-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px var(--shadow);border-color:var(--gold)}
+.pl-bar{height:6px}
+.pl-body{padding:1.5rem}
+.pl-title{font-family:'Amiri',serif;font-size:1.1rem;color:var(--text-main);margin-bottom:.5rem;line-height:1.4}
+.pl-desc{font-size:.82rem;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pl-foot{display:flex;align-items:center;justify-content:space-between}
+.pl-count{font-size:.78rem;color:var(--text-muted)}
+.pl-btn{font-size:.78rem;font-weight:700}
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(10,9,7,.9);z-index:200;padding:2rem 1rem;overflow-y:auto;backdrop-filter:blur(4px)}
+.modal-ov.active{display:flex;align-items:flex-start;justify-content:center}
+.modal-box{background:var(--parchment);border-radius:16px;width:100%;max-width:900px;overflow:hidden;animation:slideUp .3s ease;margin:auto}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.modal-hdr{background:var(--ink);padding:1.5rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.modal-ttl{font-family:'Amiri',serif;font-size:1.1rem;color:var(--gold-light);line-height:1.4}
+.modal-close{background:rgba(255,255,255,.1);border:none;color:white;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.1rem;flex-shrink:0;transition:background .2s;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:rgba(255,255,255,.2)}
+.modal-player{background:black;aspect-ratio:16/9;width:100%}
+.modal-player iframe{width:100%;height:100%;border:none}
+.modal-vlist{padding:1rem;max-height:320px;overflow-y:auto}
+.v-item{display:flex;gap:.75rem;padding:.75rem;border-radius:8px;cursor:pointer;transition:background .15s;align-items:flex-start}
+.v-item:hover{background:var(--parchment-dark)}
+.v-item.active{background:rgba(201,151,58,.12)}
+.v-thumb{width:100px;height:56px;object-fit:cover;border-radius:6px;flex-shrink:0;background:#333}
+.v-title{font-size:.85rem;font-weight:600;color:var(--text-main);line-height:1.4;margin-bottom:.2rem}
+.v-desc{font-size:.75rem;color:var(--text-muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.asst-wrap{background:var(--ink);padding:5rem 2rem}
+.asst-inner{max-width:760px;margin:0 auto}
+.chat-win{background:rgba(255,255,255,.04);border:1px solid rgba(201,151,58,.2);border-radius:16px;overflow:hidden}
+.chat-msgs{padding:1.5rem;overflow-y:auto;display:flex;flex-direction:column;gap:1rem;min-height:340px;max-height:460px}
+.cm{display:flex;gap:.75rem;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.cm.user{flex-direction:row-reverse}
+.cm-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.cm-av.bot{background:linear-gradient(135deg,var(--gold),var(--gold-dark))}
+.cm-av.user{background:var(--green-mid)}
+.cm-bub{max-width:75%;padding:.8rem 1rem;border-radius:12px;font-size:.88rem;line-height:1.7}
+.bot .cm-bub{background:rgba(255,255,255,.07);color:rgba(255,255,255,.88);border-radius:4px 12px 12px 12px}
+.user .cm-bub{background:var(--green-deep);color:white;border-radius:12px 4px 12px 12px;text-align:right}
+.sq-wrap{display:flex;flex-wrap:wrap;gap:.5rem;padding:.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.05)}
+.sq-btn{background:rgba(201,151,58,.08);border:1px solid rgba(201,151,58,.2);color:rgba(255,255,255,.65);padding:.35rem .75rem;border-radius:20px;font-size:.75rem;cursor:pointer;transition:all .2s;font-family:'Cairo',sans-serif}
+.sq-btn:hover{background:rgba(201,151,58,.18);color:var(--gold-light);border-color:var(--gold)}
+.chat-inp-row{padding:1rem;border-top:1px solid rgba(201,151,58,.15);display:flex;gap:.75rem;background:rgba(255,255,255,.02)}
+.chat-inp{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(201,151,58,.2);border-radius:8px;padding:.7rem 1rem;color:white;font-family:'Cairo',sans-serif;font-size:.9rem;resize:none;outline:none;transition:border-color .2s;direction:rtl}
+.chat-inp::placeholder{color:rgba(255,255,255,.3)}
+.chat-inp:focus{border-color:var(--gold)}
+.send-btn{background:linear-gradient(135deg,var(--gold),var(--gold-dark));border:none;color:var(--ink);padding:.7rem 1.2rem;border-radius:8px;cursor:pointer;font-weight:700;font-family:'Cairo',sans-serif;font-size:.9rem;transition:all .2s;display:flex;align-items:center;gap:.4rem;white-space:nowrap}
+.send-btn:hover{background:var(--gold-light);transform:translateY(-1px)}
+.send-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.api-panel{background:rgba(201,151,58,.06);border:1px solid rgba(201,151,58,.25);border-radius:12px;padding:1.5rem;margin-bottom:1rem}
+.api-panel h4{color:var(--gold-light);font-size:.9rem;margin-bottom:.5rem}
+.api-panel p{color:rgba(255,255,255,.5);font-size:.78rem;margin-bottom:.75rem;line-height:1.6}
+.api-row{display:flex;gap:.5rem}
+.api-inp{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(201,151,58,.2);border-radius:8px;padding:.6rem .9rem;color:white;font-family:monospace;font-size:.82rem;outline:none}
+.api-inp:focus{border-color:var(--gold)}
+.api-save{background:var(--gold-dark);border:none;color:white;padding:.6rem 1rem;border-radius:8px;cursor:pointer;font-size:.82rem;font-weight:700;font-family:'Cairo',sans-serif;transition:background .2s;white-space:nowrap}
+.api-save:hover{background:var(--gold);color:var(--ink)}
+.dots{display:flex;gap:4px;align-items:center;padding:.3rem 0}
+.dots span{width:7px;height:7px;background:var(--gold);border-radius:50%;animation:bounce 1.2s ease-in-out infinite}
+.dots span:nth-child(2){animation-delay:.15s}
+.dots span:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-6px);opacity:1}}
+.abt-wrap{background:var(--parchment-dark);padding:5rem 2rem}
+.abt-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;max-width:1000px;margin:0 auto}
+.abt-text p{color:var(--text-muted);line-height:1.9;font-size:.95rem;margin-bottom:1rem}
+.abt-disc{background:rgba(201,151,58,.08);border:1px solid rgba(201,151,58,.3);border-radius:8px;padding:1rem 1.2rem;font-size:.82rem;color:var(--text-muted);line-height:1.7}
+.abt-card{background:white;border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center;box-shadow:0 4px 16px var(--shadow)}
+.abt-av{width:80px;height:80px;background:linear-gradient(135deg,var(--green-deep),var(--green-light));border-radius:50%;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:2rem;color:white}
+.abt-name{font-family:'Amiri',serif;font-size:1.3rem;color:var(--text-main);margin-bottom:.4rem}
+.abt-role{font-size:.82rem;color:var(--text-muted);margin-bottom:1rem}
+.yt-link{display:inline-flex;align-items:center;gap:.5rem;background:#ff0000;color:white;padding:.5rem 1.2rem;border-radius:20px;font-size:.82rem;font-weight:700;text-decoration:none;transition:all .2s}
+.yt-link:hover{background:#cc0000;transform:translateY(-1px)}
+footer{background:var(--ink);color:rgba(255,255,255,.5);text-align:center;padding:2rem;font-size:.82rem;border-top:1px solid rgba(201,151,58,.2)}
+.ft-logo{font-family:'Amiri',serif;font-size:1.3rem;color:var(--gold-light);margin-bottom:.5rem}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:768px){nav{padding:0 1rem}.nav-links{display:none}.pl-grid{grid-template-columns:1fr}.abt-grid{grid-template-columns:1fr}.cm-bub{max-width:90%}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#home" class="nav-logo">
+    <div class="nav-logo-icon">🕌</div>
+    <span class="nav-logo-text">سنة شات</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#playlists">الفيديوهات</a></li>
+    <li><a href="#assistant">المساعد الذكي</a></li>
+    <li><a href="#about">عن الموقع</a></li>
+    <li><a href="#assistant" class="nav-cta">اسأل المساعد ✦</a></li>
+  </ul>
+</nav>
+
+<section id="home">
+  <div class="hero-ornament">﷽</div>
+  <span class="hero-badge">✦ مناقشات فكرية معاصرة ✦</span>
+  <h1 class="hero-title">
+    الرد العلمي على شبهات
+    <span>منكري السنة النبوية</span>
+  </h1>
+  <p class="hero-sub">بالحجج العلمية والدلائل الشرعية المستقاة من القرآن الكريم والسنة النبوية وكلام أهل العلم</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">٦٦</div><div class="stat-label">فيديو تعليمي</div></div>
+    <div class="stat"><div class="stat-num">٦</div><div class="stat-label">قائمة تشغيل</div></div>
+    <div class="stat"><div class="stat-num">٣</div><div class="stat-label">لغات</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">متاح للأبد</div></div>
+  </div>
+  <div class="hero-btns">
+    <a href="#playlists" class="btn-p">📺 شاهد الفيديوهات</a>
+    <a href="#assistant" class="btn-s">🤖 اسأل المساعد الذكي</a>
+  </div>
+</section>
+
+<div class="sec-wrap" id="playlists">
+  <div class="sec-inner">
+    <div class="sec-hdr reveal">
+      <span class="sec-label">المحتوى العلمي</span>
+      <h2 class="sec-title">قوائم التشغيل</h2>
+      <div class="sec-divider"></div>
+    </div>
+    <div class="pl-grid" id="plGrid"></div>
+  </div>
+</div>
+
+<div class="asst-wrap" id="assistant">
+  <div class="asst-inner">
+    <div class="sec-hdr reveal" style="margin-bottom:2.5rem">
+      <span class="sec-label">مدعوم بالذكاء الاصطناعي</span>
+      <h2 class="sec-title" style="color:white">المساعد العلمي الذكي</h2>
+      <p style="color:rgba(255,255,255,.5);margin-top:.75rem;font-size:.9rem;line-height:1.7">اسأل عن أي موضوع يتعلق بالسنة النبوية وحجيتها</p>
+      <div class="sec-divider"></div>
+    </div>
+
+    <div class="api-panel" id="apiPanel">
+      <h4>🔑 إعداد مفتاح Anthropic API</h4>
+      <p>أدخل مفتاح API الخاص بك من <a href="https://console.anthropic.com" target="_blank" style="color:var(--gold)">console.anthropic.com</a> — يُحفظ في متصفحك فقط ولا يُرسل لأي خادم خارجي.</p>
+      <div class="api-row">
+        <input type="password" id="apiKeyInput" class="api-inp" placeholder="sk-ant-..." dir="ltr">
+        <button class="api-save" onclick="saveKey()">حفظ ✓</button>
+      </div>
+    </div>
+
+    <div class="chat-win">
+      <div class="chat-msgs" id="chatMsgs">
+        <div class="cm">
+          <div class="cm-av bot">🕌</div>
+          <div class="cm-bub bot">السلام عليكم ورحمة الله 🌿<br><br>أنا المساعد العلمي لموقع <strong>سنة شات</strong>، متخصص في الرد على الشبهات المتعلقة بالسنة النبوية المطهرة.<br><br>اسألني عن: حجية السنة، نقد الأحاديث، الرد على منكري السنة، المذاهب الفقهية، وغيرها.</div>
+        </div>
+      </div>
+      <div class="sq-wrap" id="sqWrap">
+        <button class="sq-btn" onclick="askQ('ما دليل حجية السنة النبوية من القرآن الكريم؟')">ما دليل حجية السنة من القرآن؟</button>
+        <button class="sq-btn" onclick="askQ('ما الرد على من يقول نكتفي بالقرآن وحده؟')">الرد على من يكتفي بالقرآن؟</button>
+        <button class="sq-btn" onclick="askQ('كيف وصلت إلينا الأحاديث النبوية؟')">كيف وصلت الأحاديث؟</button>
+        <button class="sq-btn" onclick="askQ('ما شروط صحة الحديث النبوي؟')">شروط صحة الحديث</button>
+      </div>
+      <div class="chat-inp-row">
+        <textarea class="chat-inp" id="chatInp" rows="1" placeholder="اكتب سؤالك هنا..." onkeydown="handleKey(event)"></textarea>
+        <button class="send-btn" id="sendBtn" onclick="send()">إرسال ➤</button>
+      </div>
+    </div>
+    <p style="color:rgba(255,255,255,.3);text-align:center;padding:1rem;font-size:.76rem">المساعد يستخدم Claude من Anthropic — لا تُحفظ أي محادثة على خوادمنا</p>
+  </div>
+</div>
+
+<div class="abt-wrap" id="about">
+  <div class="sec-inner">
+    <div class="sec-hdr reveal" style="max-width:1000px;margin:0 auto 3rem">
+      <span class="sec-label">من نحن</span>
+      <h2 class="sec-title">عن الموقع</h2>
+      <div class="sec-divider"></div>
+    </div>
+    <div class="abt-grid reveal">
+      <div class="abt-text">
+        <p>موقع <strong>سنة شات</strong> مخصص للرد على شبهات منكري السنة النبوية المطهرة، من خلال تقديم الحجج العلمية والأدلة الشرعية المستقاة من القرآن الكريم والسنة النبوية وكلام أهل العلم.</p>
+        <p>يضم الموقع سلسلة من الفيديوهات التعليمية التي تتناول أبرز الشبهات المثارة حول حجية السنة النبوية، ونقد الأحاديث، والمذاهب الفقهية، وغيرها من المواضيع المهمة.</p>
+        <p>الفيديوهات متوفرة مترجمة باللغتين الإنجليزية والفرنسية وموزعة على قوائم تشغيل لتسهيل الوصول إليها.</p>
+        <div class="abt-disc">⚠️ <strong>تنبيه مهم:</strong> تم الاستعانة بتقنيات الذكاء الاصطناعي في إنشاء الفيديوهات. نسأل الله أن يغفر لنا تقصيرنا. نرجو الالتزام بقراءة الآيات الكريمة من المصحف الشريف.</div>
+      </div>
+      <div class="abt-card">
+        <div class="abt-av">👨‍🏫</div>
+        <div class="abt-name">هيثم أبو طالب</div>
+        <div class="abt-role">صاحب الموقع والقناة</div>
+        <p style="font-size:.82rem;color:var(--text-muted);line-height:1.6;margin-bottom:1rem">يقدم محتوى علمياً متخصصاً في الرد على الشبهات الفكرية المعاصرة المتعلقة بالسنة النبوية وعلوم الحديث.</p>
+        <a href="https://www.youtube.com/@HaithamAbotaleb" target="_blank" class="yt-link">▶ زيارة القناة على يوتيوب</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="ft-logo">سنة شات</div>
+  <p>مناقشات فكرية معاصرة — الرد العلمي على شبهات منكري السنة النبوية</p>
+  <p style="margin-top:.5rem;font-size:.75rem;opacity:.4">صدقة جارية بإذن الله — هذا الموقع مفتوح المصدر ومتاح للجميع</p>
+</footer>
+
+<div class="modal-ov" id="modal" onclick="closeOut(event)">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <h3 class="modal-ttl" id="mTitle"></h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-player"><iframe id="mPlayer" src="" allowfullscreen allow="autoplay;encrypted-media"></iframe></div>
+    <div class="modal-vlist" id="mList"></div>
+  </div>
+</div>
+
+<script>
+const PL=[{id:"sunnah-authority",title:"حجية السنة وأبرز الاعتراضات المثارة عليها",desc:"الأدلة العقلية والأدلة من القرآن على حجية السنة وأبرز الاعتراضات عليها",color:"#b45309",vids:[{id:"KKZicTAyR7E",t:"أدلة على حجية السنة من القرآن الكريم",d:"شرح الآيات القرآنية التي تثبت حجية السنة"},{id:"y7khrHjwHMM",t:"الأدلة العقلية على حجية السنة",d:"شرح الأدلة العقلية التي تثبت حجية السنة"},{id:"MKyYQ_A9dOY",t:"هل طاعة الرسول تعني طاعة الرسالة؟",d:"توضيح معنى طاعة الرسول في القرآن والسنة"},{id:"xhTDANSmJAc",t:"هل هناك فرق بين أطيعوا النبي وأطيعوا الرسول",d:"شرح الفرق بين لفظ النبي والرسول في القرآن"},{id:"kqUL02eWLD0",t:"القرآن تبيان لكل شيء",d:"شرح معنى قول الله تعالى القرآن تبيان لكل شيء"},{id:"MIcbJsruakQ",t:"شرح لقوله تعالى مافرطنا في الكتاب من شيء",d:"توضيح معنى الآية ما فرطنا في الكتاب من شيء"},{id:"ZmD0RbqJPEI",t:"هل حقا اتباع ما دون كتاب الله شرك بالله؟",d:"الرد على ادعاء أن اتباع السنة شرك بالله"},{id:"0qsfvtQsMjE",t:"هل هناك وحي خارج القرآن",d:"شرح أن السنة وحي من الله تعالى"},{id:"LYciCH0K2a8",t:"توضيح لقوله تعالى أولم يكفهم أنا أنزلنا عليك الكتاب",d:"توضيح معنى هذه الآية والرد على منكري السنة"},{id:"eigKBGrEeZo",t:"توضيح لقوله تعالى فإنما على رسولنا البلاغ المبين",d:"شرح معنى هذه الآية"},{id:"0nKVCPqrkYQ",t:"أين تفسير النبي للقرآن؟",d:"شرح أن السنة هي تفسير النبي للقرآن"},{id:"HXy0ivu96Sc",t:"هل حقا لا طاعة لميت",d:"الرد على ادعاء أن طاعة الرسول بعد وفاته لا تصح"},{id:"FWQllgOb7kQ",t:"هل لايجب اتباع الأحاديث لأنها ظنية الثبوت؟",d:"الرد على ادعاء أن الأحاديث ظنية الثبوت فلا تتبع"},{id:"CT5MGshcERY",t:"هل سمعت هذه الآيات؟",d:"شرح آيات قرآنية تثبت حجية السنة"},{id:"CFIAKOIJ4CI",t:"هل دعوى الاكتفاء بكتاب الله توافق كتاب الله؟",d:"الرد على ادعاء الاكتفاء بالقرآن وحده"},{id:"UTLQlQKXQUc",t:"قف ، هل حققت شرط الايمان بالله",d:"شرح شروط الإيمان بالله تعالى"},{id:"UV7ydh6p9A0",t:"حفظ القرآن هل حفظ لحروفه فقط؟",d:"شرح معنى حفظ الله للقرآن الكريم"},{id:"3PDmAjbKH1s",t:"كيف فتن منكر السنة",d:"شرح كيفية وقوع منكري السنة في الضلال"},{id:"yPunFVLuU2o",t:"كمال القرآن الكريم وعظمة الله في التشريع",d:"شرح كمال القرآن وأن السنة تفصيل له"},{id:"7oI-Apo56QM",t:"هل القرآن وحده كاف لهداية الناس ؟",d:"الرد على ادعاء كفاية القرآن وحده للهداية"},{id:"04HLOndBl-A",t:"هل القرآن وحده كاف للتشريع؟",d:"الرد على ادعاء كفاية القرآن وحده للتشريع"},{id:"Z7Qz3LEuk1E",t:"الله أكرمنا بأحسن الحديث فلماذا لا نتبعه وحده؟",d:"شرح أن أحسن الحديث هو القرآن والسنة معاً"}]},{id:"sunnah-deniers-ijma",title:"مخالفة منكر السنة لما أجمعت عليه الأمة",desc:"إثبات مخالفة منكري السنة للإجماع والأدلة الشرعية",color:"#be185d",vids:[{id:"GVRZUV1DLxI",t:"هل مايفعله الحداثيون تدبرا للقرآن",d:"نقد منهج الحداثيين في تفسير القرآن"},{id:"UV7ydh6p9A0",t:"حفظ القرآن هل حفظ لحروفه فقط؟",d:"شرح معنى حفظ الله للقرآن الكريم"},{id:"AccO_zxeZqg",t:"لله در الصلاة",d:"شرح فضل الصلاة وأهميتها في الإسلام"},{id:"nnKrBof2qTw",t:"هل نصلي بالقرآن أم بهدي الرسول وسنته؟",d:"توضيح أن الصلاة تؤدى بالقرآن والسنة معاً"},{id:"gRGFv78FpMo",t:"تحايل الحداثيين لتحليل ما حرم الله",d:"فضح أساليب الحداثيين في تحليل المحرمات"},{id:"O7MWnUqdXvM",t:"هل ذكر تحريم الخمر في القرآن",d:"شرح آيات تحريم الخمر في القرآن الكريم"},{id:"6brp5dHJkx4",t:"النسخ في كتاب الله",d:"شرح مفهوم النسخ والآيات المنسوخة في القرآن"},{id:"3PDmAjbKH1s",t:"كيف فتن منكر السنة",d:"شرح كيفية وقوع منكري السنة في الضلال"},{id:"crcp185UkpA",t:"هل تمسكنا بالتراث سبب تأخرنا؟",d:"الرد على ادعاء أن التراث سبب في تأخر الأمة"},{id:"c0OtFY3Yu5s",t:"أدلة عذاب القبر ونعيمه",d:"شرح الأدلة على عذاب القبر ونعيمه"},{id:"ipgqMdE1zJc",t:"هل خالف حد الرجم القرآن الكريم",d:"الرد على ادعاء تعارض حد الرجم مع القرآن"},{id:"ZTaoGLFCm34",t:"الجنة لمن ؟",d:"شرح شروط دخول الجنة وأهلها"}]},{id:"hadith-criticism",title:"نقد المرويات والأحاديث",desc:"الرد على نقود منكري السنة للأحاديث والمرويات الشريفة",color:"#b91c1c",vids:[{id:"xJ-lDKS7MjI",t:"هل تم نقد الأحاديث عن رسول الله؟",d:"شرح علم نقد الحديث وأهميته في الإسلام"},{id:"dOt1hMdtoJ4",t:"ما هي الروايات عن رسول الله",d:"توضيح أنواع الروايات والأحاديث عن الرسول"},{id:"FmZe2PPH_rw",t:"كيف وصلت لنا الأحاديث؟",d:"شرح سلسلة نقل الأحاديث من الرسول إلى يومنا"},{id:"ixuqBi6B1O0",t:"شروط صحة الحديث",d:"شرح الشروط التي يجب توفرها في الحديث الصحيح"},{id:"sr1OBTe81Dw",t:"حجية خبر الآحاد",d:"شرح حكم الاحتجاج بخبر الآحاد في الإسلام"},{id:"GDK_41SA-FA",t:"حملة العلم عن رسول الله من الصحابة",d:"شرح دور الصحابة في نقل العلم عن الرسول"},{id:"yezqkzkVHC8",t:"بداية تدوين الأحاديث",d:"شرح متى بدأ تدوين الأحاديث"},{id:"XFltIueXRoU",t:"أصح كتاب بعد كتاب الله",d:"شرح أصح الكتب المصنفة في الحديث"},{id:"Yu1kvZqARbI",t:"معرفة الخبر الصادق",d:"شرح كيفية التمييز بين الخبر الصادق والكاذب"},{id:"CSWYT34Fudg",t:"منهج منكري السنة",d:"شرح منهج ومبادئ منكري السنة"},{id:"8sh_QV-5Ue8",t:"الشك هل هو أمر محمود في القرآن ؟!",d:"شرح حكم الشك والريبة في القرآن الكريم"}]},{id:"hadith-quran-contradiction",title:"ادعاءات بأن هناك أحاديث خالفت القرآن",desc:"الرد على ادعاءات تعارض الأحاديث مع آيات القرآن الكريم",color:"#6d28d9",vids:[{id:"CSWYT34Fudg",t:"منهج منكري السنة",d:"شرح منهج ومبادئ منكري السنة"},{id:"-2NJHEvsBI8",t:"علامات الساعة من القرآن الكريم",d:"شرح علامات الساعة الموجودة في القرآن الكريم"},{id:"zHtmDkWEvmk",t:"هل الرسول يعلم الغيب ؟؟",d:"توضيح حكم علم الغيب للرسول"},{id:"F5K0ZoVmJAw",t:"كيف قال الرسول أمرت أن أقاتل الناس...",d:"شرح حديث الأمر بقتال الناس حتى يشهدوا التوحيد"},{id:"TFrxEOWARkc",t:"هل تصح رواية انتحار الرسول",d:"الرد على ادعاء انتحار الرسول"},{id:"3CD1ClYf8Jc",t:"حقيقة سحر الرسول صلى الله عليه وسلم",d:"توضيح حقيقة ما ورد عن سحر الرسول"},{id:"iybrs9S-u44",t:"هل خالف حديث لا وصية لوارث القرآن",d:"الرد على ادعاء تعارض هذا الحديث مع القرآن"},{id:"ipgqMdE1zJc",t:"هل خالف حد الرجم القرآن الكريم",d:"الرد على ادعاء تعارض حد الرجم مع القرآن"},{id:"5NdcLkMCWvY",t:"لماذا يختلف أهل العلم والفقه ؟؟؟",d:"شرح أسباب اختلاف أهل العلم والفقه"},{id:"JN_wpqlePZo",t:"أركان الإسلام في القرآن",d:"شرح أركان الإسلام الخمسة من خلال آيات القرآن"},{id:"C6d4nMZL5zA",t:"حد الردة في كتاب الله",d:"شرح حكم الردة والعقوبة المترتبة عليها في الإسلام"}]},{id:"fiqh-schools",title:"المذاهب الفقهية وما يثار عليها",desc:"الرد على الاعتراضات والشبهات المثارة على المذاهب الفقهية الإسلامية",color:"#1d4ed8",vids:[{id:"5NdcLkMCWvY",t:"لماذا يختلف أهل العلم والفقه ؟؟؟",d:"شرح أسباب اختلاف أهل العلم والفقه"},{id:"GDK_41SA-FA",t:"حملة العلم عن رسول الله من الصحابة",d:"شرح دور الصحابة في نقل العلم عن الرسول"},{id:"QN8gYMDIqGI",t:"نشأة المذاهب الفقهية",d:"شرح نشأة وتطور المذاهب الفقهية الإسلامية"},{id:"crcp185UkpA",t:"هل تمسكنا بالتراث سبب تأخرنا؟",d:"الرد على ادعاء أن التراث سبب في تأخر الأمة"},{id:"mfjsKnt7B5o",t:"حسم الجدل حول إرضاع الكبير",d:"شرح حكم إرضاع الكبير وموقف الفقهاء"},{id:"bkX_FcajoME",t:"بول الإبل : هل يستحق هذا الجدل حوله ؟",d:"الرد على الشبهات المثارة حول مسألة بول الإبل"}]},{id:"between-prophet-messenger",title:"بين النبي والرسول",desc:"سلسلة للرد على المزاعم في التفريق بين مقام النبوة ومقام الرسالة",color:"#0e7490",vids:[{id:"RFb6F9qpXAU",t:"الحلقة الأولى: لماذا يفرقون بين الرسول والنبي ؟",d:"شرح أسباب التفريق بين الرسول والنبي عند منكري السنة"},{id:"6crAaObULm0",t:"الحلقة ٢: الفرق بين مقام الرسول ومقام النبي",d:"توضيح الفروق الشرعية بين مقام الرسول والنبي"},{id:"JaGkRqNw3X4",t:"هل الخطاب في القرآن بلفظ النبي يقصد به شخص الرسول ؟",d:"تحليل الخطاب القرآني والمقصود من لفظ النبي"},{id:"WSXUxmwFF2I",t:"آيات العتاب",d:"شرح آيات العتاب في القرآن الكريم"},{id:"-KSWO-T-v1Y",t:"هل أطيعوا الرسول تعني طاعة الرسالة؟",d:"شرح معنى طاعة الرسول في القرآن الكريم"},{id:"Ygfn4zoVUIk",t:"هل وظيفة الرسول هي تبليغ القرآن وفقط ؟",d:"توضيح وظائف الرسول الكريم"},{id:"fY0BDCVkesQ",t:"هل الرسول صل الله عليه وسلم كان يحكم بالقرآن وحده",d:"استكمال سلسلة بين النبي والرسول"},{id:"Dc7_jyqL-Go",t:"القول الفاصل في الفرق بين مقام الرسالة ومقام النبوة",d:"هل حقا يفرق القرآن بين مقام ومهام النبي ومقام الرسول في نفس الشخص ؟"}]}];
+
+// Playlists
+function renderPL(){
+  document.getElementById('plGrid').innerHTML=PL.map(p=>`
+    <div class="pl-card reveal" onclick="openPL('${p.id}')">
+      <div class="pl-bar" style="background:${p.color}"></div>
+      <div class="pl-body">
+        <h3 class="pl-title">${p.title}</h3>
+        <p class="pl-desc">${p.desc}</p>
+        <div class="pl-foot">
+          <span class="pl-count">📹 ${p.vids.length} فيديو</span>
+          <span class="pl-btn" style="color:${p.color}">مشاهدة ←</span>
+        </div>
+      </div>
+    </div>`).join('');
+  observe();
+}
+
+let curPL=null,curV=0;
+function openPL(id){
+  curPL=PL.find(p=>p.id===id);if(!curPL)return;
+  curV=0;
+  document.getElementById('mTitle').textContent=curPL.title;
+  renderVList();playV(0);
+  document.getElementById('modal').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function renderVList(){
+  document.getElementById('mList').innerHTML=curPL.vids.map((v,i)=>`
+    <div class="v-item ${i===curV?'active':''}" onclick="playV(${i})">
+      <img class="v-thumb" src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" alt="${v.t}" loading="lazy">
+      <div><div class="v-title">${v.t}</div><div class="v-desc">${v.d}</div></div>
+    </div>`).join('');
+}
+function playV(i){
+  curV=i;
+  document.getElementById('mPlayer').src=`https://www.youtube.com/embed/${curPL.vids[i].id}?autoplay=1&rel=0`;
+  document.querySelectorAll('.v-item').forEach((el,j)=>el.classList.toggle('active',j===i));
+}
+function closeModal(){document.getElementById('modal').classList.remove('active');document.getElementById('mPlayer').src='';document.body.style.overflow='';}
+function closeOut(e){if(e.target===document.getElementById('modal'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+// Chat
+let hist=[],apiKey=localStorage.getItem('sc_ak')||'';
+if(apiKey){document.getElementById('apiPanel').style.display='none';}
+
+function saveKey(){
+  const k=document.getElementById('apiKeyInput').value.trim();
+  if(!k.startsWith('sk-ant-')){alert('يرجى إدخال مفتاح صحيح يبدأ بـ sk-ant-');return;}
+  apiKey=k;localStorage.setItem('sc_ak',k);
+  document.getElementById('apiPanel').style.display='none';
+  addMsg('bot','✅ تم حفظ المفتاح! المساعد الذكي جاهز الآن.');
+}
+
+function sysPrompt(){
+  const titles=PL.flatMap(p=>p.vids.map(v=>`- ${v.t}`)).join('\n');
+  return `أنت مساعد علمي إسلامي متخصص في موقع "سنة شات" للرد على شبهات منكري السنة النبوية.
+
+هويتك: متخصص في علوم الحديث وحجية السنة، تجيب بالأدلة من القرآن والسنة وكلام أهل العلم، لغتك العربية الفصحى المفهومة، هادئ علمي موضوعي.
+
+محتوى الموقع (${PL.reduce((s,p)=>s+p.vids.length,0)} فيديو في ${PL.length} قوائم تشغيل):
+${PL.map(p=>`\n${p.title}:\n${p.vids.map(v=>`- ${v.t}`).join('\n')}`).join('\n')}
+
+قواعد الإجابة:
+1. ابدأ بالدليل القرآني إن وجد ثم السنة ثم كلام أهل العلم
+2. أشر للفيديوهات ذات الصلة عند الاقتضاء
+3. أجب باختصار مفيد وواضح`;
+}
+
+function addMsg(role,txt){
+  const c=document.getElementById('chatMsgs');
+  const d=document.createElement('div');d.className=`cm ${role}`;
+  const av=document.createElement('div');av.className=`cm-av ${role}`;av.textContent=role==='bot'?'🕌':'👤';
+  const b=document.createElement('div');b.className='cm-bub';b.innerHTML=txt.replace(/\n/g,'<br>');
+  d.appendChild(av);d.appendChild(b);c.appendChild(d);
+  c.scrollTop=c.scrollHeight;
+}
+
+function addTyping(){
+  const c=document.getElementById('chatMsgs');
+  const d=document.createElement('div');d.className='cm bot';d.id='typin';
+  const av=document.createElement('div');av.className='cm-av bot';av.textContent='🕌';
+  const b=document.createElement('div');b.className='cm-bub bot';
+  b.innerHTML='<div class="dots"><span></span><span></span><span></span></div>';
+  d.appendChild(av);d.appendChild(b);c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+function remTyping(){const e=document.getElementById('typin');if(e)e.remove();}
+
+async function send(){
+  const inp=document.getElementById('chatInp');
+  const txt=inp.value.trim();if(!txt)return;
+  if(!apiKey){
+    document.getElementById('apiPanel').style.display='block';
+    document.getElementById('apiPanel').scrollIntoView({behavior:'smooth'});
+    addMsg('bot','⚠️ يرجى إدخال مفتاح Anthropic API أولاً.');return;
+  }
+  inp.value='';inp.style.height='auto';
+  document.getElementById('sqWrap').style.display='none';
+  addMsg('user',txt);hist.push({role:'user',content:txt});
+  const btn=document.getElementById('sendBtn');btn.disabled=true;
+  addTyping();
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sysPrompt(),messages:hist})
+    });
+    const data=await r.json();remTyping();
+    if(data.error){addMsg('bot',`⚠️ خطأ: ${data.error.message||'تحقق من مفتاح API'}`);btn.disabled=false;return;}
+    const reply=data.content?.[0]?.text||'عذراً، لم أتمكن من الإجابة.';
+    addMsg('bot',reply);hist.push({role:'assistant',content:reply});
+  }catch(e){remTyping();addMsg('bot','⚠️ تعذر الاتصال. تحقق من مفتاح API واتصال الإنترنت.');}
+  btn.disabled=false;
+}
+
+function askQ(q){document.getElementById('chatInp').value=q;send();}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
+document.getElementById('chatInp').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';});
+
+// Reveal
+function observe(){
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+}
+
+document.addEventListener('DOMContentLoaded',()=>{renderPL();observe();});
+</script>
+</body>
+</html>
