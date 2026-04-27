@@ -174,7 +174,44 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(15,14,11,0.9
 .yt-btn{display:inline-flex;align-items:center;gap:.4rem;background:#ff0000;color:white;padding:.45rem 1.1rem;border-radius:18px;font-size:.78rem;font-weight:700;text-decoration:none;transition:all .2s}
 .yt-btn:hover{background:#cc0000;transform:translateY(-1px)}
 
-/* ===== FOOTER ===== */
+/* ===== ARTICLES ===== */
+#articles{background:var(--parchment)}
+.art-filter{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;justify-content:center}
+.art-filter-btn{background:white;border:1px solid var(--border);color:var(--text-muted);padding:.4rem .9rem;border-radius:20px;font-size:.78rem;cursor:pointer;transition:all .2s;font-family:'Cairo',sans-serif}
+.art-filter-btn:hover,.art-filter-btn.active{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:700}
+.art-chapter{margin-bottom:3rem}
+.art-chapter-hdr{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:2px solid var(--gold)}
+.art-chapter-num{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--ink);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0}
+.art-chapter-title{font-family:'Amiri',serif;font-size:1.2rem;color:var(--text-main)}
+.art-chapter-book{font-size:.72rem;color:var(--text-muted);margin-top:.1rem}
+.art-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+.art-card{background:white;border:1px solid var(--border);border-radius:10px;padding:1.25rem;cursor:pointer;transition:all .22s;box-shadow:0 2px 6px var(--shadow)}
+.art-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px var(--shadow);border-color:var(--gold)}
+.art-card-title{font-family:'Amiri',serif;font-size:1rem;color:var(--text-main);margin-bottom:.35rem;line-height:1.4}
+.art-card-sub{font-size:.75rem;color:var(--gold-dark);font-weight:600;margin-bottom:.6rem}
+.art-card-summary{font-size:.78rem;color:var(--text-muted);line-height:1.7;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.art-card-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.75rem}
+.art-tag{font-size:.65rem;background:var(--parchment-dark);color:var(--text-muted);padding:.15rem .45rem;border-radius:10px}
+.art-card-footer{margin-top:.75rem;display:flex;justify-content:flex-end}
+.art-read-btn{font-size:.75rem;color:var(--gold-dark);font-weight:700}
+/* Article full view */
+.art-full{display:none;position:fixed;inset:0;z-index:300;background:var(--parchment);overflow-y:auto}
+.art-full.active{display:block}
+.art-full-bar{position:sticky;top:0;background:var(--ink);padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;z-index:10;border-bottom:1px solid rgba(201,151,58,.2)}
+.art-full-back{background:none;border:1px solid rgba(255,255,255,.2);color:white;padding:.4rem .9rem;border-radius:6px;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.82rem;transition:all .2s}
+.art-full-back:hover{border-color:var(--gold);color:var(--gold-light)}
+.art-full-content{max-width:720px;margin:0 auto;padding:3rem 1.5rem}
+.art-full-book{font-size:.75rem;color:var(--gold);letter-spacing:.08em;margin-bottom:.5rem}
+.art-full-title{font-family:'Amiri',serif;font-size:clamp(1.5rem,4vw,2.2rem);color:var(--text-main);line-height:1.3;margin-bottom:.5rem}
+.art-full-subtitle{font-size:.9rem;color:var(--text-muted);margin-bottom:1.5rem;font-style:italic}
+.art-full-divider{width:60px;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:2px;margin-bottom:2rem}
+.art-full-body{font-size:.95rem;color:var(--text-main);line-height:2;text-align:justify}
+.art-full-body p{margin-bottom:1.2rem}
+.art-full-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.art-full-ask{background:var(--ink);border-radius:12px;padding:1.5rem;margin-top:2rem;text-align:center}
+.art-full-ask p{color:rgba(255,255,255,.6);font-size:.85rem;margin-bottom:.75rem}
+.art-full-ask button{background:linear-gradient(135deg,var(--gold),var(--gold-dark));border:none;color:var(--ink);padding:.65rem 1.5rem;border-radius:8px;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;transition:all .2s}
+.art-full-ask button:hover{background:var(--gold-light)}
 footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;padding:1.75rem 1.5rem;font-size:.8rem;border-top:1px solid rgba(201,151,58,.18)}
 .ft-logo{font-family:'Amiri',serif;font-size:1.2rem;color:var(--gold-light);margin-bottom:.4rem}
 
@@ -219,6 +256,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
   <ul class="nav-links" id="navLinks">
     <li><a onclick="showPage('home')">الرئيسية</a></li>
     <li><a onclick="showPage('playlists')">الفيديوهات</a></li>
+    <li><a onclick="showPage('articles')">المقالات</a></li>
     <li><a onclick="showPage('library')">المكتبة</a></li>
     <li><a onclick="showPage('assistant')">المساعد</a></li>
     <li><a onclick="showPage('about')">عن الموقع</a></li>
@@ -242,6 +280,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
     </div>
     <div class="hero-btns">
       <button class="btn-gold" onclick="showPage('playlists')">📺 شاهد الفيديوهات</button>
+      <button class="btn-gold" onclick="showPage('articles')">📄 المقالات</button>
       <button class="btn-gold" onclick="showPage('library')">📚 المكتبة</button>
       <button class="btn-outline" onclick="showPage('assistant')">🤖 المساعد الذكي</button>
     </div>
@@ -262,7 +301,47 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
   </div>
 </div>
 
-<!-- ===== LIBRARY ===== -->
+<!-- ===== ARTICLES ===== -->
+<div id="articles" class="page">
+  <div class="sec-wrap">
+    <div class="sec-inner">
+      <div class="sec-hdr reveal">
+        <span class="sec-label">المؤلفات العلمية</span>
+        <h2 class="sec-title">المقالات</h2>
+        <p style="color:var(--text-muted);font-size:.88rem;margin-top:.75rem">مقالات مستخلصة من كتب د. هيثم أبو طالب — مرتبة حسب الكتاب والفصل</p>
+        <div class="sec-div"></div>
+      </div>
+      <div class="art-filter" id="artFilter">
+        <button class="art-filter-btn active" onclick="filterArt(0)">الكل</button>
+        <button class="art-filter-btn" onclick="filterArt(1)">حجية السنة</button>
+        <button class="art-filter-btn" onclick="filterArt(2)">نقد المرويات</button>
+        <button class="art-filter-btn" onclick="filterArt(3)">تعارض الأحاديث والقرآن</button>
+        <button class="art-filter-btn" onclick="filterArt(4)">مخالفة الإجماع</button>
+      </div>
+      <div id="artContainer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Article Full Reader -->
+<div class="art-full" id="artFull">
+  <div class="art-full-bar">
+    <span style="font-family:'Amiri',serif;color:var(--gold-light);font-size:.95rem" id="artFullBarTitle"></span>
+    <button class="art-full-back" onclick="closeArtFull()">← رجوع للمقالات</button>
+  </div>
+  <div class="art-full-content">
+    <div class="art-full-book" id="artFullBook"></div>
+    <h1 class="art-full-title" id="artFullTitle"></h1>
+    <p class="art-full-subtitle" id="artFullSub"></p>
+    <div class="art-full-divider"></div>
+    <div class="art-full-body" id="artFullBody"></div>
+    <div class="art-full-tags" id="artFullTags"></div>
+    <div class="art-full-ask">
+      <p>هل لديك سؤال حول هذا المقال؟ اسأل المساعد الذكي</p>
+      <button onclick="askAboutArticle()">🤖 اسأل المساعد</button>
+    </div>
+  </div>
+</div>
 <div id="library" class="page">
   <div class="sec-wrap">
     <div class="sec-inner">
@@ -632,7 +711,99 @@ const rb=document.querySelector('.reader-body');
 rb.addEventListener('touchstart',e=>{if(e.touches.length===2){iD=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);iZ=curZ;}},{passive:true});
 rb.addEventListener('touchmove',e=>{if(e.touches.length===2){const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);curZ=Math.max(ZMN,Math.min(ZMX,iZ*(d/iD)));applyZ();}},{passive:true});
 
-// ===== CHAT =====
+// ===== ARTICLES =====
+const ARTICLES=[
+  {book:1,bookTitle:"مناقشات فكرية معاصرة",chapter:1,chapterTitle:"حجية السنة",articles:[
+    {id:"a1-1",title:"أدلة على حجية السنة النبوية",subtitle:"الأدلة العقلية والنقلية على وجوب اتباع السنة",summary:"يناقش المؤلف في هذا المبحث الأدلة العقلية على حجية السنة، مبيناً أن الرسول ﷺ هو حلقة الوصل بيننا وبين الله عز وجل، وأن طاعته طاعة لله. ثم يعرض الأدلة النقلية من القرآن الكريم التي تأمر بطاعة الرسول، والتي جعلت اتباعه شرطاً من شروط الإيمان، والتي تحذر من مخالفة أمره ﷺ.\n\nمن أبرز الأدلة العقلية: أن الرسول ﷺ هو من يأتيه الوحي، فطاعته طاعة لله. وأنه هو المبيّن لصراط الله المستقيم الذي جعله الله أول دعاء في فاتحة كتابه.\n\nومن الأدلة النقلية: الآيات الصريحة في الأمر بطاعة الرسول، وجعل هذه الطاعة شرطاً من شروط الإيمان كقوله تعالى: (فلا وربك لا يؤمنون حتى يحكموك فيما شجر بينهم).",body:"",tags:["حجية السنة","أدلة عقلية","أدلة نقلية","طاعة الرسول"]},
+    {id:"a1-2",title:"الاعتراضات الفكرية على حجية السنة والرد عليها",subtitle:"مناقشة أبرز الشبهات المثارة حول وجوب اتباع السنة",summary:"يعرض المؤلف أبرز الاعتراضات التي يثيرها منكرو السنة على حجيتها، ويفنّدها بالأدلة العلمية. من أبرزها: ادعاء أن طاعة الرسول تعني طاعة الرسالة لا شخصه، وادعاء أن القرآن وحده كافٍ للهداية، وشبهة أن الأحاديث ظنية الثبوت.\n\nيبيّن المؤلف أن هذه الاعتراضات لا دليل عليها من القرآن ولا من العقل، وأنها مجرد افتراضات يحتج بها أصحابها دون بيّنة. فمثلاً ادعاء أن (أطيعوا الرسول) تعني طاعة الرسالة فقط لا نص يثبته، بل النصوص تثبت عكسه.",body:"",tags:["شبهات","اعتراضات","رد","حجية السنة"]},
+    {id:"a1-3",title:"هل القرآن وحده كافٍ للتشريع؟",subtitle:"الرد على دعوى الاكتفاء بالقرآن",summary:"يناقش المؤلف دعوى الاكتفاء بالقرآن الكريم وحده دون السنة النبوية، موضحاً أن هذه الدعوى تخالف القرآن نفسه الذي أمر بطاعة الرسول. وأن السنة هي التفسير العملي للقرآن الكريم.\n\nوالدليل العملي الدامغ على ذلك: الصلاة. فالقرآن أمر بإقامة الصلاة ولكنه لم يبيّن كيفيتها ولا عدد ركعاتها ولا أوقاتها، وكل ذلك جاء من السنة النبوية. فمن قال بالاكتفاء بالقرآن لا يستطيع إقامة صلاة صحيحة.",body:"",tags:["الاكتفاء بالقرآن","التشريع","منكرو السنة"]},
+    {id:"a1-4",title:"السنة النبوية وحيٌ من الله",subtitle:"إثبات أن السنة وحي إلهي وليست مجرد آراء شخصية",summary:"يثبت المؤلف في هذا المبحث أن السنة النبوية وحي من الله عز وجل، لا مجرد آراء شخصية من النبي ﷺ. مستدلاً بقوله تعالى: (وما ينطق عن الهوى إن هو إلا وحي يوحى).\n\nويبيّن الفرق بين الوحي الجلي المتمثل في القرآن الكريم، والوحي الخفي المتمثل في السنة النبوية. وكلاهما من عند الله عز وجل، ورفض أحدهما رفض لحكم الله.",body:"",tags:["السنة وحي","الوحي","نوع الوحي"]}
+  ]},
+  {book:1,bookTitle:"مناقشات فكرية معاصرة",chapter:2,chapterTitle:"نقد المرويات والأحاديث",articles:[
+    {id:"a2-1",title:"موثوقية عملية نقد المرويات",subtitle:"كيف نثق بعملية نقد الأحاديث التي قام بها العلماء؟",summary:"يعرض المؤلف منهج العلماء في نقد المرويات ومدى موثوقيته، مقارناً إياه بأفضل مناهج النقد التاريخي الحديث. ويثبت أن منهج المحدثين يفوق المناهج الغربية دقةً واحترافاً.\n\nوقد أشاد بهذا المنهج باحثون غير مسلمين، منهم المؤرخ (أسد رستم) الذي أطلق على كتابه في النقد التاريخي اسم (مصطلح التاريخ) متأثراً بكتب (مصطلح الحديث)، معترفاً بتفوق منهج المحدثين.",body:"",tags:["نقد الحديث","موثوقية","منهج المحدثين"]},
+    {id:"a2-2",title:"شروط صحة الحديث ومراحل التدوين",subtitle:"كيف وصلت إلينا الأحاديث؟ وما شروط قبولها؟",summary:"يشرح المؤلف الشروط التي وضعها علماء الحديث لقبول الرواية، من حيث اتصال السند وعدالة الرواة وضبطهم وانتفاء الشذوذ والعلة.\n\nكما يستعرض مراحل تدوين الحديث النبوي، موضحاً أن الحديث لم ينتقل شفهياً فحسب، بل كُتب منذ عهد النبي ﷺ، وأن الصحابة كانوا يكتبون الأحاديث بإذن منه ﷺ. ومن أبرز هذه الكتابات: صحيفة عبدالله بن عمرو بن العاص التي أسماها (الصادقة).",body:"",tags:["شروط الحديث","تدوين الحديث","علم الحديث"]},
+    {id:"a2-3",title:"منهج منكري السنة في التعامل مع الأحاديث",subtitle:"نقد المنهج لا الرواية",summary:"يكشف المؤلف المنهج الذي يتبعه منكرو السنة في رفض الأحاديث، موضحاً أنهم لا يملكون منهجاً علمياً حقيقياً، بل يرفضون ما يخالف أهواءهم ويقبلون ما يوافقها.\n\nويبيّن التناقضات في موقفهم: فهم يحتجون ببعض الأحاديث حين تخدم آراءهم، ويردون أحاديث أخرى بدعوى الشك في صحتها. وهذا دليل على أن المشكلة ليست في الحديث بل في المنهج الذي يتبعونه.",body:"",tags:["منهج المنكرين","نقد المنهج","التناقض"]}
+  ]},
+  {book:1,bookTitle:"مناقشات فكرية معاصرة",chapter:3,chapterTitle:"ادعاءات تعارض الأحاديث مع القرآن",articles:[
+    {id:"a3-1",title:"هل هناك أحاديث تعارض القرآن الكريم؟",subtitle:"الرد على ادعاءات التعارض بين السنة والقرآن",summary:"يناقش المؤلف الادعاءات بوجود أحاديث تعارض القرآن الكريم، موضحاً أن هذه الادعاءات تنشأ من أحد أمور ثلاثة: إما أن الحديث ضعيف، أو أن الإشكال في فهم الحديث لا في الحديث نفسه، أو أن المعترض يفترض فرضية خاطئة ثم يدّعي التعارض.\n\nويبيّن أنه حين يُحقَّق في هذه الادعاءات لا يوجد تعارض حقيقي، وأن الجمع بين النصوص ممكن دائماً لمن أحسن الفهم وجمع الأدلة.",body:"",tags:["تعارض","القرآن","السنة","رد الشبهات"]},
+    {id:"a3-2",title:"حد الرجم بين السنة والقرآن",subtitle:"هل خالف حد الرجم القرآن الكريم؟",summary:"يرد المؤلف على ادعاء أن حد الرجم يعارض القرآن الكريم، موضحاً أن السنة مبيّنة للقرآن لا معارضة له. وأن الرجم ثابت بالسنة المتواترة وعمل الصحابة وإجماع الأمة.\n\nويبيّن أن القرآن لم ينفِ هذا الحد، بل الآيات القرآنية جاءت مجملة والسنة جاءت لتفصّل هذا الإجمال. وهذا هو دور السنة: تبيين ما أجمله القرآن.",body:"",tags:["حد الرجم","السنة والقرآن","فقه الحدود"]},
+    {id:"a3-3",title:"الرد على شبهة حديث بدء الوحي",subtitle:"بيان الحق في فهم أحاديث بدء نزول الوحي",summary:"يرد المؤلف على الشبهة المتعلقة ببدء الوحي وما يُدّعى من أن النبي ﷺ فكّر في الانتحار، موضحاً أن فهم الرواية في سياقها الكامل وبالجمع بين الروايات يُزيل هذا الإشكال كلياً.\n\nويبيّن كيف أن انتزاع الرواية من سياقها الزمني والبيئي يؤدي إلى نتائج مغلوطة، وأن المنهج الصحيح يقتضي جمع الروايات ودراستها في سياقها.",body:"",tags:["بدء الوحي","شبهات","رد"]}
+  ]},
+  {book:1,bookTitle:"مناقشات فكرية معاصرة",chapter:4,chapterTitle:"مخالفة منكري السنة لإجماع الأمة",articles:[
+    {id:"a4-1",title:"ما المقصود بتدبر القرآن؟",subtitle:"هل ما يفعله الحداثيون هو تدبر حقيقي للقرآن؟",summary:"يناقش المؤلف مفهوم التدبر الحقيقي للقرآن، وكيف يدّعي منكرو السنة أنهم يتدبرون القرآن بينما هم في الحقيقة يحرّفون معانيه.\n\nويبيّن الفرق بين التدبر المنهجي الصحيح القائم على معرفة اللغة وأسباب النزول وكلام الصحابة والتابعين، وبين التأويل الخاطئ المنطلق من أفكار مسبقة تُفرض على النص.",body:"",tags:["تدبر القرآن","الحداثيون","منهج التفسير"]},
+    {id:"a4-2",title:"الصلاة بين القرآن والسنة",subtitle:"هل نصلي بالقرآن وحده أم بهدي الرسول؟",summary:"يثبت المؤلف استحالة إقامة الصلاة بالقرآن وحده دون السنة النبوية. فالقرآن أمر بالصلاة ولكن السنة هي التي بيّنت كيفيتها وعدد ركعاتها وأوقاتها وشروطها.\n\nوهذا دليل عملي دامغ لا يمكن الرد عليه: كل مسلم يصلي خمس صلوات يومياً يُقرّ بذلك بعمله أن السنة حجة ومصدر للتشريع، سواء أقرّ بذلك بلسانه أم لم يُقرّ.",body:"",tags:["الصلاة","السنة","العبادات"]},
+    {id:"a4-3",title:"منكرو السنة ومخالفة الإجماع",subtitle:"إثبات مخالفة منكري السنة لما أجمعت عليه الأمة",summary:"يثبت المؤلف أن منكري السنة يخالفون ما أجمعت عليه الأمة الإسلامية عبر القرون في مسائل عقدية وفقهية أساسية.\n\nويبيّن أن قبول إجماع الصحابة والتابعين واجب شرعي، وأن رفضه يقتضي رفض القرآن نفسه الذي نقلوه إلينا. فمن قبل قراءتهم للقرآن وإجماعهم على رسمه ووجوب تلاوته لزمه قبول إجماعهم على سائر الأمور الدينية.",body:"",tags:["الإجماع","منكرو السنة","الصحابة"]}
+  ]}
+];
+
+let currentChapterFilter=0;
+let currentArticle=null;
+
+function renderArticles(){
+  const container=document.getElementById('artContainer');
+  const filtered=currentChapterFilter===0?ARTICLES:ARTICLES.filter(c=>c.chapter===currentChapterFilter);
+  container.innerHTML=filtered.map(chapter=>`
+    <div class="art-chapter reveal">
+      <div class="art-chapter-hdr">
+        <div class="art-chapter-num">${chapter.chapter}</div>
+        <div>
+          <div class="art-chapter-title">${chapter.chapterTitle}</div>
+          <div class="art-chapter-book">${chapter.bookTitle}</div>
+        </div>
+      </div>
+      <div class="art-grid">
+        ${chapter.articles.map(a=>`
+          <div class="art-card" onclick="openArticle('${a.id}')">
+            <h3 class="art-card-title">${a.title}</h3>
+            <div class="art-card-sub">${a.subtitle}</div>
+            <p class="art-card-summary">${a.summary}</p>
+            <div class="art-card-tags">${a.tags.map(t=>`<span class="art-tag">${t}</span>`).join('')}</div>
+            <div class="art-card-footer"><span class="art-read-btn">قراءة المقال ←</span></div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+  observe();
+}
+
+function filterArt(chapter){
+  currentChapterFilter=chapter;
+  document.querySelectorAll('.art-filter-btn').forEach((b,i)=>b.classList.toggle('active',i===chapter));
+  renderArticles();
+}
+
+function openArticle(id){
+  const chapter=ARTICLES.find(c=>c.articles.some(a=>a.id===id));
+  if(!chapter)return;
+  const art=chapter.articles.find(a=>a.id===id);
+  if(!art)return;
+  currentArticle=art;
+  document.getElementById('artFullBarTitle').textContent=art.title;
+  document.getElementById('artFullBook').textContent=`${chapter.bookTitle} — الفصل ${chapter.chapter}: ${chapter.chapterTitle}`;
+  document.getElementById('artFullTitle').textContent=art.title;
+  document.getElementById('artFullSub').textContent=art.subtitle;
+  document.getElementById('artFullBody').innerHTML=art.summary.split('\n\n').map(p=>`<p>${p}</p>`).join('');
+  document.getElementById('artFullTags').innerHTML=art.tags.map(t=>`<span class="art-tag">${t}</span>`).join('');
+  document.getElementById('artFull').classList.add('active');
+  document.body.style.overflow='hidden';
+  document.getElementById('artFull').scrollTop=0;
+}
+
+function closeArtFull(){
+  document.getElementById('artFull').classList.remove('active');
+  document.body.style.overflow='';
+}
+
+function askAboutArticle(){
+  if(currentArticle){
+    document.getElementById('artFull').classList.remove('active');
+    document.body.style.overflow='';
+    showPage('assistant');
+    setTimeout(()=>{
+      document.getElementById('chatInp').value='أريد مزيداً من التفصيل حول موضوع: '+currentArticle.title;
+      document.getElementById('chatInp').focus();
+    },300);
+  }
+}
 const ORKEY='AIzaSyC_VrEMinzDeaJr4PDNs7sVzkALJvtZlMw';
 let hist=[],apiKey=ORKEY;
 document.getElementById('apiPanel').style.display='none';
@@ -730,7 +901,7 @@ function observe(){
 }
 
 // ===== INIT =====
-document.addEventListener('DOMContentLoaded',()=>{renderPL();observe();});
+document.addEventListener('DOMContentLoaded',()=>{renderPL();renderArticles();observe();});
 </script>
 </body>
 </html>
