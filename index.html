@@ -276,7 +276,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
         <!-- كتاب 1 -->
         <div class="book-card reveal">
           <div class="book-cover">
-            <img src="الغلاف.jpg" alt="مناقشات فكرية" onerror="this.style.display='none'">
+            <img src="cover1.jpg" alt="مناقشات فكرية" onerror="this.style.display='none'">
             <div class="book-badge-overlay">الكتاب الأول</div>
           </div>
           <div class="book-body">
@@ -296,8 +296,8 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
               <div class="chapter-item"><span class="chapter-num">٤</span>مخالفة منكري السنة لما أجمعت عليه الأمة</div>
             </div>
             <div class="book-actions">
-              <button class="btn-read" onclick="openReader('كتاب_مناقشات_فكرية.pdf','مناقشات فكرية معاصرة لمنكري السنة النبوية المطهرة')">📖 قراءة</button>
-              <a class="btn-dl" href="كتاب_مناقشات_فكرية.pdf" download>⬇ تحميل</a>
+              <button class="btn-read" onclick="openReader('book1.pdf','مناقشات فكرية معاصرة لمنكري السنة النبوية المطهرة')">📖 قراءة</button>
+              <a class="btn-dl" href="book1.pdf" download>⬇ تحميل</a>
             </div>
           </div>
         </div>
@@ -324,8 +324,8 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
               <div class="chapter-item"><span class="chapter-num">٢</span>المناقشة حول الرسول والنبي والتفريق بينهما — 12 مبحثاً</div>
             </div>
             <div class="book-actions">
-              <button class="btn-read" onclick="openReader('كتاب_بالله_نكتفي_وبرسوله_صلى_الله_عليه_وسلم_نقتدي.pdf','بالله نكتفي وبرسوله ﷺ نقتدي')">📖 قراءة</button>
-              <a class="btn-dl" href="كتاب_بالله_نكتفي_وبرسوله_صلى_الله_عليه_وسلم_نقتدي.pdf" download>⬇ تحميل</a>
+              <button class="btn-read" onclick="openReader('book2.pdf','بالله نكتفي وبرسوله ﷺ نقتدي')">📖 قراءة</button>
+              <a class="btn-dl" href="book2.pdf" download>⬇ تحميل</a>
             </div>
           </div>
         </div>
@@ -713,7 +713,7 @@ async function sendMsg(){
     if(data.error){addMsg('bot',`⚠️ خطأ: ${data.error.message||'تحقق من مفتاح API'}`);btn.disabled=false;return;}
     const reply=data.choices?.[0]?.message?.content||'عذراً، لم أتمكن من الإجابة.';
     addMsg('bot',reply);hist.push({role:'assistant',content:reply});
-  }catch(e){remTyping();addMsg('bot','⚠️ تعذر الاتصال. تحقق من مفتاح API واتصال الإنترنت.');}
+  }catch(e){remTyping();addMsg('bot','⚠️ خطأ: '+e.message);}
   btn.disabled=false;
 }
 function askQ(q){document.getElementById('chatInp').value=q;sendMsg();}
