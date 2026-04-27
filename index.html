@@ -406,7 +406,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
           <div class="about-name">د. هيثم زكريا أبو طالب</div>
           <div class="about-role">باحث ومحاور متخصص في قضايا السنة النبوية المعاصرة — طبيب أسنان (FDSRCSI)</div>
           <p class="about-bio">طبيب أسنان حاصل على الزمالة المصرية والزمالة من كلية الجراحين الملكية بآيرلندا (FDSRCSI). تلقى التحصيل الشرعي المنهجي في عدة محاضن علمية أبرزها: أكاديمية صناعة المحاور، البناء المنهجي، برنامج مذكّر، التأهيل الفقهي، ودراسة الفقه الحنبلي في معهد الإمام البهوتي. يركز مشروعه البحثي على معالجة الإشكالات الفكرية المعاصرة المتعلقة بالسنة النبوية بأسلوب علمي منهجي.</p>
-          <a href="https://www.youtube.com/@HaithamAbotaleb" target="_blank" class="yt-btn">▶ القناة على يوتيوب</a>
+          <a href="https://www.youtube.com/@haithamabotaleb1302" target="_blank" class="yt-btn">▶ القناة على يوتيوب</a>
         </div>
       </div>
     </div>
@@ -633,8 +633,9 @@ rb.addEventListener('touchstart',e=>{if(e.touches.length===2){iD=Math.hypot(e.to
 rb.addEventListener('touchmove',e=>{if(e.touches.length===2){const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);curZ=Math.max(ZMN,Math.min(ZMX,iZ*(d/iD)));applyZ();}},{passive:true});
 
 // ===== CHAT =====
-let hist=[],apiKey=localStorage.getItem('sc_ak')||'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';
-if(apiKey)document.getElementById('apiPanel').style.display='none';
+const ORKEY='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';
+let hist=[],apiKey=ORKEY;
+document.getElementById('apiPanel').style.display='none';
 
 function saveKey(){
   const k=document.getElementById('apiKeyInput').value.trim();
@@ -704,13 +705,13 @@ async function sendMsg(){
   const btn=document.getElementById('sendBtn');btn.disabled=true;
   addTyping();
   try{
-    const headers=new Headers();
-    headers.append('Content-Type','application/json');
-    headers.append('Authorization','Bearer '+apiKey);
-    headers.append('HTTP-Referer','https://sunnachat.com');
-    headers.append('X-Title','Sunnachat');
+    const reqHeaders=new Headers();
+    reqHeaders.set('Content-Type','application/json');
+    reqHeaders.set('Authorization','Bearer '+ORKEY);
+    reqHeaders.set('HTTP-Referer','https://sunnachat.com');
+    reqHeaders.set('X-Title','Sunnachat');
     const body={model:'mistralai/mistral-7b-instruct:free',messages:[{role:'system',content:sysPrompt()},...hist]};
-    const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{method:'POST',headers:headers,body:JSON.stringify(body)});
+    const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{method:'POST',headers:reqHeaders,body:JSON.stringify(body)});
     const data=await r.json();remTyping();
     if(data.error){addMsg('bot','خطأ: '+(data.error.message||'تحقق من مفتاح API'));btn.disabled=false;return;}
     const reply=data.choices?.[0]?.message?.content||'عذراً، لم أتمكن من الإجابة.';
