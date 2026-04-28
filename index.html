@@ -21,10 +21,34 @@
 html{scroll-behavior:smooth}
 body{font-family:'Cairo',sans-serif;background:var(--parchment);color:var(--text-main);overflow-x:hidden}
 
+/* ===== ISLAMIC PATTERN BACKGROUND ===== */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cdefs%3E%3Cstyle%3E.s%7Bfill:none;stroke:rgba(201%2C151%2C58%2C0.06);stroke-width:0.7%7D%3C/style%3E%3C/defs%3E%3Cg transform='translate(40%2C40)'%3E%3Cpolygon class='s' points='0%2C-20 4.8%2C-4.8 20%2C0 4.8%2C4.8 0%2C20 -4.8%2C4.8 -20%2C0 -4.8%2C-4.8'/%3E%3Cpolygon class='s' points='0%2C-14 3.4%2C-3.4 14%2C0 3.4%2C3.4 0%2C14 -3.4%2C3.4 -14%2C0 -3.4%2C-3.4' transform='rotate(22.5)'/%3E%3Ccircle class='s' cx='0' cy='0' r='7'/%3E%3Ccircle class='s' cx='0' cy='0' r='3'/%3E%3C/g%3E%3Cline class='s' x1='0' y1='0' x2='22' y2='22'/%3E%3Cline class='s' x1='80' y1='0' x2='58' y2='22'/%3E%3Cline class='s' x1='0' y1='80' x2='22' y2='58'/%3E%3Cline class='s' x1='80' y1='80' x2='58' y2='58'/%3E%3Ccircle class='s' cx='0' cy='0' r='2'/%3E%3Ccircle class='s' cx='80' cy='0' r='2'/%3E%3Ccircle class='s' cx='0' cy='80' r='2'/%3E%3Ccircle class='s' cx='80' cy='80' r='2'/%3E%3C/svg%3E");
+  background-size:80px 80px;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ===== ISLAMIC LOGO SVG ===== */
+.nav-logo-icon{
+  width:38px;height:38px;
+  background:none !important;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ===== LANGUAGE SWITCHER ===== */
+.lang-switcher{display:flex;gap:.2rem;align-items:center;margin-right:.5rem}
+.lang-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.55);padding:.25rem .5rem;border-radius:5px;cursor:pointer;font-size:.72rem;font-family:'Cairo',sans-serif;transition:all .2s;line-height:1}
+.lang-btn:hover{border-color:var(--gold);color:var(--gold-light)}
+.lang-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-color:var(--gold);color:var(--ink);font-weight:700}
+
 /* ===== NAV ===== */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(15,14,11,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--gold-dark);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem}
 .nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;cursor:pointer}
-.nav-logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.nav-logo-icon{width:38px;height:38px;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 0 6px rgba(201,151,58,0.3));transition:filter .3s}.nav-logo:hover .nav-logo-icon{filter:drop-shadow(0 0 10px rgba(201,151,58,0.5))}
 .nav-logo-text{font-family:'Amiri',serif;font-size:1.2rem;color:var(--gold-light)}
 .nav-links{display:flex;gap:.1rem;list-style:none}
 .nav-links a{color:rgba(255,255,255,.65);text-decoration:none;padding:.35rem .65rem;border-radius:6px;font-size:.82rem;font-weight:600;transition:all .2s;cursor:pointer}
@@ -250,7 +274,19 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
 <!-- NAV -->
 <nav>
   <div class="nav-logo" onclick="showPage('home')">
-    <div class="nav-logo-icon">🕌</div>
+    <div class="nav-logo-icon">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(18,18)">
+          <polygon points="0,-14 3.4,-3.4 14,0 3.4,3.4 0,14 -3.4,3.4 -14,0 -3.4,-3.4"
+            fill="#8b6420"/>
+          <polygon points="0,-14 3.4,-3.4 14,0 3.4,3.4 0,14 -3.4,3.4 -14,0 -3.4,-3.4"
+            fill="#c9973a" opacity="0.9" transform="rotate(22.5)"/>
+          <circle cx="0" cy="0" r="5" fill="#0f0e0b"/>
+          <circle cx="0" cy="0" r="3.5" fill="#c9973a"/>
+          <circle cx="0" cy="0" r="1.5" fill="#8b6420"/>
+        </g>
+      </svg>
+    </div>
     <span class="nav-logo-text">سنة شات</span>
   </div>
   <ul class="nav-links" id="navLinks">
@@ -262,27 +298,62 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
     <li><a onclick="showPage('about')">عن الموقع</a></li>
     <li><a onclick="showPage('assistant')" class="nav-cta">اسأل المساعد ✦</a></li>
   </ul>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('ar')" id="btn-ar">ع</button>
+    <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lang-btn" onclick="setLang('fr')" id="btn-fr">FR</button>
+  </div>
   <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
 </nav>
 
 <!-- ===== HOME ===== -->
 <div id="home" class="page active">
   <div class="hero">
-    <div class="hero-ornament">﷽</div>
-    <span class="hero-badge">✦ مناقشات فكرية معاصرة ✦</span>
-    <h1>الرد العلمي على شبهات<span>منكري السنة النبوية</span></h1>
-    <p class="hero-sub">بالحجج العلمية والدلائل الشرعية المستقاة من القرآن الكريم والسنة النبوية وكلام أهل العلم</p>
+    <div class="hero-ornament">
+    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="animation:float 6s ease-in-out infinite;opacity:0.35">
+      <!-- نجمة إسلامية ثمانية رؤوس كبيرة -->
+      <g transform="translate(60,60)">
+        <!-- الطبقة الخارجية -->
+        <polygon points="0,-52 12.4,-12.4 52,0 12.4,12.4 0,52 -12.4,12.4 -52,0 -12.4,-12.4"
+          fill="none" stroke="#c9973a" stroke-width="1.2" opacity="0.6"/>
+        <!-- الطبقة الثانية مدورة -->
+        <polygon points="0,-40 9.6,-9.6 40,0 9.6,9.6 0,40 -9.6,9.6 -40,0 -9.6,-9.6"
+          fill="rgba(201,151,58,0.08)" stroke="#c9973a" stroke-width="0.8" transform="rotate(22.5)"/>
+        <!-- الطبقة الثالثة -->
+        <polygon points="0,-30 7.2,-7.2 30,0 7.2,7.2 0,30 -7.2,7.2 -30,0 -7.2,-7.2"
+          fill="none" stroke="#c9973a" stroke-width="0.6" opacity="0.5"/>
+        <!-- دوائر داخلية -->
+        <circle cx="0" cy="0" r="18" fill="none" stroke="#c9973a" stroke-width="0.8" opacity="0.7"/>
+        <circle cx="0" cy="0" r="10" fill="rgba(201,151,58,0.15)" stroke="#c9973a" stroke-width="0.6"/>
+        <circle cx="0" cy="0" r="4" fill="#c9973a" opacity="0.8"/>
+        <!-- نقاط على المحاور -->
+        <circle cx="0" cy="-52" r="2" fill="#c9973a" opacity="0.5"/>
+        <circle cx="52" cy="0" r="2" fill="#c9973a" opacity="0.5"/>
+        <circle cx="0" cy="52" r="2" fill="#c9973a" opacity="0.5"/>
+        <circle cx="-52" cy="0" r="2" fill="#c9973a" opacity="0.5"/>
+        <!-- نقاط القطري -->
+        <circle cx="36" cy="-36" r="1.5" fill="#c9973a" opacity="0.4"/>
+        <circle cx="36" cy="36" r="1.5" fill="#c9973a" opacity="0.4"/>
+        <circle cx="-36" cy="-36" r="1.5" fill="#c9973a" opacity="0.4"/>
+        <circle cx="-36" cy="36" r="1.5" fill="#c9973a" opacity="0.4"/>
+      </g>
+    </svg>
+  </div>
+  <p style="font-family:'Amiri',serif;color:rgba(201,151,58,0.5);font-size:1.1rem;margin-bottom:.5rem;letter-spacing:.15em">﷽</p>
+    <span class="hero-badge"><span id="hero-badge">✦ مناقشات فكرية معاصرة ✦</span></span>
+    <h1><span id="hero-title1">الرد العلمي على شبهات</span><span id="hero-title2">منكري السنة النبوية</span></h1>
+    <p class="hero-sub" id="hero-sub">بالحجج العلمية والدلائل الشرعية المستقاة من القرآن الكريم والسنة النبوية وكلام أهل العلم</p>
     <div class="hero-stats">
-      <div class="stat"><div class="stat-num">٦٦</div><div class="stat-label">فيديو تعليمي</div></div>
-      <div class="stat"><div class="stat-num">٦</div><div class="stat-label">قوائم تشغيل</div></div>
-      <div class="stat"><div class="stat-num">٢</div><div class="stat-label">كتاب منشور</div></div>
-      <div class="stat"><div class="stat-num">∞</div><div class="stat-label">متاح للأبد</div></div>
+      <div class="stat"><div class="stat-num">٦٦</div><div class="stat-label" id="stat1-label">فيديو تعليمي</div></div>
+      <div class="stat"><div class="stat-num">٦</div><div class="stat-label" id="stat2-label">قوائم تشغيل</div></div>
+      <div class="stat"><div class="stat-num">٢</div><div class="stat-label" id="stat3-label">كتاب منشور</div></div>
+      <div class="stat"><div class="stat-num">∞</div><div class="stat-label" id="stat4-label">متاح للأبد</div></div>
     </div>
     <div class="hero-btns">
-      <button class="btn-gold" onclick="showPage('playlists')">📺 شاهد الفيديوهات</button>
-      <button class="btn-gold" onclick="showPage('articles')">📄 المقالات</button>
-      <button class="btn-gold" onclick="showPage('library')">📚 المكتبة</button>
-      <button class="btn-outline" onclick="showPage('assistant')">🤖 المساعد الذكي</button>
+      <button class="btn-gold" onclick="showPage('playlists')" id="btn-videos"><span>📺 شاهد الفيديوهات</span></button>
+      <button class="btn-gold" onclick="showPage('articles')" id="btn-articles-hero"><span>📄 المقالات</span></button>
+      <button class="btn-gold" onclick="showPage('library')" id="btn-library-hero"><span>📚 المكتبة</span></button>
+      <button class="btn-outline" onclick="showPage('assistant')" id="btn-assistant-hero"><span>🤖 المساعد الذكي</span></button>
     </div>
   </div>
 </div>
@@ -292,8 +363,8 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
   <div class="sec-wrap">
     <div class="sec-inner">
       <div class="sec-hdr reveal">
-        <span class="sec-label">المحتوى العلمي</span>
-        <h2 class="sec-title">قوائم التشغيل</h2>
+        <span class="sec-label" id="pl-label">المحتوى العلمي</span>
+        <h2 class="sec-title" id="pl-title">قوائم التشغيل</h2>
         <div class="sec-div"></div>
       </div>
       <div class="pl-grid" id="plGrid"></div>
@@ -306,9 +377,9 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
   <div class="sec-wrap">
     <div class="sec-inner">
       <div class="sec-hdr reveal">
-        <span class="sec-label">المؤلفات العلمية</span>
-        <h2 class="sec-title">المقالات</h2>
-        <p style="color:var(--text-muted);font-size:.88rem;margin-top:.75rem">مقالات مستخلصة من كتب د. هيثم أبو طالب — مرتبة حسب الكتاب والفصل</p>
+        <span class="sec-label" id="art-label">المؤلفات العلمية</span>
+        <h2 class="sec-title" id="art-title">المقالات</h2>
+        <p style="color:var(--text-muted);font-size:.88rem;margin-top:.75rem" id="art-sub">مقالات مستخلصة من كتب د. هيثم أبو طالب — مرتبة حسب الكتاب والفصل</p>
         <div class="sec-div"></div>
       </div>
       <!-- مقالات منشورة من GitHub -->
@@ -361,7 +432,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
     <div class="sec-inner">
       <div class="sec-hdr reveal">
         <span class="sec-label">المؤلفات العلمية</span>
-        <h2 class="sec-title">المكتبة</h2>
+        <h2 class="sec-title" id="lib-title">المكتبة</h2>
         <div class="sec-div"></div>
       </div>
       <div class="books-grid">
@@ -426,9 +497,9 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
         <!-- كتاب 3 — قادم -->
         <div class="coming-card reveal">
           <div class="coming-icon">📝</div>
-          <h3 class="coming-title">خداع المصطلحات في التفريق بين القرآن والكتاب</h3>
+          <h3 class="coming-title" id="lib-coming-title">خداع المصطلحات في التفريق بين القرآن والكتاب</h3>
           <p class="coming-desc">الكتاب الثالث — رد على كتاب محمد شحرور "الكتاب والقرآن". قيد الإعداد وسيُضاف قريباً بإذن الله.</p>
-          <span class="coming-badge">⏳ قريباً بإذن الله</span>
+          <span class="coming-badge" id="lib-coming-badge">⏳ قريباً بإذن الله</span>
         </div>
 
       </div>
@@ -441,9 +512,9 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
   <div class="sec-wrap">
     <div class="sec-inner">
       <div class="sec-hdr reveal" style="margin-bottom:2rem">
-        <span class="sec-label">مدعوم بالذكاء الاصطناعي</span>
-        <h2 class="sec-title light">المساعد العلمي الذكي</h2>
-        <p style="color:rgba(255,255,255,.45);margin-top:.65rem;font-size:.88rem;line-height:1.7">اسأل عن حجية السنة — ونقد الأحاديث — والرد على منكري السنة — والمذاهب الفقهية</p>
+        <span class="sec-label" id="asst-label">مدعوم بالذكاء الاصطناعي</span>
+        <h2 class="sec-title light" id="asst-title">المساعد العلمي الذكي</h2>
+        <p style="color:rgba(255,255,255,.45);margin-top:.65rem;font-size:.88rem;line-height:1.7" id="asst-sub">اسأل عن حجية السنة — ونقد الأحاديث — والرد على منكري السنة — والمذاهب الفقهية</p>
         <div class="sec-div"></div>
       </div>
       <div class="api-panel" id="apiPanel">
@@ -470,7 +541,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
         </div>
         <div class="chat-inp-row">
           <textarea class="chat-inp" id="chatInp" rows="1" placeholder="اكتب سؤالك هنا..." onkeydown="handleKey(event)"></textarea>
-          <button class="send-btn" id="sendBtn" onclick="sendMsg()">إرسال ➤</button>
+          <button class="send-btn" id="sendBtn" onclick="sendMsg()"><span id="sendBtnText">إرسال ➤</span></button>
         </div>
       </div>
       <p style="color:rgba(255,255,255,.25);text-align:center;padding:.9rem;font-size:.72rem">يستخدم OpenRouter — مجاني — لا تُحفظ أي محادثة على خوادمنا — مراجع: dorar.net | islamweb.net | sunnah.com | islamqa.info</p>
@@ -483,23 +554,23 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
   <div class="sec-wrap">
     <div class="sec-inner">
       <div class="sec-hdr reveal" style="margin-bottom:2.5rem">
-        <span class="sec-label">من نحن</span>
-        <h2 class="sec-title">عن الموقع</h2>
+        <span class="sec-label" id="about-label">من نحن</span>
+        <h2 class="sec-title" id="about-title">عن الموقع</h2>
         <div class="sec-div"></div>
       </div>
       <div class="about-grid reveal">
         <div class="about-text">
-          <p>موقع <strong>سنة شات</strong> مخصص للرد على شبهات منكري السنة النبوية المطهرة، من خلال تقديم الحجج العلمية والأدلة الشرعية المستقاة من القرآن الكريم والسنة النبوية وكلام أهل العلم.</p>
-          <p>يضم الموقع فيديوهات تعليمية تتناول أبرز الشبهات المثارة حول حجية السنة النبوية، ونقد الأحاديث، والمذاهب الفقهية، إضافة إلى مكتبة تضم كتب المؤلف ومساعد ذكي للبحث والحوار العلمي.</p>
-          <p>الموقع مفتوح المصدر على GitHub، مستضاف مجاناً، ومصمم ليبقى يعمل بإذن الله بعد رحيل صاحبه — صدقة جارية.</p>
+          <p id="about-p1">موقع <strong>سنة شات</strong> مخصص للرد على شبهات منكري السنة النبوية المطهرة، من خلال تقديم الحجج العلمية والأدلة الشرعية المستقاة من القرآن الكريم والسنة النبوية وكلام أهل العلم.</p>
+          <p id="about-p2">يضم الموقع فيديوهات تعليمية تتناول أبرز الشبهات المثارة حول حجية السنة النبوية، ونقد الأحاديث، والمذاهب الفقهية، إضافة إلى مكتبة تضم كتب المؤلف ومساعد ذكي للبحث والحوار العلمي.</p>
+          <p id="about-p3">الموقع مفتوح المصدر على GitHub، مستضاف مجاناً، ومصمم ليبقى يعمل بإذن الله بعد رحيل صاحبه — صدقة جارية.</p>
           <div class="about-disc">⚠️ <strong>تنبيه:</strong> تم الاستعانة بتقنيات الذكاء الاصطناعي في إنشاء الفيديوهات. نسأل الله المغفرة. نرجو قراءة الآيات من المصحف الشريف ولا تعتمد على ما ينطق به المتحاوران.</div>
         </div>
         <div class="about-card">
           <div class="about-av">👨‍⚕️</div>
           <div class="about-name">د. هيثم زكريا أبو طالب</div>
-          <div class="about-role">باحث ومحاور متخصص في قضايا السنة النبوية المعاصرة — طبيب أسنان (FDSRCSI)</div>
-          <p class="about-bio">طبيب أسنان حاصل على الزمالة المصرية والزمالة من كلية الجراحين الملكية بآيرلندا (FDSRCSI). تلقى التحصيل الشرعي المنهجي في عدة محاضن علمية أبرزها: أكاديمية صناعة المحاور، البناء المنهجي، برنامج مذكّر، التأهيل الفقهي، ودراسة الفقه الحنبلي في معهد الإمام البهوتي. يركز مشروعه البحثي على معالجة الإشكالات الفكرية المعاصرة المتعلقة بالسنة النبوية بأسلوب علمي منهجي.</p>
-          <a href="https://www.youtube.com/@haithamabotaleb1302" target="_blank" class="yt-btn">▶ القناة على يوتيوب</a>
+          <div class="about-role" id="about-role-text">باحث ومحاور متخصص في قضايا السنة النبوية المعاصرة — طبيب أسنان (FDSRCSI)</div>
+          <p class="about-bio" id="about-bio-text">طبيب أسنان حاصل على الزمالة المصرية والزمالة من كلية الجراحين الملكية بآيرلندا (FDSRCSI). تلقى التحصيل الشرعي المنهجي في عدة محاضن علمية أبرزها: أكاديمية صناعة المحاور، البناء المنهجي، برنامج مذكّر، التأهيل الفقهي، ودراسة الفقه الحنبلي في معهد الإمام البهوتي. يركز مشروعه البحثي على معالجة الإشكالات الفكرية المعاصرة المتعلقة بالسنة النبوية بأسلوب علمي منهجي.</p>
+          <a href="https://www.youtube.com/@haithamabotaleb1302" target="_blank" class="yt-btn"><span id="yt-btn-text">▶ القناة على يوتيوب</span></a>
         </div>
       </div>
     </div>
@@ -508,8 +579,8 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
 
 <footer>
   <div class="ft-logo">سنة شات — sunnachat.com</div>
-  <p>مناقشات فكرية معاصرة — الرد العلمي على شبهات منكري السنة النبوية</p>
-  <p style="margin-top:.4rem;font-size:.7rem;opacity:.35">صدقة جارية بإذن الله — مفتوح المصدر على GitHub</p>
+  <p id="footer-sub">مناقشات فكرية معاصرة — الرد العلمي على شبهات منكري السنة النبوية</p>
+  <p id="asst-footer-text" style="margin-top:.4rem;font-size:.7rem;opacity:.35" id="footer-note">صدقة جارية بإذن الله — مفتوح المصدر على GitHub</p>
 </footer>
 
 <!-- VIDEO MODAL -->
@@ -628,6 +699,265 @@ const PL=[
     {id:"Dc7_jyqL-Go",t:"القول الفاصل في الفرق بين مقام الرسالة ومقام النبوة",d:"هل حقا يفرق القرآن بين المقامين في نفس الشخص؟"}
   ]}
 ];
+
+
+// ===== LANGUAGE SYSTEM =====
+const TRANSLATIONS = {
+  ar: {
+    dir: 'rtl',
+    // NAV
+    nav_home: 'الرئيسية',
+    nav_videos: 'الفيديوهات',
+    nav_articles: 'المقالات',
+    nav_library: 'المكتبة',
+    nav_assistant: 'المساعد',
+    nav_about: 'عن الموقع',
+    nav_ask: 'اسأل المساعد ✦',
+    // HERO
+    hero_badge: '✦ مناقشات فكرية معاصرة ✦',
+    hero_title1: 'الرد العلمي على شبهات',
+    hero_title2: 'منكري السنة النبوية',
+    hero_sub: 'بالحجج العلمية والدلائل الشرعية المستقاة من القرآن الكريم والسنة النبوية وكلام أهل العلم',
+    stat1: 'فيديو تعليمي', stat2: 'قوائم تشغيل', stat3: 'كتاب منشور', stat4: 'متاح للأبد',
+    btn_videos: '📺 شاهد الفيديوهات', btn_articles: '📄 المقالات', btn_library: '📚 المكتبة', btn_assistant: '🤖 المساعد الذكي',
+    // SECTIONS
+    sec_playlists_label: 'المحتوى العلمي', sec_playlists_title: 'قوائم التشغيل',
+    sec_articles_label: 'المؤلفات العلمية', sec_articles_title: 'المقالات',
+    sec_articles_sub: 'مقالات مستخلصة من كتب د. هيثم أبو طالب — مرتبة حسب الكتاب والفصل',
+    sec_library_label: 'المؤلفات العلمية', sec_library_title: 'المكتبة',
+    sec_assistant_label: 'مدعوم بالذكاء الاصطناعي', sec_assistant_title: 'المساعد العلمي الذكي',
+    sec_assistant_sub: 'اسأل عن حجية السنة — ونقد الأحاديث — والرد على منكري السنة — والمذاهب الفقهية',
+    sec_about_label: 'من نحن', sec_about_title: 'عن الموقع',
+    // PLAYLISTS
+    pl_watch: 'مشاهدة ←', pl_videos: 'فيديو',
+    // LIBRARY
+    lib_read: '📖 قراءة', lib_download: '⬇ تحميل',
+    lib_chapters: 'فصول الكتاب',
+    lib_coming_title: 'خداع المصطلحات في التفريق بين القرآن والكتاب',
+    lib_coming_desc: 'الكتاب الثالث — رد على كتاب محمد شحرور. قيد الإعداد وسيُضاف قريباً بإذن الله.',
+    lib_coming_badge: '⏳ قريباً بإذن الله',
+    // ARTICLES FILTER
+    filter_all: 'الكل', filter_ch1: 'حجية السنة', filter_ch2: 'نقد المرويات',
+    filter_ch3: 'تعارض الأحاديث والقرآن', filter_ch4: 'مخالفة الإجماع',
+    filter_ch5: 'القرآن والتشريع', filter_ch6: 'النبي والرسول',
+    art_read: 'قراءة المقال الكامل ←', art_coming: '⏳ قريباً — المقال قيد الإعداد',
+    art_published_title: 'المقالات المنشورة كاملة',
+    art_published_sub: 'مقالات د. هيثم أبو طالب — النص الكامل',
+    // ASSISTANT
+    asst_placeholder: 'اكتب سؤالك هنا...',
+    asst_send: 'إرسال ➤',
+    asst_welcome: 'السلام عليكم ورحمة الله وبركاته 🌿
+
+أنا المساعد العلمي لموقع <strong>سنة شات</strong> — د. هيثم أبو طالب.
+
+أُجيب بالأدلة من القرآن الكريم والسنة النبوية وكلام أهل العلم.',
+    sq1: 'دليل حجية السنة من القرآن', sq2: 'الرد على الاكتفاء بالقرآن',
+    sq3: 'كيف وصلت الأحاديث؟', sq4: 'شروط صحة الحديث', sq5: 'الفرق بين النبي والرسول',
+    asst_footer: 'يستخدم Google Gemini — مجاني — لا تُحفظ أي محادثة على خوادمنا',
+    // ABOUT
+    about_role: 'باحث ومحاور متخصص في قضايا السنة النبوية المعاصرة — طبيب أسنان (FDSRCSI)',
+    about_p1: 'موقع <strong>سنة شات</strong> مخصص للرد على شبهات منكري السنة النبوية المطهرة، من خلال تقديم الحجج العلمية والأدلة الشرعية المستقاة من القرآن الكريم والسنة النبوية وكلام أهل العلم.',
+    about_p2: 'يضم الموقع فيديوهات تعليمية تتناول أبرز الشبهات المثارة حول حجية السنة النبوية، ونقد الأحاديث، والمذاهب الفقهية، إضافة إلى مكتبة تضم كتب المؤلف ومساعد ذكي للبحث والحوار العلمي.',
+    about_p3: 'الموقع مفتوح المصدر على GitHub، مستضاف مجاناً، ومصمم ليبقى يعمل بإذن الله — صدقة جارية.',
+    about_disc: '⚠️ <strong>تنبيه:</strong> تم الاستعانة بتقنيات الذكاء الاصطناعي في إنشاء الفيديوهات. نسأل الله المغفرة.',
+    about_bio: 'طبيب أسنان حاصل على الزمالة المصرية والزمالة من كلية الجراحين الملكية بآيرلندا (FDSRCSI). تلقى التحصيل الشرعي المنهجي في عدة محاضن علمية.',
+    yt_btn: '▶ القناة على يوتيوب',
+    footer_sub: 'مناقشات فكرية معاصرة — الرد العلمي على شبهات منكري السنة النبوية',
+    footer_note: 'صدقة جارية بإذن الله — مفتوح المصدر على GitHub'
+  },
+
+  en: {
+    dir: 'ltr',
+    nav_home: 'Home', nav_videos: 'Videos', nav_articles: 'Articles',
+    nav_library: 'Library', nav_assistant: 'Assistant', nav_about: 'About',
+    nav_ask: 'Ask Assistant ✦',
+    hero_badge: '✦ Contemporary Intellectual Discussions ✦',
+    hero_title1: 'Scientific Response to Doubts About',
+    hero_title2: 'The Prophetic Sunnah',
+    hero_sub: 'With scholarly arguments and legal evidence from the Holy Quran, the Prophetic Sunnah, and scholars of Islam',
+    stat1: 'Educational Videos', stat2: 'Playlists', stat3: 'Published Books', stat4: 'Available Forever',
+    btn_videos: '📺 Watch Videos', btn_articles: '📄 Articles', btn_library: '📚 Library', btn_assistant: '🤖 AI Assistant',
+    sec_playlists_label: 'SCIENTIFIC CONTENT', sec_playlists_title: 'Playlists',
+    sec_articles_label: 'SCHOLARLY WORKS', sec_articles_title: 'Articles',
+    sec_articles_sub: 'Articles extracted from books by Dr. Haitham Abotaleb — organized by book and chapter',
+    sec_library_label: 'SCHOLARLY WORKS', sec_library_title: 'Library',
+    sec_assistant_label: 'POWERED BY AI', sec_assistant_title: 'Scientific AI Assistant',
+    sec_assistant_sub: 'Ask about Sunnah authority — Hadith criticism — Responding to Sunnah deniers — Islamic jurisprudence',
+    sec_about_label: 'ABOUT US', sec_about_title: 'About',
+    pl_watch: 'Watch →', pl_videos: 'videos',
+    lib_read: '📖 Read', lib_download: '⬇ Download',
+    lib_chapters: 'Book Chapters',
+    lib_coming_title: 'The Deception of Terminology in Distinguishing Between the Quran and the Book',
+    lib_coming_desc: 'Third book — Response to Muhammad Shahrour. Under preparation, to be added soon God willing.',
+    lib_coming_badge: '⏳ Coming Soon',
+    filter_all: 'All', filter_ch1: 'Sunnah Authority', filter_ch2: 'Hadith Criticism',
+    filter_ch3: 'Hadith-Quran Contradiction', filter_ch4: 'Opposing Consensus',
+    filter_ch5: 'Quran & Legislation', filter_ch6: 'Prophet & Messenger',
+    art_read: '📄 Read Full Article →', art_coming: '⏳ Coming Soon',
+    art_published_title: 'Full Published Articles',
+    art_published_sub: 'Articles by Dr. Haitham Abotaleb — Complete Text',
+    asst_placeholder: 'Type your question here...',
+    asst_send: 'Send ➤',
+    asst_welcome: 'Peace be upon you 🌿<br><br>I am the scientific assistant of <strong>Sunnachat</strong> — Dr. Haitham Abotaleb.<br><br>I answer with evidence from the Holy Quran, Prophetic Sunnah, and scholars of Islam.',
+    sq1: 'Evidence for Sunnah authority from Quran', sq2: 'Response to Quran-only claim',
+    sq3: 'How were hadiths transmitted?', sq4: 'Conditions for authentic hadith', sq5: 'Difference between Prophet and Messenger',
+    asst_footer: 'Uses Google Gemini — Free — No conversations stored on our servers',
+    about_role: 'Researcher & specialist in contemporary Sunnah issues — Dentist (FDSRCSI)',
+    about_p1: '<strong>Sunnachat</strong> is dedicated to responding to doubts about the Prophetic Sunnah through scholarly arguments and legal evidence from the Holy Quran, Sunnah, and Islamic scholars.',
+    about_p2: 'The site features educational videos addressing key doubts about the authority of the Sunnah, hadith criticism, and Islamic jurisprudence, plus a library of the author's books and an AI assistant.',
+    about_p3: 'The site is open-source on GitHub, freely hosted, and designed to remain operational — a perpetual charity.',
+    about_disc: '⚠️ <strong>Note:</strong> AI technologies were used in creating the videos. We ask Allah for forgiveness.',
+    about_bio: 'Dentist with Egyptian Fellowship and Fellowship from the Royal College of Surgeons in Ireland (FDSRCSI). Received systematic Islamic studies in several scholarly institutions.',
+    yt_btn: '▶ YouTube Channel',
+    footer_sub: 'Contemporary Intellectual Discussions — Scientific Response to Doubts About the Prophetic Sunnah',
+    footer_note: 'Perpetual charity — Open source on GitHub'
+  },
+
+  fr: {
+    dir: 'rtl',
+    nav_home: 'Accueil', nav_videos: 'Vidéos', nav_articles: 'Articles',
+    nav_library: 'Bibliothèque', nav_assistant: 'Assistant', nav_about: 'À propos',
+    nav_ask: 'Demander ✦',
+    hero_badge: '✦ Discussions Intellectuelles Contemporaines ✦',
+    hero_title1: 'Réponse Scientifique aux Doutes sur',
+    hero_title2: 'La Sunna Prophétique',
+    hero_sub: 'Avec des arguments savants et des preuves juridiques tirés du Saint Coran, de la Sunna Prophétique et des savants de l'Islam',
+    stat1: 'Vidéos Éducatives', stat2: 'Listes de Lecture', stat3: 'Livres Publiés', stat4: 'Disponible Pour Toujours',
+    btn_videos: '📺 Voir Vidéos', btn_articles: '📄 Articles', btn_library: '📚 Bibliothèque', btn_assistant: '🤖 Assistant IA',
+    sec_playlists_label: 'CONTENU SCIENTIFIQUE', sec_playlists_title: 'Listes de Lecture',
+    sec_articles_label: 'ŒUVRES SAVANTES', sec_articles_title: 'Articles',
+    sec_articles_sub: 'Articles extraits des livres du Dr. Haitham Abotaleb — organisés par livre et chapitre',
+    sec_library_label: 'ŒUVRES SAVANTES', sec_library_title: 'Bibliothèque',
+    sec_assistant_label: 'PROPULSÉ PAR L'IA', sec_assistant_title: 'Assistant Scientifique IA',
+    sec_assistant_sub: 'Posez des questions sur l'autorité de la Sunna — critique des hadiths — réponse aux négateurs de la Sunna',
+    sec_about_label: 'QUI SOMMES-NOUS', sec_about_title: 'À Propos',
+    pl_watch: 'Regarder →', pl_videos: 'vidéos',
+    lib_read: '📖 Lire', lib_download: '⬇ Télécharger',
+    lib_chapters: 'Chapitres du Livre',
+    lib_coming_title: 'La Tromperie Terminologique dans la Distinction entre le Coran et le Livre',
+    lib_coming_desc: 'Troisième livre — Réponse à Muhammad Shahrour. En préparation, sera ajouté bientôt si Dieu le veut.',
+    lib_coming_badge: '⏳ Prochainement',
+    filter_all: 'Tout', filter_ch1: 'Autorité de la Sunna', filter_ch2: 'Critique des Hadiths',
+    filter_ch3: 'Contradiction Hadith-Coran', filter_ch4: 'Opposition au Consensus',
+    filter_ch5: 'Coran & Législation', filter_ch6: 'Prophète & Messager',
+    art_read: '📄 Lire l'article complet →', art_coming: '⏳ Prochainement',
+    art_published_title: 'Articles Complets Publiés',
+    art_published_sub: 'Articles du Dr. Haitham Abotaleb — Texte Complet',
+    asst_placeholder: 'Tapez votre question ici...',
+    asst_send: 'Envoyer ➤',
+    asst_welcome: 'Paix sur vous 🌿<br><br>Je suis l'assistant scientifique de <strong>Sunnachat</strong> — Dr. Haitham Abotaleb.<br><br>Je réponds avec des preuves du Saint Coran, de la Sunna Prophétique et des savants de l'Islam.',
+    sq1: 'Preuves de l'autorité de la Sunna', sq2: 'Réponse à la revendication du Coran seul',
+    sq3: 'Comment les hadiths ont été transmis?', sq4: 'Conditions d'authenticité du hadith', sq5: 'Différence entre Prophète et Messager',
+    asst_footer: 'Utilise Google Gemini — Gratuit — Aucune conversation stockée',
+    about_role: 'Chercheur & spécialiste des questions contemporaines sur la Sunna — Dentiste (FDSRCSI)',
+    about_p1: '<strong>Sunnachat</strong> est dédié à répondre aux doutes sur la Sunna Prophétique à travers des arguments savants et des preuves juridiques.',
+    about_p2: 'Le site propose des vidéos éducatives, une bibliothèque des livres de l'auteur et un assistant IA pour la recherche et le dialogue savant.',
+    about_p3: 'Le site est open-source sur GitHub, hébergé gratuitement, et conçu pour rester opérationnel — une charité perpétuelle.',
+    about_disc: '⚠️ <strong>Note:</strong> Des technologies IA ont été utilisées dans la création des vidéos. Nous demandons le pardon d'Allah.',
+    about_bio: 'Dentiste avec Fellowship Égyptien et Fellowship du Royal College of Surgeons in Ireland (FDSRCSI). A reçu des études islamiques systématiques dans plusieurs institutions savantes.',
+    yt_btn: '▶ Chaîne YouTube',
+    footer_sub: 'Discussions Intellectuelles Contemporaines — Réponse Scientifique aux Doutes sur la Sunna Prophétique',
+    footer_note: 'Charité perpétuelle — Open source sur GitHub'
+  }
+};
+
+let currentLang = 'ar';
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = TRANSLATIONS[lang];
+
+  // Update direction
+  document.documentElement.lang = lang === 'ar' ? 'ar' : lang;
+  document.documentElement.dir = t.dir;
+
+  // Update lang buttons
+  ['ar','en','fr'].forEach(l => {
+    const btn = document.getElementById('btn-' + l);
+    if (btn) btn.classList.toggle('active', l === lang);
+  });
+
+  // NAV links
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const navKeys = ['nav_home','nav_videos','nav_articles','nav_library','nav_assistant','nav_about','nav_ask'];
+  navLinks.forEach((a, i) => { if (navKeys[i]) a.textContent = t[navKeys[i]]; });
+
+  // HERO
+  setText('hero-badge', t.hero_badge);
+  setText('hero-title1', t.hero_title1);
+  setText('hero-title2', t.hero_title2);
+  setText('hero-sub', t.hero_sub);
+  setText('stat1-label', t.stat1);
+  setText('stat2-label', t.stat2);
+  setText('stat3-label', t.stat3);
+  setText('stat4-label', t.stat4);
+  setText('btn-videos', t.btn_videos);
+  setText('btn-articles-hero', t.btn_articles);
+  setText('btn-library-hero', t.btn_library);
+  setText('btn-assistant-hero', t.btn_assistant);
+
+  // SECTIONS labels & titles
+  setText('pl-label', t.sec_playlists_label);
+  setText('pl-title', t.sec_playlists_title);
+  setText('art-label', t.sec_articles_label);
+  setText('art-title', t.sec_articles_title);
+  setText('art-sub', t.sec_articles_sub);
+  setText('lib-label', t.sec_library_label);
+  setText('lib-title', t.sec_library_title);
+  setText('asst-label', t.sec_assistant_label);
+  setText('asst-title', t.sec_assistant_title);
+  setText('asst-sub', t.sec_assistant_sub);
+  setText('about-label', t.sec_about_label);
+  setText('about-title', t.sec_about_title);
+
+  // ASSISTANT
+  const inp = document.getElementById('chatInp');
+  if (inp) inp.placeholder = t.asst_placeholder;
+  setText('sendBtnText', t.asst_send);
+  setText('asst-footer-text', t.asst_footer);
+
+  // Suggested questions
+  const sqs = document.querySelectorAll('.sq-btn');
+  const sqKeys = ['sq1','sq2','sq3','sq4','sq5'];
+  sqs.forEach((b, i) => { if (sqKeys[i]) b.textContent = t[sqKeys[i]]; });
+
+  // ABOUT
+  setText('about-role-text', t.about_role);
+  setHTML('about-p1', t.about_p1);
+  setHTML('about-p2', t.about_p2);
+  setHTML('about-p3', t.about_p3);
+  setHTML('about-disc', t.about_disc);
+  setText('about-bio-text', t.about_bio);
+  setText('yt-btn-text', t.yt_btn);
+
+  // FOOTER
+  setText('footer-sub', t.footer_sub);
+  setText('footer-note', t.footer_note);
+
+  // LIBRARY
+  setText('lib-coming-title', t.lib_coming_title);
+  setText('lib-coming-desc', t.lib_coming_desc);
+  setText('lib-coming-badge', t.lib_coming_badge);
+
+  // Re-render playlists and articles with new language
+  renderPL();
+  renderArticles();
+  renderPublished();
+}
+
+function setText(id, text) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = text;
+}
+
+function setHTML(id, html) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = html;
+}
+
+function getLang() { return currentLang; }
+function getT() { return TRANSLATIONS[currentLang]; }
+
 
 // ===== NAVIGATION =====
 function showPage(id){
@@ -769,7 +1099,7 @@ function renderPublished() {
 // ===== ARTICLES =====
 const ARTICLES=[
   {book:1,bookTitle:"مناقشات فكرية معاصرة",chapter:1,chapterTitle:"حجية السنة",articles:[
-    {id:"a1-1",file:"art_1777319201364.html",title:"أدلة على حجية السنة النبوية",subtitle:"الأدلة العقلية والنقلية على وجوب اتباع السنة",summary:"يناقش المؤلف في هذا المبحث الأدلة العقلية على حجية السنة، مبيناً أن الرسول ﷺ هو حلقة الوصل بيننا وبين الله عز وجل، وأن طاعته طاعة لله. ثم يعرض الأدلة النقلية من القرآن الكريم التي تأمر بطاعة الرسول، والتي جعلت اتباعه شرطاً من شروط الإيمان، والتي تحذر من مخالفة أمره ﷺ.\n\nمن أبرز الأدلة العقلية: أن الرسول ﷺ هو من يأتيه الوحي، فطاعته طاعة لله. وأنه هو المبيّن لصراط الله المستقيم الذي جعله الله أول دعاء في فاتحة كتابه.\n\nومن الأدلة النقلية: الآيات الصريحة في الأمر بطاعة الرسول، وجعل هذه الطاعة شرطاً من شروط الإيمان كقوله تعالى: (فلا وربك لا يؤمنون حتى يحكموك فيما شجر بينهم).",body:"",tags:["حجية السنة","أدلة عقلية","أدلة نقلية","طاعة الرسول"]},
+    {id:"a1-1",title:"أدلة على حجية السنة النبوية",subtitle:"الأدلة العقلية والنقلية على وجوب اتباع السنة",summary:"يناقش المؤلف في هذا المبحث الأدلة العقلية على حجية السنة، مبيناً أن الرسول ﷺ هو حلقة الوصل بيننا وبين الله عز وجل، وأن طاعته طاعة لله. ثم يعرض الأدلة النقلية من القرآن الكريم التي تأمر بطاعة الرسول، والتي جعلت اتباعه شرطاً من شروط الإيمان، والتي تحذر من مخالفة أمره ﷺ.\n\nمن أبرز الأدلة العقلية: أن الرسول ﷺ هو من يأتيه الوحي، فطاعته طاعة لله. وأنه هو المبيّن لصراط الله المستقيم الذي جعله الله أول دعاء في فاتحة كتابه.\n\nومن الأدلة النقلية: الآيات الصريحة في الأمر بطاعة الرسول، وجعل هذه الطاعة شرطاً من شروط الإيمان كقوله تعالى: (فلا وربك لا يؤمنون حتى يحكموك فيما شجر بينهم).",body:"",tags:["حجية السنة","أدلة عقلية","أدلة نقلية","طاعة الرسول"]},
     {id:"a1-2",title:"الاعتراضات الفكرية على حجية السنة والرد عليها",subtitle:"مناقشة أبرز الشبهات المثارة حول وجوب اتباع السنة",summary:"يعرض المؤلف أبرز الاعتراضات التي يثيرها منكرو السنة على حجيتها، ويفنّدها بالأدلة العلمية. من أبرزها: ادعاء أن طاعة الرسول تعني طاعة الرسالة لا شخصه، وادعاء أن القرآن وحده كافٍ للهداية، وشبهة أن الأحاديث ظنية الثبوت.\n\nيبيّن المؤلف أن هذه الاعتراضات لا دليل عليها من القرآن ولا من العقل، وأنها مجرد افتراضات يحتج بها أصحابها دون بيّنة. فمثلاً ادعاء أن (أطيعوا الرسول) تعني طاعة الرسالة فقط لا نص يثبته، بل النصوص تثبت عكسه.",body:"",tags:["شبهات","اعتراضات","رد","حجية السنة"]},
     {id:"a1-3",title:"هل القرآن وحده كافٍ للتشريع؟",subtitle:"الرد على دعوى الاكتفاء بالقرآن",summary:"يناقش المؤلف دعوى الاكتفاء بالقرآن الكريم وحده دون السنة النبوية، موضحاً أن هذه الدعوى تخالف القرآن نفسه الذي أمر بطاعة الرسول. وأن السنة هي التفسير العملي للقرآن الكريم.\n\nوالدليل العملي الدامغ على ذلك: الصلاة. فالقرآن أمر بإقامة الصلاة ولكنه لم يبيّن كيفيتها ولا عدد ركعاتها ولا أوقاتها، وكل ذلك جاء من السنة النبوية. فمن قال بالاكتفاء بالقرآن لا يستطيع إقامة صلاة صحيحة.",body:"",tags:["الاكتفاء بالقرآن","التشريع","منكرو السنة"]},
     {id:"a1-4",title:"السنة النبوية وحيٌ من الله",subtitle:"إثبات أن السنة وحي إلهي وليست مجرد آراء شخصية",summary:"يثبت المؤلف في هذا المبحث أن السنة النبوية وحي من الله عز وجل، لا مجرد آراء شخصية من النبي ﷺ. مستدلاً بقوله تعالى: (وما ينطق عن الهوى إن هو إلا وحي يوحى).\n\nويبيّن الفرق بين الوحي الجلي المتمثل في القرآن الكريم، والوحي الخفي المتمثل في السنة النبوية. وكلاهما من عند الله عز وجل، ورفض أحدهما رفض لحكم الله.",body:"",tags:["السنة وحي","الوحي","نوع الوحي"]}
