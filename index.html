@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>سنة شات — مناقشات فكرية معاصرة</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
 <meta name="description" content="الرد العلمي على شبهات منكري السنة النبوية — د. هيثم أبو طالب">
 <meta property="og:title" content="سنة شات — مناقشات فكرية معاصرة">
 <meta property="og:description" content="الرد العلمي على شبهات منكري السنة النبوية بالحجج والأدلة الشرعية">
@@ -26,8 +28,24 @@ body::before{
   content:'';
   position:fixed;
   inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cdefs%3E%3Cstyle%3E.s%7Bfill:none;stroke:rgba(201%2C151%2C58%2C0.06);stroke-width:0.7%7D%3C/style%3E%3C/defs%3E%3Cg transform='translate(40%2C40)'%3E%3Cpolygon class='s' points='0%2C-20 4.8%2C-4.8 20%2C0 4.8%2C4.8 0%2C20 -4.8%2C4.8 -20%2C0 -4.8%2C-4.8'/%3E%3Cpolygon class='s' points='0%2C-14 3.4%2C-3.4 14%2C0 3.4%2C3.4 0%2C14 -3.4%2C3.4 -14%2C0 -3.4%2C-3.4' transform='rotate(22.5)'/%3E%3Ccircle class='s' cx='0' cy='0' r='7'/%3E%3Ccircle class='s' cx='0' cy='0' r='3'/%3E%3C/g%3E%3Cline class='s' x1='0' y1='0' x2='22' y2='22'/%3E%3Cline class='s' x1='80' y1='0' x2='58' y2='22'/%3E%3Cline class='s' x1='0' y1='80' x2='22' y2='58'/%3E%3Cline class='s' x1='80' y1='80' x2='58' y2='58'/%3E%3Ccircle class='s' cx='0' cy='0' r='2'/%3E%3Ccircle class='s' cx='80' cy='0' r='2'/%3E%3Ccircle class='s' cx='0' cy='80' r='2'/%3E%3Ccircle class='s' cx='80' cy='80' r='2'/%3E%3C/svg%3E");
-  background-size:80px 80px;
+  background-color:transparent;
+  background-image:
+    radial-gradient(circle, rgba(201,151,58,0.08) 1px, transparent 1px),
+    radial-gradient(circle, rgba(201,151,58,0.05) 1px, transparent 1px);
+  background-size: 40px 40px, 80px 80px;
+  background-position: 0 0, 20px 20px;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* نمط هندسي إسلامي إضافي */
+body::after{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(201,151,58,0.03) 0px, rgba(201,151,58,0.03) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(-45deg, rgba(201,151,58,0.03) 0px, rgba(201,151,58,0.03) 1px, transparent 1px, transparent 40px);
   pointer-events:none;
   z-index:0;
 }
@@ -350,10 +368,10 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
       <div class="stat"><div class="stat-num">∞</div><div class="stat-label" id="stat4-label">متاح للأبد</div></div>
     </div>
     <div class="hero-btns">
-      <button class="btn-gold" onclick="showPage('playlists')" id="btn-videos"><span>📺 شاهد الفيديوهات</span></button>
-      <button class="btn-gold" onclick="showPage('articles')" id="btn-articles-hero"><span>📄 المقالات</span></button>
-      <button class="btn-gold" onclick="showPage('library')" id="btn-library-hero"><span>📚 المكتبة</span></button>
-      <button class="btn-outline" onclick="showPage('assistant')" id="btn-assistant-hero"><span>🤖 المساعد الذكي</span></button>
+      <button class="btn-gold" onclick="showPage('playlists')" ><span id="btn-videos">📺 شاهد الفيديوهات</span></button>
+      <button class="btn-gold" onclick="showPage('articles')" ><span id="btn-articles-hero">📄 المقالات</span></button>
+      <button class="btn-gold" onclick="showPage('library')" ><span id="btn-library-hero">📚 المكتبة</span></button>
+      <button class="btn-outline" onclick="showPage('assistant')" ><span id="btn-assistant-hero">🤖 المساعد الذكي</span></button>
     </div>
   </div>
 </div>
@@ -541,7 +559,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
         </div>
         <div class="chat-inp-row">
           <textarea class="chat-inp" id="chatInp" rows="1" placeholder="اكتب سؤالك هنا..." onkeydown="handleKey(event)"></textarea>
-          <button class="send-btn" id="sendBtn" onclick="sendMsg()"><span id="sendBtnText">إرسال ➤</span></button>
+          <button class="send-btn" id="sendBtn" onclick="sendMsg()">إرسال ➤</button>
         </div>
       </div>
       <p style="color:rgba(255,255,255,.25);text-align:center;padding:.9rem;font-size:.72rem">يستخدم OpenRouter — مجاني — لا تُحفظ أي محادثة على خوادمنا — مراجع: dorar.net | islamweb.net | sunnah.com | islamqa.info</p>
@@ -877,10 +895,16 @@ function setLang(lang) {
     if (btn) btn.classList.toggle('active', l === lang);
   });
 
-  // NAV links
+  // NAV links - نستخدم innerHTML لحفظ onclick
   const navLinks = document.querySelectorAll('.nav-links a');
   const navKeys = ['nav_home','nav_videos','nav_articles','nav_library','nav_assistant','nav_about','nav_ask'];
-  navLinks.forEach((a, i) => { if (navKeys[i]) a.textContent = t[navKeys[i]]; });
+  navLinks.forEach((a, i) => {
+    if (navKeys[i]) {
+      const onclick = a.getAttribute('onclick') || '';
+      a.textContent = t[navKeys[i]];
+      if (onclick) a.setAttribute('onclick', onclick);
+    }
+  });
 
   // HERO
   setText('hero-badge', t.hero_badge);
