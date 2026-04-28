@@ -9,6 +9,14 @@
 <meta name="description" content="الرد العلمي على شبهات منكري السنة النبوية — د. هيثم أبو طالب">
 <meta property="og:title" content="سنة شات — مناقشات فكرية معاصرة">
 <meta property="og:description" content="الرد العلمي على شبهات منكري السنة النبوية بالحجج والأدلة الشرعية">
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#c9973a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="سنة شات">
+<link rel="apple-touch-icon" href="/cover1.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <style>
@@ -22,6 +30,50 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Cairo',sans-serif;background:var(--parchment);color:var(--text-main);overflow-x:hidden}
+
+/* ===== UPDATE BANNER ===== */
+.update-banner{
+  display:none;
+  position:fixed;
+  bottom:0;left:0;right:0;
+  z-index:9999;
+  background:linear-gradient(135deg,var(--green-deep),#0d2218);
+  border-top:2px solid var(--gold);
+  padding:.85rem 1.5rem;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  box-shadow:0 -4px 20px rgba(0,0,0,.4);
+  animation:slideUp .4s ease;
+}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.update-banner.show{display:flex}
+.update-banner-text{color:white;font-size:.88rem;display:flex;align-items:center;gap:.6rem}
+.update-banner-text strong{color:var(--gold-light)}
+.update-banner-actions{display:flex;gap:.6rem;flex-shrink:0}
+.update-now-btn{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--ink);border:none;padding:.5rem 1.2rem;border-radius:7px;font-weight:700;font-family:'Cairo',sans-serif;font-size:.85rem;cursor:pointer;transition:all .2s}
+.update-now-btn:hover{background:var(--gold-light);transform:translateY(-1px)}
+.update-later-btn{background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.15);padding:.5rem .9rem;border-radius:7px;font-family:'Cairo',sans-serif;font-size:.82rem;cursor:pointer;transition:all .2s}
+.update-later-btn:hover{border-color:rgba(255,255,255,.3);color:white}
+
+/* ===== INSTALL BANNER ===== */
+.install-banner{
+  display:none;
+  position:fixed;
+  bottom:0;left:0;right:0;
+  z-index:9998;
+  background:var(--ink);
+  border-top:1px solid rgba(201,151,58,.25);
+  padding:.75rem 1.5rem;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+}
+.install-banner.show{display:flex}
+.install-text{color:rgba(255,255,255,.7);font-size:.82rem;display:flex;align-items:center;gap:.5rem}
+.install-btn{background:var(--gold-dark);color:white;border:none;padding:.45rem 1rem;border-radius:6px;font-family:'Cairo',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .2s}
+.install-btn:hover{background:var(--gold)}
+.install-dismiss{background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:1.1rem;padding:.2rem}
 
 /* ===== ISLAMIC PATTERN BACKGROUND ===== */
 body::before{
@@ -290,6 +342,28 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
 <body>
 
 <!-- NAV -->
+<!-- شريط التحديث -->
+<div class="update-banner" id="updateBanner">
+  <div class="update-banner-text">
+    🔄 <span><strong>تحديث جديد متاح!</strong> — تم إضافة محتوى ومميزات جديدة للموقع</span>
+  </div>
+  <div class="update-banner-actions">
+    <button class="update-now-btn" onclick="doUpdate()">⚡ تحديث الآن</button>
+    <button class="update-later-btn" onclick="dismissUpdate()">لاحقاً</button>
+  </div>
+</div>
+
+<!-- شريط التثبيت -->
+<div class="install-banner" id="installBanner">
+  <div class="install-text">
+    📱 <span>ثبّت سنة شات كتطبيق على جهازك للوصول السريع بدون إنترنت</span>
+  </div>
+  <div style="display:flex;gap:.5rem;align-items:center">
+    <button class="install-btn" onclick="doInstall()">📲 تثبيت</button>
+    <button class="install-dismiss" onclick="dismissInstall()">✕</button>
+  </div>
+</div>
+
 <nav>
   <div class="nav-logo" onclick="showPage('home')">
     <div class="nav-logo-icon">
@@ -1747,6 +1821,98 @@ function observe(){
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded',()=>{renderPL();renderArticles();renderPublished();observe();});
+
+
+// ===== PWA & SERVICE WORKER =====
+let deferredInstallPrompt = null;
+let swRegistration = null;
+
+// تسجيل الـ Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
+    try {
+      swRegistration = await navigator.serviceWorker.register('/sw.js');
+
+      // الاستماع للتحديثات
+      swRegistration.addEventListener('updatefound', () => {
+        const newWorker = swRegistration.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            // يوجد تحديث جديد جاهز
+            showUpdateBanner();
+          }
+        });
+      });
+
+      // استقبال رسائل التحديث
+      navigator.serviceWorker.addEventListener('message', e => {
+        if (e.data && e.data.type === 'UPDATE_READY') {
+          showUpdateBanner();
+        }
+      });
+
+    } catch(err) {
+      console.log('SW error:', err);
+    }
+  });
+}
+
+// إظهار شريط التحديث
+function showUpdateBanner() {
+  document.getElementById('updateBanner').classList.add('show');
+  // إخفاء شريط التثبيت إن كان ظاهراً
+  document.getElementById('installBanner').classList.remove('show');
+}
+
+// تحديث الآن
+function doUpdate() {
+  if (swRegistration && swRegistration.waiting) {
+    swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
+  }
+  document.getElementById('updateBanner').classList.remove('show');
+  // إعادة تحميل الصفحة بعد لحظة
+  setTimeout(() => window.location.reload(true), 300);
+}
+
+// تأجيل التحديث
+function dismissUpdate() {
+  document.getElementById('updateBanner').classList.remove('show');
+}
+
+// زر التثبيت على الهاتف
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  // أظهر شريط التثبيت بعد 3 ثوان
+  setTimeout(() => {
+    if (!localStorage.getItem('install_dismissed')) {
+      document.getElementById('installBanner').classList.add('show');
+    }
+  }, 3000);
+});
+
+function doInstall() {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  deferredInstallPrompt.userChoice.then(result => {
+    if (result.outcome === 'accepted') {
+      document.getElementById('installBanner').classList.remove('show');
+    }
+    deferredInstallPrompt = null;
+  });
+}
+
+function dismissInstall() {
+  document.getElementById('installBanner').classList.remove('show');
+  localStorage.setItem('install_dismissed', '1');
+}
+
+// بعد التثبيت
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installBanner').classList.remove('show');
+  deferredInstallPrompt = null;
+});
+
 </script>
 </body>
 </html>
