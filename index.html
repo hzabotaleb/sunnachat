@@ -308,13 +308,13 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
     <span class="nav-logo-text">سنة شات</span>
   </div>
   <ul class="nav-links" id="navLinks">
-    <li><a onclick="showPage('home')">الرئيسية</a></li>
-    <li><a onclick="showPage('playlists')">الفيديوهات</a></li>
-    <li><a onclick="showPage('articles')">المقالات</a></li>
-    <li><a onclick="showPage('library')">المكتبة</a></li>
-    <li><a onclick="showPage('assistant')">المساعد</a></li>
-    <li><a onclick="showPage('about')">عن الموقع</a></li>
-    <li><a onclick="showPage('assistant')" class="nav-cta">اسأل المساعد ✦</a></li>
+    <li><a onclick="showPage('home')" data-key="nav_home">الرئيسية</a></li>
+    <li><a onclick="showPage('playlists')" data-key="nav_videos">الفيديوهات</a></li>
+    <li><a onclick="showPage('articles')" data-key="nav_articles">المقالات</a></li>
+    <li><a onclick="showPage('library')" data-key="nav_library">المكتبة</a></li>
+    <li><a onclick="showPage('assistant')" data-key="nav_assistant">المساعد</a></li>
+    <li><a onclick="showPage('about')" data-key="nav_about">عن الموقع</a></li>
+    <li><a onclick="showPage('assistant')" class="nav-cta" data-key="nav_ask">اسأل المساعد ✦</a></li>
   </ul>
   <div class="lang-switcher">
     <button class="lang-btn active" onclick="setLang('ar')" id="btn-ar">ع</button>
@@ -535,7 +535,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
         <p style="color:rgba(255,255,255,.45);margin-top:.65rem;font-size:.88rem;line-height:1.7" id="asst-sub">اسأل عن حجية السنة — ونقد الأحاديث — والرد على منكري السنة — والمذاهب الفقهية</p>
         <div class="sec-div"></div>
       </div>
-      <div class="api-panel" id="apiPanel">
+      <div class="api-panel" id="apiPanel" style="display:none">
         <h4>🔑 إعداد مفتاح OpenRouter API (مجاني)</h4>
         <p>أدخل مفتاحك من <a href="https://openrouter.ai/keys" target="_blank" style="color:var(--gold)">openrouter.ai</a> — مجاني تماماً — يُحفظ في متصفحك فقط ولا يُرسل لأي خادم.</p>
         <div class="api-row">
@@ -891,15 +891,11 @@ function setLang(lang) {
     if (btn) btn.classList.toggle('active', l === lang);
   });
 
-  // NAV links - نستخدم innerHTML لحفظ onclick
-  const navLinks = document.querySelectorAll('.nav-links a');
-  const navKeys = ['nav_home','nav_videos','nav_articles','nav_library','nav_assistant','nav_about','nav_ask'];
-  navLinks.forEach((a, i) => {
-    if (navKeys[i]) {
-      const onclick = a.getAttribute('onclick') || '';
-      a.textContent = t[navKeys[i]];
-      if (onclick) a.setAttribute('onclick', onclick);
-    }
+  // NAV links - نحدث النص بدون المساس بـ onclick
+  const navLinks = document.querySelectorAll('.nav-links a[data-key]');
+  navLinks.forEach(a => {
+    const key = a.getAttribute('data-key');
+    if (key && t[key]) a.textContent = t[key];
   });
 
   // HERO
@@ -1318,14 +1314,14 @@ async function sendMsg(){
   try{
     const geminiMsgs=hist.slice(0,-1).map(m=>({role:m.role==='assistant'?'model':'user',parts:[{text:m.content}]}));
     geminiMsgs.push({role:'user',parts:[{text:txt}]});
-    const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+ORKEY,{
+    const r=await fetch('https://api.mistral.ai/v1/chat/completions',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({system_instruction:{parts:[{text:sysPrompt()}]},contents:geminiMsgs,generationConfig:{maxOutputTokens:1000,temperature:0.7}})
+      headers:{'Content-Type':'application/json','Authorization':'Bearer QJlsfAvvCEFMWBnyruF7AwjzeyuU3N8T'},
+      body:JSON.stringify({model:'mistral-small-latest',messages:[{role:'system',content:sysPrompt()},...hist],max_tokens:1000})
     });
     const data=await r.json();remTyping();
-    if(data.error){addMsg('bot','خطأ: '+(data.error.message||'تحقق من مفتاح API'));btn.disabled=false;return;}
-    const reply=data.candidates?.[0]?.content?.parts?.[0]?.text||'عذراً، لم أتمكن من الإجابة.';
+    if(data.error){addMsg('bot','خطأ: '+(data.error.message||''));btn.disabled=false;return;}
+    const reply=data.choices?.[0]?.message?.content||'عذراً، لم أتمكن من الإجابة.';
     addMsg('bot',reply);hist.push({role:'assistant',content:reply});
   }catch(e){remTyping();addMsg('bot','⚠️ خطأ: '+e.message);}
   btn.disabled=false;
