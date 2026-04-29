@@ -337,6 +337,66 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
   .cm-bub{max-width:88%}
   #rIframe{width:340px;height:480px}
 }
+
+/* ===== SHARE BUTTONS ===== */
+.share-bar{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;margin-top:.75rem;padding-top:.75rem;border-top:1px solid rgba(201,151,58,.15)}
+.share-btn{display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .65rem;border-radius:6px;font-size:.72rem;font-weight:600;font-family:'Cairo',sans-serif;cursor:pointer;border:none;text-decoration:none;transition:all .2s;white-space:nowrap}
+.share-btn:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.2)}
+.share-wa{background:#25D366;color:white}
+.share-wa:hover{background:#1ebe5a}
+.share-tg{background:#229ED9;color:white}
+.share-tg:hover{background:#1a8fc4}
+.share-tw{background:#000;color:white}
+.share-tw:hover{background:#333}
+.share-copy{background:rgba(201,151,58,.12);color:var(--gold-dark);border:1px solid rgba(201,151,58,.25) !important}
+.share-copy:hover{background:rgba(201,151,58,.22)}
+.share-copy.copied{background:rgba(64,145,108,.15);color:#40916c;border-color:rgba(64,145,108,.3) !important}
+
+/* نسخة داكنة للمقال الكامل */
+.share-bar.dark .share-copy{background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.12) !important}
+.share-bar.dark .share-copy:hover{background:rgba(255,255,255,.12)}
+
+/* ===== BACK TO TOP ===== */
+.back-top{position:fixed;bottom:1.5rem;left:1.5rem;z-index:300;width:44px;height:44px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--ink);box-shadow:0 4px 16px rgba(201,151,58,.35);transition:all .3s;opacity:0;pointer-events:none;transform:translateY(10px)}
+.back-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
+.back-top:hover{transform:translateY(-3px) !important;box-shadow:0 8px 24px rgba(201,151,58,.5)}
+
+/* إزالة تعارض مع install-banner */
+.install-banner.show ~ .back-top,
+.update-banner.show ~ .back-top{bottom:5rem}
+
+
+/* ===== SEARCH ===== */
+.search-wrap{max-width:680px;margin:0 auto 2.5rem;position:relative}
+.search-input{width:100%;background:white;border:2px solid var(--border);border-radius:12px;padding:.9rem 3rem .9rem 1.2rem;font-family:'Cairo',sans-serif;font-size:1rem;color:var(--text-main);outline:none;transition:border-color .2s;direction:rtl;box-shadow:0 2px 8px var(--shadow)}
+.search-input:focus{border-color:var(--gold);box-shadow:0 4px 16px var(--shadow)}
+.search-input::placeholder{color:var(--text-muted)}
+.search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:1.1rem;pointer-events:none}
+.search-clear{position:absolute;left:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.1rem;display:none}
+.search-results-count{text-align:center;font-size:.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+.search-highlight{background:rgba(201,151,58,.25);border-radius:2px;padding:0 .15rem}
+.no-results{text-align:center;padding:3rem;color:var(--text-muted)}
+.no-results-icon{font-size:3rem;margin-bottom:1rem;opacity:.3}
+
+/* ===== FAQ ===== */
+#faq{background:white}
+.faq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.faq-card{border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all .25s;box-shadow:0 2px 8px var(--shadow)}
+.faq-card:hover{border-color:var(--gold);box-shadow:0 8px 24px var(--shadow)}
+.faq-q{padding:1.1rem 1.25rem;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;background:var(--parchment)}
+.faq-q-text{font-family:'Amiri',serif;font-size:1rem;color:var(--text-main);line-height:1.5;flex:1}
+.faq-icon{color:var(--gold);font-size:1.2rem;flex-shrink:0;transition:transform .25s;margin-top:.1rem}
+.faq-card.open .faq-icon{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;background:white;font-size:.88rem;color:var(--text-muted);line-height:1.9;direction:rtl}
+.faq-card.open .faq-a{max-height:500px;padding:1.1rem 1.25rem}
+.faq-a strong{color:var(--green-deep)}
+.faq-a .faq-ref{display:inline-flex;align-items:center;gap:.3rem;color:var(--gold-dark);font-size:.78rem;margin-top:.65rem;font-weight:600;text-decoration:none;border-bottom:1px dashed var(--gold)}
+.faq-a .faq-ref:hover{color:var(--gold)}
+.faq-cat-label{display:inline-block;background:rgba(201,151,58,.1);color:var(--gold-dark);font-size:.68rem;padding:.15rem .55rem;border-radius:10px;margin-bottom:.5rem;font-weight:700}
+.faq-filter{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;margin-bottom:2rem}
+.faq-fbtn{background:white;border:1px solid var(--border);color:var(--text-muted);padding:.35rem .85rem;border-radius:20px;font-size:.78rem;cursor:pointer;transition:all .2s;font-family:'Cairo',sans-serif}
+.faq-fbtn:hover,.faq-fbtn.active{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:700}
+
 </style>
 </head>
 <body>
@@ -418,8 +478,16 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
 <div id="playlists" class="page">
   <div class="sec-wrap">
     <div class="sec-inner">
-      <div class="sec-hdr reveal">
-        <span class="sec-label" id="pl-label">المحتوى العلمي</span>
+      <div class="search-wrap reveal">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="videoSearch"
+        placeholder="ابحث في الفيديوهات... مثال: حجية السنة، طاعة الرسول"
+        oninput="searchVideos(this.value)">
+      <button class="search-clear" id="videoSearchClear" onclick="clearSearch('video')">✕</button>
+    </div>
+    <div class="search-results-count" id="videoSearchCount"></div>
+    <div class="sec-hdr reveal">
+      <span class="sec-label" id="pl-label">المحتوى العلمي</span>
         <h2 class="sec-title" id="pl-title">قوائم التشغيل</h2>
         <div class="sec-div"></div>
       </div>
@@ -477,6 +545,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
     <div class="art-full-divider"></div>
     <div class="art-full-body" id="artFullBody"></div>
     <div class="art-full-tags" id="artFullTags"></div>
+    <div id="artFullShare" style="margin-top:1rem"></div>
     <div class="art-full-ask">
       <p>هل لديك سؤال حول هذا المقال؟ اسأل المساعد الذكي</p>
       <button onclick="askAboutArticle()">🤖 اسأل المساعد</button>
@@ -605,6 +674,32 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
   </div>
 </div>
 
+
+<!-- ===== FAQ ===== -->
+<div id="faq" class="page">
+  <div class="sec-wrap">
+    <div class="sec-inner">
+      <div class="sec-hdr reveal">
+        <span class="sec-label">من كتب د. هيثم أبو طالب</span>
+        <h2 class="sec-title">أسئلة شائعة</h2>
+        <p style="color:var(--text-muted);font-size:.88rem;margin-top:.75rem">أبرز الأسئلة المثارة حول السنة النبوية مع ردود موجزة مستقاة من الكتابين</p>
+        <div class="sec-div"></div>
+      </div>
+
+      <div class="faq-filter" id="faqFilter">
+        <button class="faq-fbtn active" onclick="filterFaq('all',this)">الكل</button>
+        <button class="faq-fbtn" onclick="filterFaq('sunnah',this)">حجية السنة</button>
+        <button class="faq-fbtn" onclick="filterFaq('hadith',this)">الحديث</button>
+        <button class="faq-fbtn" onclick="filterFaq('fiqh',this)">الفقه</button>
+        <button class="faq-fbtn" onclick="filterFaq('prophet',this)">النبي والرسول</button>
+        <button class="faq-fbtn" onclick="filterFaq('quran',this)">القرآن</button>
+      </div>
+
+      <div class="faq-grid" id="faqGrid"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ===== ABOUT ===== -->
 <div id="about" class="page">
   <div class="sec-wrap">
@@ -633,6 +728,9 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
   </div>
 </div>
 
+<!-- زر العودة لأعلى -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="العودة لأعلى">↑</button>
+
 <footer>
   <div class="ft-logo">سنة شات — sunnachat.com</div>
   <p id="footer-sub">مناقشات فكرية معاصرة — الرد العلمي على شبهات منكري السنة النبوية</p>
@@ -644,7 +742,10 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
   <div class="vid-box">
     <div class="vid-hdr">
       <h3 class="vid-hdr-title" id="vidTitle"></h3>
-      <button class="vid-close" onclick="closeVid()">✕</button>
+      <div style="display:flex;align-items:center;gap:.4rem;flex-shrink:0">
+        <div id="vidShareBtns" style="display:flex;gap:.3rem"></div>
+        <button class="vid-close" onclick="closeVid()">✕</button>
+      </div>
     </div>
     <div class="vid-player"><iframe id="vidIframe" src="" allowfullscreen allow="autoplay;encrypted-media"></iframe></div>
     <div class="vid-list" id="vidList"></div>
@@ -1032,15 +1133,16 @@ function toggleMenu(){
 // ===== PLAYLISTS =====
 function renderPL(){
   document.getElementById('plGrid').innerHTML=PL.map(p=>`
-    <div class="pl-card reveal" onclick="openVid('${p.id}')">
-      <div class="pl-bar" style="background:${p.color}"></div>
+    <div class="pl-card reveal">
+      <div class="pl-bar" style="background:${p.color}" onclick="openVid('${p.id}')" ></div>
       <div class="pl-body">
-        <h3 class="pl-title">${p.title}</h3>
+        <h3 class="pl-title" onclick="openVid('${p.id}')" style="cursor:pointer">${p.title}</h3>
         <p class="pl-desc">${p.desc}</p>
         <div class="pl-foot">
           <span class="pl-count">📹 ${p.vids.length} فيديو</span>
-          <span class="pl-btn" style="color:${p.color}">مشاهدة ←</span>
+          <span class="pl-btn" style="color:${p.color};cursor:pointer" onclick="openVid('${p.id}')">مشاهدة ←</span>
         </div>
+        ${buildShareBar('https://sunnachat.com/?playlist='+p.id, p.title)}
       </div>
     </div>`).join('');
   observe();
@@ -1059,13 +1161,38 @@ function renderVList(){
   document.getElementById('vidList').innerHTML=curPL.vids.map((v,i)=>`
     <div class="v-item ${i===curV?'active':''}" onclick="playV(${i})">
       <img class="v-thumb" src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" alt="${v.t}" loading="lazy">
-      <div><div class="v-title">${v.t}</div><div class="v-desc">${v.d}</div></div>
+      <div style="flex:1">
+        <div class="v-title">${v.t}</div>
+        <div class="v-desc">${v.d}</div>
+        <div style="display:flex;gap:.3rem;margin-top:.4rem;flex-wrap:wrap">
+          <a class="share-btn share-wa" style="font-size:.65rem;padding:.2rem .45rem" href="https://wa.me/?text=${encodeURIComponent(v.t+'\nhttps://youtube.com/watch?v='+v.id)}" target="_blank" onclick="event.stopPropagation()">واتساب</a>
+          <a class="share-btn share-tg" style="font-size:.65rem;padding:.2rem .45rem" href="https://t.me/share/url?url=${encodeURIComponent('https://youtube.com/watch?v='+v.id)}&text=${encodeURIComponent(v.t)}" target="_blank" onclick="event.stopPropagation()">تيليغرام</a>
+          <a class="share-btn share-tw" style="font-size:.65rem;padding:.2rem .45rem" href="https://twitter.com/intent/tweet?text=${encodeURIComponent(v.t)}&url=${encodeURIComponent('https://youtube.com/watch?v='+v.id)}" target="_blank" onclick="event.stopPropagation()">تويتر</a>
+          <button class="share-btn share-copy" style="font-size:.65rem;padding:.2rem .45rem" onclick="event.stopPropagation();copyLink(this,'https://youtube.com/watch?v='+v.id)">📋 نسخ</button>
+        </div>
+      </div>
     </div>`).join('');
 }
 function playV(i){
   curV=i;
-  document.getElementById('vidIframe').src=`https://www.youtube.com/embed/${curPL.vids[i].id}?autoplay=1&rel=0`;
+  const vid = curPL.vids[i];
+  document.getElementById('vidIframe').src=`https://www.youtube.com/embed/${vid.id}?autoplay=1&rel=0`;
   document.querySelectorAll('.v-item').forEach((el,j)=>el.classList.toggle('active',j===i));
+  // أزرار مشاركة الفيديو الحالي
+  const vidUrl = 'https://youtube.com/watch?v='+vid.id;
+  const links = shareLinks(vidUrl, vid.t);
+  const shareEl = document.getElementById('vidShareBtns');
+  if(shareEl){
+    shareEl.innerHTML = `
+      <a class="share-btn share-wa" style="font-size:.7rem;padding:.25rem .5rem" href="${links.wa}" target="_blank" title="واتساب">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        واتساب
+      </a>
+      <a class="share-btn share-tg" style="font-size:.7rem;padding:.25rem .5rem" href="${links.tg}" target="_blank" title="تيليغرام">تيليغرام</a>
+      <a class="share-btn share-tw" style="font-size:.7rem;padding:.25rem .5rem" href="${links.tw}" target="_blank" title="تويتر">𝕏</a>
+      <button class="share-btn share-copy" style="font-size:.7rem;padding:.25rem .5rem" onclick="copyLink(this,'${vidUrl}')">📋</button>
+    `;
+  }
 }
 function closeVid(){
   document.getElementById('vidOv').classList.remove('active');
@@ -1135,8 +1262,8 @@ function renderPublished() {
     'shahrour':'الرد على شحرور','other':'مقالات'
   };
   grid.innerHTML = PUBLISHED_ARTICLES.map(a => `
-    <div class="art-card" onclick="window.open('articles/${a.file}','_blank')" style="cursor:pointer">
-      <h3 class="art-card-title">${a.title}</h3>
+    <div class="art-card">
+      <h3 class="art-card-title" style="cursor:pointer" onclick="window.open('articles/${a.file}','_blank')">${a.title}</h3>
       <div class="art-card-sub">${a.subtitle || ''}</div>
       <div class="art-card-tags">
         <span class="art-tag" style="background:rgba(201,151,58,.15);color:var(--gold-dark)">${catNames[a.category]||'مقال'}</span>
@@ -1147,6 +1274,7 @@ function renderPublished() {
           📄 قراءة المقال الكامل ←
         </a>
       </div>
+      ${buildShareBar('https://sunnachat.com/articles/'+a.file, a.title)}
     </div>`).join('');
 }
 
@@ -1232,6 +1360,7 @@ function renderArticles(){
                 : `<span style="font-size:.72rem;color:var(--text-muted);display:flex;align-items:center;gap:.3rem">⏳ قريباً — المقال قيد الإعداد</span>`
               }
             </div>
+            ${a.file ? buildShareBar('https://sunnachat.com/articles/'+a.file, a.title) : ''}
           </div>`).join('')}
       </div>
     </div>`).join('');
@@ -1257,6 +1386,10 @@ function openArticle(id){
   document.getElementById('artFullSub').textContent=art.subtitle;
   document.getElementById('artFullBody').innerHTML=art.summary.split('\n\n').map(p=>`<p>${p}</p>`).join('');
   document.getElementById('artFullTags').innerHTML=art.tags.map(t=>`<span class="art-tag">${t}</span>`).join('');
+  const artUrl = art.file
+    ? 'https://sunnachat.com/articles/'+art.file
+    : 'https://sunnachat.com';
+  document.getElementById('artFullShare').innerHTML = buildShareBar(artUrl, art.title, true);
   document.getElementById('artFull').classList.add('active');
   document.body.style.overflow='hidden';
   document.getElementById('artFull').scrollTop=0;
@@ -1938,7 +2071,361 @@ function observe(){
 }
 
 // ===== INIT =====
-document.addEventListener('DOMContentLoaded',()=>{renderPL();renderArticles();renderPublished();observe();});
+document.addEventListener('DOMContentLoaded',()=>{renderPL();renderArticles();renderPublished();renderFaq();observe();});
+
+
+
+// ===== SHARE FUNCTIONS =====
+function shareLinks(url, title) {
+  const encoded_url = encodeURIComponent(url);
+  const encoded_title = encodeURIComponent(title);
+  return {
+    wa: `https://wa.me/?text=${encoded_title}%0A${encoded_url}`,
+    tg: `https://t.me/share/url?url=${encoded_url}&text=${encoded_title}`,
+    tw: `https://twitter.com/intent/tweet?text=${encoded_title}&url=${encoded_url}&via=sunnachat`
+  };
+}
+
+function buildShareBar(url, title, dark=false) {
+  const links = shareLinks(url, title);
+  return `
+    <div class="share-bar${dark?' dark':''}">
+      <a class="share-btn share-wa" href="${links.wa}" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        واتساب
+      </a>
+      <a class="share-btn share-tg" href="${links.tg}" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        تيليغرام
+      </a>
+      <a class="share-btn share-tw" href="${links.tw}" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        تويتر
+      </a>
+      <button class="share-btn share-copy" onclick="copyLink(this,'${url}')">
+        📋 نسخ الرابط
+      </button>
+    </div>`;
+}
+
+function copyLink(btn, url) {
+  navigator.clipboard.writeText(url).then(() => {
+    btn.textContent = '✅ تم النسخ!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '📋 نسخ الرابط';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = url;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = '✅ تم النسخ!';
+    setTimeout(() => { btn.textContent = '📋 نسخ الرابط'; }, 2000);
+  });
+}
+
+// ===== BACK TO TOP =====
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('backTop');
+  if (btn) btn.classList.toggle('visible', window.scrollY > 400);
+});
+
+
+// ===== SEARCH VIDEOS =====
+function searchVideos(query) {
+  const q = query.trim().toLowerCase();
+  const grid = document.getElementById('plGrid');
+  const count = document.getElementById('videoSearchCount');
+  const clearBtn = document.getElementById('videoSearchClear');
+  if (clearBtn) clearBtn.style.display = q ? 'block' : 'none';
+
+  if (!q) {
+    count.textContent = '';
+    renderPL();
+    return;
+  }
+
+  const results = [];
+  PL.forEach(pl => {
+    const matchedVids = pl.vids.filter(v =>
+      v.t.toLowerCase().includes(q) || v.d.toLowerCase().includes(q)
+    );
+    if (matchedVids.length > 0 || pl.title.toLowerCase().includes(q)) {
+      results.push({ ...pl, vids: matchedVids.length > 0 ? matchedVids : pl.vids, isMatch: pl.title.toLowerCase().includes(q) });
+    }
+  });
+
+  const totalVids = results.reduce((s, p) => s + p.vids.length, 0);
+  count.textContent = totalVids > 0
+    ? `وُجد ${totalVids} فيديو في ${results.length} قائمة`
+    : 'لا توجد نتائج';
+
+  if (!grid) return;
+
+  if (results.length === 0) {
+    grid.innerHTML = `<div class="no-results" style="grid-column:1/-1">
+      <div class="no-results-icon">🔍</div>
+      <p>لا توجد نتائج لـ "<strong>${query}</strong>"</p>
+      <p style="font-size:.8rem;margin-top:.5rem">جرّب كلمات مختلفة</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = results.map(p => `
+    <div class="pl-card reveal">
+      <div class="pl-bar" style="background:${p.color}"></div>
+      <div class="pl-body">
+        <h3 class="pl-title" onclick="openVid('${p.id}')" style="cursor:pointer">
+          ${highlightText(p.title, q)}
+        </h3>
+        <p style="font-size:.75rem;color:var(--text-muted);margin-bottom:.75rem">
+          ${p.vids.length} فيديو مطابق
+        </p>
+        <div style="display:flex;flex-direction:column;gap:.4rem">
+          ${p.vids.slice(0,4).map(v => `
+            <div style="font-size:.78rem;color:var(--text-muted);padding:.3rem .5rem;border-radius:5px;background:var(--parchment);cursor:pointer"
+              onclick="openVid('${p.id}');setTimeout(()=>{const idx=${p.vids.indexOf(v)};if(idx>=0)playV(idx)},300)">
+              📹 ${highlightText(v.t, q)}
+            </div>`).join('')}
+          ${p.vids.length > 4 ? `<div style="font-size:.75rem;color:var(--gold-dark);text-align:center">+ ${p.vids.length-4} فيديو آخر</div>` : ''}
+        </div>
+        ${buildShareBar('https://sunnachat.com/?playlist='+p.id, p.title)}
+      </div>
+    </div>`).join('');
+  observe();
+}
+
+// ===== SEARCH ARTICLES =====
+function searchArticles(query) {
+  const q = query.trim().toLowerCase();
+  const count = document.getElementById('articleSearchCount');
+  const clearBtn = document.getElementById('articleSearchClear');
+  if (clearBtn) clearBtn.style.display = q ? 'block' : 'none';
+
+  if (!q) {
+    count.textContent = '';
+    renderArticles();
+    renderPublished();
+    return;
+  }
+
+  const container = document.getElementById('artContainer');
+  const results = [];
+
+  ARTICLES.forEach(chapter => {
+    const matched = chapter.articles.filter(a =>
+      a.title.toLowerCase().includes(q) ||
+      a.subtitle.toLowerCase().includes(q) ||
+      a.summary.toLowerCase().includes(q) ||
+      a.tags.some(t => t.toLowerCase().includes(q))
+    );
+    if (matched.length > 0) {
+      results.push({ ...chapter, articles: matched });
+    }
+  });
+
+  // بحث في المقالات المنشورة أيضاً
+  const pubMatched = PUBLISHED_ARTICLES.filter(a =>
+    a.title.toLowerCase().includes(q) ||
+    (a.subtitle||'').toLowerCase().includes(q) ||
+    (a.tags||[]).some(t => t.toLowerCase().includes(q))
+  );
+
+  const total = results.reduce((s,c) => s+c.articles.length, 0) + pubMatched.length;
+  count.textContent = total > 0 ? `وُجد ${total} مقال` : 'لا توجد نتائج';
+
+  if (total === 0) {
+    container.innerHTML = `<div class="no-results">
+      <div class="no-results-icon">🔍</div>
+      <p>لا توجد مقالات تتعلق بـ "<strong>${query}</strong>"</p>
+    </div>`;
+    document.getElementById('publishedArticlesSection').style.display = 'none';
+    return;
+  }
+
+  // عرض المنشورة
+  const pubSection = document.getElementById('publishedArticlesSection');
+  if (pubMatched.length > 0) {
+    pubSection.style.display = 'block';
+    const catNames = {'sunnah-authority':'حجية السنة','hadith-criticism':'نقد المرويات','shahrour':'الرد على شحرور','other':'مقالات'};
+    document.getElementById('publishedGrid').innerHTML = pubMatched.map(a => `
+      <div class="art-card">
+        <h3 class="art-card-title" style="cursor:pointer" onclick="window.open('articles/${a.file}','_blank')">
+          ${highlightText(a.title, q)}
+        </h3>
+        <div class="art-card-sub">${a.subtitle||''}</div>
+        <div class="art-card-footer">
+          <a href="articles/${a.file}" target="_blank" class="art-read-btn" style="text-decoration:none">📄 قراءة المقال ←</a>
+        </div>
+        ${buildShareBar('https://sunnachat.com/articles/'+a.file, a.title)}
+      </div>`).join('');
+  } else {
+    pubSection.style.display = 'none';
+  }
+
+  // عرض الملخصات
+  container.innerHTML = results.map(chapter => `
+    <div class="art-chapter reveal">
+      <div class="art-chapter-hdr">
+        <div class="art-chapter-num">${chapter.chapter}</div>
+        <div>
+          <div class="art-chapter-title">${chapter.chapterTitle}</div>
+          <div class="art-chapter-book">${chapter.bookTitle}</div>
+        </div>
+      </div>
+      <div class="art-grid">
+        ${chapter.articles.map(a => `
+          <div class="art-card">
+            <h3 class="art-card-title">${highlightText(a.title, q)}</h3>
+            <div class="art-card-sub">${a.subtitle}</div>
+            <p class="art-card-summary">${highlightText(a.summary.split('\n\n')[0], q)}</p>
+            <div class="art-card-tags">${a.tags.map(t=>`<span class="art-tag">${highlightText(t,q)}</span>`).join('')}</div>
+            <div class="art-card-footer">
+              ${a.file
+                ? `<a href="articles/${a.file}" target="_blank" class="art-read-btn" style="text-decoration:none;color:var(--gold-dark)">📄 قراءة المقال الكامل ←</a>`
+                : `<span style="font-size:.72rem;color:var(--text-muted)">⏳ قريباً</span>`}
+            </div>
+            ${a.file ? buildShareBar('https://sunnachat.com/articles/'+a.file, a.title) : ''}
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+  observe();
+}
+
+function highlightText(text, query) {
+  if (!query) return text;
+  const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+  return text.replace(regex, '<mark class="search-highlight">$1</mark>');
+}
+
+function clearSearch(type) {
+  if (type === 'video') {
+    document.getElementById('videoSearch').value = '';
+    document.getElementById('videoSearchCount').textContent = '';
+    document.getElementById('videoSearchClear').style.display = 'none';
+    renderPL();
+  } else {
+    document.getElementById('articleSearch').value = '';
+    document.getElementById('articleSearchCount').textContent = '';
+    document.getElementById('articleSearchClear').style.display = 'none';
+    renderArticles();
+    renderPublished();
+  }
+}
+
+// ===== FAQ DATA =====
+const FAQ = [
+  // حجية السنة
+  {cat:'sunnah', q:'ما الدليل من القرآن على وجوب اتباع السنة النبوية؟',
+   a:'القرآن صريح في هذا: ﴿وَأَطِيعُوا الرَّسُولَ﴾ — وهذا الأمر يعني طاعة الرسول ﷺ في كل ما أمر به، لا الاكتفاء بما جاء في القرآن فحسب. فضلاً عن قوله تعالى: ﴿مَن يُطِعِ الرَّسُولَ فَقَدْ أَطَاعَ اللَّهَ﴾، وقوله: ﴿فَلَا وَرَبِّكَ لَا يُؤْمِنُونَ حَتَّىٰ يُحَكِّمُوكَ﴾. فمن رفض السنة فقد رفض طاعة الله الواردة في القرآن.',
+   ref:'https://youtube.com/watch?v=KKZicTAyR7E', refLabel:'فيديو: أدلة حجية السنة من القرآن'},
+
+  {cat:'sunnah', q:'هل يكفي القرآن وحده دون السنة النبوية؟',
+   a:'لا يكفي — والدليل العملي الذي لا يُرد: الصلاة. القرآن أمرنا بإقامة الصلاة لكنه لم يبيّن عدد ركعاتها ولا كيفيتها ولا أوقاتها. كل ذلك جاء من السنة. فمن ادّعى الاكتفاء بالقرآن وهو يصلي خمس صلوات يُقر بعمله أن السنة حجة.',
+   ref:'https://youtube.com/watch?v=04HLOndBl-A', refLabel:'فيديو: هل القرآن وحده كافٍ للتشريع؟'},
+
+  {cat:'sunnah', q:'هل السنة النبوية وحي من الله أم آراء شخصية؟',
+   a:'السنة وحي من الله عز وجل، يقول تعالى: ﴿وَمَا يَنطِقُ عَنِ الْهَوَىٰ • إِنْ هُوَ إِلَّا وَحْيٌ يُوحَىٰ﴾. فالنبي ﷺ لا يتكلم من عنده في أمور الدين، بل ما ينطق به وحي. والفرق بين الوحي الجلي (القرآن) والوحي الخفي (السنة) — وكلاهما من الله.',
+   ref:'https://youtube.com/watch?v=0qsfvtQsMjE', refLabel:'فيديو: هل هناك وحي خارج القرآن؟'},
+
+  {cat:'sunnah', q:'هل طاعة الرسول ﷺ انتهت بوفاته؟',
+   a:'لا — طاعته ﷺ واجبة إلى قيام الساعة عبر سنته المحفوظة. فالقرآن الكريم أمرنا بطاعته ولم يقيّد ذلك بحياته، وسنته المدوّنة هي التي تُحقق هذه الطاعة بعد وفاته. ومن ادّعى أن لا طاعة لميت فليتساءل: لماذا يتبع القرآن الذي نزل على ميت؟',
+   ref:'https://youtube.com/watch?v=HXy0ivu96Sc', refLabel:'فيديو: هل حقا لا طاعة لميت؟'},
+
+  {cat:'sunnah', q:'ما معنى قوله تعالى: ﴿مَا فَرَّطْنَا فِي الْكِتَابِ مِن شَيْءٍ﴾؟',
+   a:'الكتاب في هذه الآية يعني اللوح المحفوظ لا القرآن خاصة — والدليل أن الآية في سياق الحديث عن الطير والأمم لا عن التشريع الفقهي. وحتى لو سلّمنا أن المراد القرآن، فإن القرآن نفسه أمر باتباع الرسول وهذا يشمل سنته.',
+   ref:'https://youtube.com/watch?v=MIcbJsruakQ', refLabel:'فيديو: شرح مافرطنا في الكتاب'},
+
+  // الحديث
+  {cat:'hadith', q:'هل يمكن الوثوق بالأحاديث النبوية بعد مرور قرون على نقلها؟',
+   a:'نعم — ومنهج المحدثين في النقد النقدي أدق من أي منهج تاريخي آخر في العالم. شروط قبول الحديث (اتصال السند، عدالة الرواة، ضبطهم، انتفاء الشذوذ والعلة) تجعله أعلى موثوقية من أي وثيقة تاريخية. حتى المؤرخ الغربي أسد رستم أشاد بهذا المنهج في كتابه "مصطلح التاريخ".',
+   ref:'https://youtube.com/watch?v=xJ-lDKS7MjI', refLabel:'فيديو: هل تم نقد الأحاديث؟'},
+
+  {cat:'hadith', q:'ما شروط صحة الحديث النبوي؟',
+   a:'خمسة شروط: (١) اتصال السند — أن يكون كل راوٍ سمع ممن فوقه. (٢) عدالة الرواة — الإسلام والتقوى وعدم الفسق. (٣) الضبط — حفظ الراوي للحديث دون خطأ. (٤) انتفاء الشذوذ — لا يخالف ما هو أثبت منه. (٥) انتفاء العلة — لا يوجد قدح خفي. فإذا اجتمعت الخمسة كان الحديث صحيحاً.',
+   ref:'https://youtube.com/watch?v=ixuqBi6B1O0', refLabel:'فيديو: شروط صحة الحديث'},
+
+  {cat:'hadith', q:'هل حديث الآحاد حجة في العقيدة والأحكام؟',
+   a:'جمهور العلماء على أن خبر الآحاد الصحيح حجة في الأحكام الفقهية، وذهب كثير منهم إلى حجيته في العقيدة أيضاً. والدليل أن النبي ﷺ كان يرسل رسلاً آحاداً إلى الملوك وإلى القبائل ليُعلّموهم الإسلام — فلو لم يكن خبر الآحاد حجة لما أرسلهم.',
+   ref:'https://youtube.com/watch?v=sr1OBTe81Dw', refLabel:'فيديو: حجية خبر الآحاد'},
+
+  {cat:'hadith', q:'لماذا لم يُدوَّن الحديث في عهد النبي ﷺ مباشرة؟',
+   a:'هذا غير دقيق — فقد كُتبت الأحاديث في عهد النبي ﷺ. من أشهر ذلك: صحيفة عبدالله بن عمرو بن العاص "الصادقة" التي كان يكتب فيها الأحاديث بإذن صريح من النبي ﷺ. والتدوين الرسمي الشامل تأخّر لأسباب منهجية، لكن الحفظ كان شفهياً وكتابياً معاً من البداية.',
+   ref:'https://youtube.com/watch?v=yezqkzkVHC8', refLabel:'فيديو: بداية تدوين الأحاديث'},
+
+  // الفقه
+  {cat:'fiqh', q:'لماذا اختلف الفقهاء في المسائل الشرعية؟',
+   a:'الاختلاف الفقهي المشروع له أسباب علمية: (١) اختلاف في ثبوت بعض الأحاديث. (٢) اختلاف في تفسير النصوص. (٣) التعارض الظاهري بين الأدلة وطريقة الجمع. (٤) المسائل التي لا نص فيها فيُجتهد فيها. هذا ليس تناقضاً في الإسلام بل ثراء في المنهج العلمي.',
+   ref:'https://youtube.com/watch?v=5NdcLkMCWvY', refLabel:'فيديو: لماذا يختلف أهل العلم؟'},
+
+  {cat:'fiqh', q:'هل حد الرجم يتعارض مع القرآن الكريم؟',
+   a:'لا تعارض البتة — حد الرجم ثابت بالسنة المتواترة وإجماع الصحابة والتابعين وأئمة المذاهب الأربعة. والقرآن لم ينفِ حد الرجم، بل السنة جاءت لتبيّن ما لم يُفصّله القرآن. ومن الأصول أن السنة تبيّن القرآن ولا تعارضه.',
+   ref:'https://youtube.com/watch?v=ipgqMdE1zJc', refLabel:'فيديو: هل خالف حد الرجم القرآن؟'},
+
+  {cat:'fiqh', q:'ما حكم حد الردة في الإسلام؟',
+   a:'اتفق الفقهاء الأربعة على أن المرتد يُستتاب، فإن تاب وإلا أُقيم عليه الحد. والدليل أحاديث متعددة كحديث: "من بدّل دينه فاقتلوه". ومن قال إن القرآن لا يذكر حد الردة فهو صحيح — لكن السنة تبيّن ما لم يُفصّله القرآن، وهذا بالضبط دور السنة.',
+   ref:'https://youtube.com/watch?v=C6d4nMZL5zA', refLabel:'فيديو: حد الردة في كتاب الله'},
+
+  // النبي والرسول
+  {cat:'prophet', q:'هل يفرّق القرآن بين مقام النبي ومقام الرسول لنبينا محمد ﷺ؟',
+   a:'لا — هذا اختراع لا أصل له في القرآن. والدليل: موسى عليه السلام يُخاطَب بـ"النبي" تارة وبـ"الرسول" تارة أخرى في نفس السياقات وبنفس الأحكام. لو كان الفرق جوهرياً لتبيّن في القرآن. ومن ادّعى هذا الفرق يلزمه دليل قرآني صريح وهو غير موجود.',
+   ref:'https://youtube.com/watch?v=RFb6F9qpXAU', refLabel:'فيديو: لماذا يفرقون بين النبي والرسول؟'},
+
+  {cat:'prophet', q:'هل وظيفة الرسول ﷺ مجرد تبليغ القرآن فقط؟',
+   a:'لا — بل وظيفته البيان والتعليم والتطبيق. قال تعالى: ﴿وَأَنزَلْنَا إِلَيْكَ الذِّكْرَ لِتُبَيِّنَ لِلنَّاسِ مَا نُزِّلَ إِلَيْهِمْ﴾. فالبيان أوسع من مجرد قراءة النص — يشمل الشرح والتطبيق العملي والسنة. لو كانت وظيفته النقل فقط لما احتجنا لرسول.',
+   ref:'https://youtube.com/watch?v=Ygfn4zoVUIk', refLabel:'فيديو: هل وظيفة الرسول تبليغ القرآن فقط؟'},
+
+  // القرآن
+  {cat:'quran', q:'ما معنى قوله تعالى: ﴿وَنَزَّلْنَا عَلَيْكَ الْكِتَابَ تِبْيَانًا لِّكُلِّ شَيْءٍ﴾؟',
+   a:'التبيان للكل يعني أن القرآن أصل لكل حكم، لكنه قد يكون مُجملاً يحتاج تفصيلاً من السنة. فمثلاً القرآن يأمر بالصلاة والزكاة والحج ولكن السنة هي التي تفصّل الكيفية. فالقرآن "تبيان" بمعنى أنه يُبيّن الأصول، والسنة تبيّن التفاصيل — وكلاهما من الله.',
+   ref:'https://youtube.com/watch?v=kqUL02eWLD0', refLabel:'فيديو: القرآن تبيان لكل شيء'},
+
+  {cat:'quran', q:'هل حفظ الله للقرآن يعني حفظ حروفه فقط؟',
+   a:'حفظ الله للقرآن يشمل حروفه ومعانيه وبيانه. فلو حُفظت الحروف دون البيان لضاع المعنى العملي. والله حفظ البيان بحفظ السنة النبوية التي هي التطبيق العملي للقرآن. والدليل أن ١٤ قرناً مرّت والصلاة واحدة في كل أنحاء الأرض — هذا حفظ إلهي للبيان.',
+   ref:'https://youtube.com/watch?v=UV7ydh6p9A0', refLabel:'فيديو: حفظ القرآن هل حفظ لحروفه فقط؟'},
+];
+
+function renderFaq(filter='all') {
+  const grid = document.getElementById('faqGrid');
+  const filtered = filter === 'all' ? FAQ : FAQ.filter(f => f.cat === filter);
+  grid.innerHTML = filtered.map((f, i) => `
+    <div class="faq-card" id="faq-${i}">
+      <div class="faq-q" onclick="toggleFaq(${i})">
+        <div>
+          <div class="faq-cat-label">${{sunnah:'حجية السنة',hadith:'الحديث',fiqh:'الفقه',prophet:'النبي والرسول',quran:'القرآن'}[f.cat]||'عام'}</div>
+          <div class="faq-q-text">${f.q}</div>
+        </div>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        ${f.a}
+        ${f.ref ? `<br><a class="faq-ref" href="${f.ref}" target="_blank">▶ ${f.refLabel}</a>` : ''}
+        <br><div style="margin-top:.5rem">${buildShareBar('https://sunnachat.com/#faq-'+i, f.q)}</div>
+      </div>
+    </div>`).join('');
+}
+
+function toggleFaq(i) {
+  const card = document.getElementById('faq-'+i);
+  if (!card) return;
+  const isOpen = card.classList.contains('open');
+  // أغلق الكل
+  document.querySelectorAll('.faq-card.open').forEach(c => c.classList.remove('open'));
+  // افتح المطلوب
+  if (!isOpen) card.classList.add('open');
+}
+
+function filterFaq(cat, btn) {
+  document.querySelectorAll('.faq-fbtn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFaq(cat);
+}
+
 
 
 // ===== PWA & SERVICE WORKER =====
