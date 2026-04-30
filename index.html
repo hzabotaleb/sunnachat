@@ -32,6 +32,62 @@
 html{scroll-behavior:smooth}
 body{font-family:'Cairo',sans-serif;background:var(--parchment);color:var(--text-main);overflow-x:hidden}
 
+/* ===== BOTTOM ASK BAR ===== */
+.ask-bar{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  z-index:290;
+  background:linear-gradient(90deg,var(--green-deep),#0d2218 50%,var(--green-deep));
+  border-top:1px solid rgba(201,151,58,.3);
+  padding:.6rem 1.5rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:1rem;
+  box-shadow:0 -4px 20px rgba(0,0,0,.35);
+}
+.ask-bar-text{
+  color:rgba(255,255,255,.6);
+  font-size:.8rem;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+}
+.ask-bar-btn{
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:var(--ink);
+  border:none;
+  padding:.55rem 1.5rem;
+  border-radius:20px;
+  font-weight:700;
+  font-family:'Cairo',sans-serif;
+  font-size:.88rem;
+  cursor:pointer;
+  transition:all .2s;
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+  white-space:nowrap;
+}
+.ask-bar-btn:hover{
+  background:var(--gold-light);
+  transform:translateY(-1px);
+  box-shadow:0 4px 12px rgba(201,151,58,.4);
+}
+.ask-bar-dismiss{
+  background:none;
+  border:none;
+  color:rgba(255,255,255,.3);
+  cursor:pointer;
+  font-size:1rem;
+  padding:.2rem .4rem;
+  transition:color .2s;
+  flex-shrink:0;
+}
+.ask-bar-dismiss:hover{color:rgba(255,255,255,.6)}
+/* تعديل موضع زر العودة لأعلى عند ظهور الشريط */
+.ask-bar ~ .back-top, body.ask-visible .back-top{bottom:4.5rem}
+
 /* ===== UPDATE BANNER ===== */
 .update-banner{
   display:none;
@@ -445,6 +501,17 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
 <body>
 
 <!-- NAV -->
+<!-- شريط المساعد السفلي -->
+<div class="ask-bar" id="askBar">
+  <span class="ask-bar-text">
+    🕌 <span>لديك سؤال حول السنة النبوية أو الشبهات؟</span>
+  </span>
+  <button class="ask-bar-btn" onclick="showPage('assistant');closeAskBar()">
+    🤖 اسأل المساعد الذكي ✦
+  </button>
+  <button class="ask-bar-dismiss" onclick="closeAskBar()" title="إغلاق">✕</button>
+</div>
+
 <!-- شريط التحديث -->
 <div class="update-banner" id="updateBanner">
   <div class="update-banner-text">
@@ -480,7 +547,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
     <li><a onclick="showPage('assistant')" data-key="nav_assistant">المساعد</a></li>
     <li><a onclick="showPage('faq')" data-key="nav_faq">أسئلة شائعة</a></li>
     <li><a onclick="showPage('about')" data-key="nav_about">عن الموقع</a></li>
-    <li><a onclick="showPage('assistant')" class="nav-cta" data-key="nav_ask">اسأل المساعد ✦</a></li>
+
   </ul>
   <div class="lang-switcher">
     <button class="lang-btn active" onclick="setLang('ar')" id="btn-ar">ع</button>
@@ -2687,6 +2754,41 @@ document.addEventListener('keydown', e => {
   if (e.key==='/' && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) { e.preventDefault(); openGSearch(); }
 });
 
+
+
+// ===== ASK BAR =====
+function closeAskBar() {
+  const bar = document.getElementById('askBar');
+  if (bar) {
+    bar.style.transform = 'translateY(100%)';
+    bar.style.transition = 'transform .3s ease';
+    setTimeout(() => bar.style.display = 'none', 300);
+    document.body.classList.remove('ask-visible');
+    // نُظهره مجدداً بعد 10 دقائق
+    setTimeout(() => {
+      if (bar) {
+        bar.style.display = 'flex';
+        bar.style.transform = 'translateY(0)';
+        document.body.classList.add('ask-visible');
+      }
+    }, 600000);
+  }
+}
+
+// إخفاء الشريط عند فتح المساعد مباشرة
+const _origShowPage = showPage;
+function showPage(id) {
+  _origShowPage(id);
+  const bar = document.getElementById('askBar');
+  if (id === 'assistant' && bar) {
+    bar.style.display = 'none';
+    document.body.classList.remove('ask-visible');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('ask-visible');
+});
 
 // ===== PWA & SERVICE WORKER =====
 let deferredInstallPrompt = null;
