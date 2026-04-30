@@ -11,6 +11,7 @@
 <meta property="og:description" content="الرد العلمي على شبهات منكري السنة النبوية بالحجج والأدلة الشرعية">
 <!-- PWA -->
 <link rel="manifest" href="/manifest.json">
+<link rel="alternate" type="application/rss+xml" title="سنة شات RSS" href="/rss.xml">
 <meta name="theme-color" content="#c9973a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -397,6 +398,48 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
 .faq-fbtn{background:white;border:1px solid var(--border);color:var(--text-muted);padding:.35rem .85rem;border-radius:20px;font-size:.78rem;cursor:pointer;transition:all .2s;font-family:'Cairo',sans-serif}
 .faq-fbtn:hover,.faq-fbtn.active{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:700}
 
+
+/* ===== GLOBAL SEARCH ===== */
+.gsearch-overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(10,9,7,.85);backdrop-filter:blur(8px)}
+.gsearch-overlay.active{display:flex;align-items:flex-start;justify-content:center;padding-top:6rem}
+.gsearch-box{background:var(--ink);border:1px solid rgba(201,151,58,.3);border-radius:16px;width:100%;max-width:680px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6);animation:gsAnim .2s ease}
+@keyframes gsAnim{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+.gsearch-input-row{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.gsearch-icon{color:var(--gold);font-size:1.2rem;flex-shrink:0}
+.gsearch-inp{flex:1;background:none;border:none;color:white;font-family:'Cairo',sans-serif;font-size:1.05rem;outline:none;direction:rtl}
+.gsearch-inp::placeholder{color:rgba(255,255,255,.3)}
+.gsearch-close{background:rgba(255,255,255,.08);border:none;color:rgba(255,255,255,.5);width:30px;height:30px;border-radius:6px;cursor:pointer;font-size:.9rem;flex-shrink:0;transition:all .2s}
+.gsearch-close:hover{background:rgba(255,255,255,.15);color:white}
+.gsearch-results{max-height:60vh;overflow-y:auto;padding:.5rem}
+.gsearch-section-title{font-size:.68rem;letter-spacing:.1em;color:rgba(255,255,255,.3);text-transform:uppercase;padding:.6rem .75rem .3rem;margin-top:.25rem}
+.gsearch-item{display:flex;align-items:center;gap:.75rem;padding:.65rem .75rem;border-radius:8px;cursor:pointer;transition:background .15s}
+.gsearch-item:hover{background:rgba(201,151,58,.1)}
+.gsearch-item-icon{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.gsearch-item-icon.video{background:rgba(239,68,68,.15)}
+.gsearch-item-icon.article{background:rgba(201,151,58,.15)}
+.gsearch-item-icon.book{background:rgba(64,145,108,.15)}
+.gsearch-item-icon.faq{background:rgba(139,92,246,.15)}
+.gsearch-item-body{flex:1;min-width:0}
+.gsearch-item-title{font-size:.88rem;color:rgba(255,255,255,.88);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gsearch-item-sub{font-size:.72rem;color:rgba(255,255,255,.35);margin-top:.1rem}
+.gsearch-item-badge{font-size:.65rem;background:rgba(201,151,58,.12);color:var(--gold);padding:.15rem .45rem;border-radius:8px;flex-shrink:0;white-space:nowrap}
+.gsearch-empty{text-align:center;padding:2.5rem;color:rgba(255,255,255,.3)}
+.gsearch-empty-icon{font-size:2.5rem;margin-bottom:.75rem;opacity:.4}
+/* مقترحات */
+.gsearch-suggestions{display:flex;flex-wrap:wrap;gap:.4rem;padding:.75rem 1.25rem;border-top:1px solid rgba(255,255,255,.06)}
+.gsearch-hint{font-size:.7rem;color:rgba(255,255,255,.3);width:100%;margin-bottom:.25rem}
+.gsearch-sug{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.55);padding:.25rem .65rem;border-radius:16px;font-size:.75rem;cursor:pointer;font-family:'Cairo',sans-serif;transition:all .18s}
+.gsearch-sug:hover{background:rgba(201,151,58,.15);border-color:var(--gold);color:var(--gold-light)}
+/* زر البحث في الـ nav */
+.nav-search-btn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.55);padding:.3rem .8rem;border-radius:20px;cursor:pointer;font-size:.8rem;font-family:'Cairo',sans-serif;display:flex;align-items:center;gap:.4rem;transition:all .2s;margin-left:.5rem}
+.nav-search-btn:hover{background:rgba(201,151,58,.15);border-color:var(--gold);color:var(--gold-light)}
+/* بحث الصفحة الرئيسية */
+.hero-search{margin:1.5rem auto 0;max-width:560px;position:relative;width:90%}
+.hero-search-inp{width:100%;background:rgba(255,255,255,.08);border:1.5px solid rgba(201,151,58,.3);border-radius:30px;padding:.8rem 1.2rem .8rem 3rem;font-family:'Cairo',sans-serif;font-size:.95rem;color:white;outline:none;direction:rtl;transition:all .2s;backdrop-filter:blur(4px)}
+.hero-search-inp:focus{background:rgba(255,255,255,.12);border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,151,58,.15)}
+.hero-search-inp::placeholder{color:rgba(255,255,255,.4)}
+.hero-search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--gold);font-size:1.1rem;pointer-events:none}
+
 </style>
 </head>
 <body>
@@ -443,8 +486,37 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
     <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
     <button class="lang-btn" onclick="setLang('fr')" id="btn-fr">FR</button>
   </div>
+  <button class="nav-search-btn" onclick="openGSearch()" title="بحث شامل">
+    🔍 <span style="font-size:.75rem">بحث</span>
+  </button>
   <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
 </nav>
+
+<!-- GLOBAL SEARCH OVERLAY -->
+<div class="gsearch-overlay" id="gsOverlay" onclick="closeGSearch(event)">
+  <div class="gsearch-box">
+    <div class="gsearch-input-row">
+      <span class="gsearch-icon">🔍</span>
+      <input class="gsearch-inp" id="gsInp" type="text"
+        placeholder="ابحث في الفيديوهات والمقالات والكتب والأسئلة..."
+        oninput="runGSearch(this.value)"
+        onkeydown="handleGSearchKey(event)">
+      <button class="gsearch-close" onclick="closeGSearch()">✕</button>
+    </div>
+    <div class="gsearch-suggestions" id="gsSuggestions">
+      <div class="gsearch-hint">اقتراحات سريعة:</div>
+      <button class="gsearch-sug" onclick="setGSearch('حجية السنة')">حجية السنة</button>
+      <button class="gsearch-sug" onclick="setGSearch('طاعة الرسول')">طاعة الرسول</button>
+      <button class="gsearch-sug" onclick="setGSearch('نقد الحديث')">نقد الحديث</button>
+      <button class="gsearch-sug" onclick="setGSearch('حد الرجم')">حد الرجم</button>
+      <button class="gsearch-sug" onclick="setGSearch('النبي والرسول')">النبي والرسول</button>
+      <button class="gsearch-sug" onclick="setGSearch('القرآن وحده')">القرآن وحده</button>
+      <button class="gsearch-sug" onclick="setGSearch('إرضاع الكبير')">إرضاع الكبير</button>
+      <button class="gsearch-sug" onclick="setGSearch('شحرور')">شحرور</button>
+    </div>
+    <div class="gsearch-results" id="gsResults" style="display:none"></div>
+  </div>
+</div>
 
 <!-- ===== HOME ===== -->
 <div id="home" class="page active">
@@ -465,7 +537,15 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
       <div class="stat"><div class="stat-num">٢</div><div class="stat-label" id="stat3-label">كتاب منشور</div></div>
       <div class="stat"><div class="stat-num">∞</div><div class="stat-label" id="stat4-label">متاح للأبد</div></div>
     </div>
-    <div class="hero-btns">
+    <div class="hero-search">
+    <span class="hero-search-icon">🔍</span>
+    <input class="hero-search-inp" type="text"
+      placeholder="ابحث عن فيديو أو مقال أو سؤال..."
+      onclick="openGSearch()"
+      readonly>
+  </div>
+  <div style="height:.75rem"></div>
+  <div class="hero-btns">
       <button class="btn-gold" onclick="showPage('playlists')" ><span id="btn-videos">📺 شاهد الفيديوهات</span></button>
       <button class="btn-gold" onclick="showPage('articles')" ><span id="btn-articles-hero">📄 المقالات</span></button>
       <button class="btn-gold" onclick="showPage('library')" ><span id="btn-library-hero">📚 المكتبة</span></button>
@@ -2390,6 +2470,55 @@ const FAQ = [
    ref:'https://youtube.com/watch?v=UV7ydh6p9A0', refLabel:'فيديو: حفظ القرآن هل حفظ لحروفه فقط؟'},
 ];
 
+
+const FAQ=[
+  {cat:'sunnah',q:'ما الدليل من القرآن على وجوب اتباع السنة النبوية؟',
+   a:'القرآن صريح: ﴿وَأَطِيعُوا الرَّسُولَ﴾ وقوله: ﴿مَن يُطِعِ الرَّسُولَ فَقَدْ أَطَاعَ اللَّهَ﴾. فمن رفض السنة فقد رفض طاعة الله الواردة في القرآن نفسه.',
+   ref:'https://youtube.com/watch?v=KKZicTAyR7E',refLabel:'فيديو: أدلة حجية السنة من القرآن'},
+  {cat:'sunnah',q:'هل يكفي القرآن وحده دون السنة النبوية؟',
+   a:'لا يكفي — والدليل العملي: الصلاة. القرآن أمر بإقامتها لكن السنة بيّنت كيفيتها وأوقاتها وركعاتها. فمن يصلي خمس صلوات يُقر بعمله أن السنة حجة.',
+   ref:'https://youtube.com/watch?v=04HLOndBl-A',refLabel:'فيديو: هل القرآن وحده كافٍ للتشريع؟'},
+  {cat:'sunnah',q:'هل السنة النبوية وحي من الله أم آراء شخصية؟',
+   a:'السنة وحي من الله: ﴿وَمَا يَنطِقُ عَنِ الْهَوَىٰ • إِنْ هُوَ إِلَّا وَحْيٌ يُوحَىٰ﴾. والفرق بين الوحي الجلي (القرآن) والوحي الخفي (السنة) — وكلاهما من الله.',
+   ref:'https://youtube.com/watch?v=0qsfvtQsMjE',refLabel:'فيديو: هل هناك وحي خارج القرآن؟'},
+  {cat:'sunnah',q:'هل طاعة الرسول ﷺ انتهت بوفاته؟',
+   a:'لا — طاعته واجبة إلى قيام الساعة عبر سنته المحفوظة. القرآن أمر بطاعته ولم يقيّد ذلك بحياته، وسنته المدوّنة هي التي تُحقق هذه الطاعة بعد وفاته.',
+   ref:'https://youtube.com/watch?v=HXy0ivu96Sc',refLabel:'فيديو: هل لا طاعة لميت؟'},
+  {cat:'sunnah',q:'ما معنى قوله تعالى: ﴿مَا فَرَّطْنَا فِي الْكِتَابِ مِن شَيْءٍ﴾؟',
+   a:'الكتاب هنا اللوح المحفوظ لا القرآن خاصة. وحتى لو سلّمنا أن المراد القرآن فإن القرآن نفسه أمر باتباع الرسول وهذا يشمل سنته.',
+   ref:'https://youtube.com/watch?v=MIcbJsruakQ',refLabel:'فيديو: شرح مافرطنا في الكتاب'},
+  {cat:'hadith',q:'هل يمكن الوثوق بالأحاديث بعد قرون على نقلها؟',
+   a:'نعم — منهج المحدثين في النقد أدق من أي منهج تاريخي في العالم. حتى المؤرخ الغربي أسد رستم أشاد به في كتابه "مصطلح التاريخ" متأثراً بعلم "مصطلح الحديث".',
+   ref:'https://youtube.com/watch?v=xJ-lDKS7MjI',refLabel:'فيديو: هل تم نقد الأحاديث؟'},
+  {cat:'hadith',q:'ما شروط صحة الحديث النبوي؟',
+   a:'خمسة شروط: (١) اتصال السند (٢) عدالة الرواة (٣) الضبط والحفظ (٤) انتفاء الشذوذ (٥) انتفاء العلة الخفية. إذا اجتمعت كان الحديث صحيحاً.',
+   ref:'https://youtube.com/watch?v=ixuqBi6B1O0',refLabel:'فيديو: شروط صحة الحديث'},
+  {cat:'hadith',q:'هل حديث الآحاد حجة في الأحكام؟',
+   a:'جمهور العلماء على أنه حجة. والدليل أن النبي ﷺ أرسل آحاداً إلى الملوك والقبائل — فلو لم يكن خبرهم حجة لما أرسلهم.',
+   ref:'https://youtube.com/watch?v=sr1OBTe81Dw',refLabel:'فيديو: حجية خبر الآحاد'},
+  {cat:'fiqh',q:'لماذا اختلف الفقهاء في المسائل الشرعية؟',
+   a:'لأسباب علمية: اختلاف في ثبوت بعض الأحاديث، اختلاف في تفسير النصوص، التعارض الظاهري وطريقة الجمع. هذا ثراء في المنهج لا تناقض في الإسلام.',
+   ref:'https://youtube.com/watch?v=5NdcLkMCWvY',refLabel:'فيديو: لماذا يختلف أهل العلم؟'},
+  {cat:'fiqh',q:'هل حد الرجم يتعارض مع القرآن؟',
+   a:'لا تعارض — الرجم ثابت بالسنة المتواترة وإجماع الصحابة والأئمة الأربعة. القرآن لم ينفِه والسنة تبيّن ما لم يُفصّله القرآن.',
+   ref:'https://youtube.com/watch?v=ipgqMdE1zJc',refLabel:'فيديو: هل خالف حد الرجم القرآن؟'},
+  {cat:'fiqh',q:'ما حكم حد الردة في الإسلام؟',
+   a:'اتفق الفقهاء الأربعة على أن المرتد يُستتاب، فإن تاب وإلا أُقيم عليه الحد لحديث: "من بدّل دينه فاقتلوه". والسنة تبيّن ما لم يُفصّله القرآن.',
+   ref:'https://youtube.com/watch?v=C6d4nMZL5zA',refLabel:'فيديو: حد الردة في كتاب الله'},
+  {cat:'prophet',q:'هل يفرّق القرآن بين مقام النبي ومقام الرسول لمحمد ﷺ؟',
+   a:'لا — هذا اختراع لا أصل له. موسى عليه السلام يُخاطَب بالاثنين في نفس السياقات وبنفس الأحكام. ومن ادّعى هذا الفرق يلزمه دليل قرآني صريح وهو غير موجود.',
+   ref:'https://youtube.com/watch?v=RFb6F9qpXAU',refLabel:'فيديو: لماذا يفرقون بين النبي والرسول؟'},
+  {cat:'prophet',q:'هل وظيفة الرسول ﷺ مجرد تبليغ القرآن فقط؟',
+   a:'لا — بل البيان والتعليم والتطبيق. ﴿لِتُبَيِّنَ لِلنَّاسِ مَا نُزِّلَ إِلَيْهِمْ﴾. البيان أوسع من قراءة النص — يشمل الشرح والتطبيق العملي والسنة.',
+   ref:'https://youtube.com/watch?v=Ygfn4zoVUIk',refLabel:'فيديو: هل وظيفة الرسول تبليغ القرآن فقط؟'},
+  {cat:'quran',q:'ما معنى ﴿وَنَزَّلْنَا عَلَيْكَ الْكِتَابَ تِبْيَانًا لِّكُلِّ شَيْءٍ﴾؟',
+   a:'القرآن أصل لكل حكم لكنه مُجمل يحتاج تفصيلاً من السنة. مثلاً يأمر بالصلاة لكن السنة تبيّن الكيفية. القرآن تبيان بمعنى أصل الأحكام والسنة تبيّن التفاصيل.',
+   ref:'https://youtube.com/watch?v=kqUL02eWLD0',refLabel:'فيديو: القرآن تبيان لكل شيء'},
+  {cat:'quran',q:'هل حفظ الله للقرآن يعني حفظ حروفه فقط؟',
+   a:'حفظه يشمل حروفه ومعانيه وبيانه. والدليل أن ١٤ قرناً مرّت والصلاة واحدة في كل الأرض — هذا حفظ إلهي للبيان عبر السنة المحفوظة.',
+   ref:'https://youtube.com/watch?v=UV7ydh6p9A0',refLabel:'فيديو: حفظ القرآن هل حفظ لحروفه فقط؟'},
+];
+
 function renderFaq(filter='all') {
   const grid = document.getElementById('faqGrid');
   const filtered = filter === 'all' ? FAQ : FAQ.filter(f => f.cat === filter);
@@ -2426,6 +2555,218 @@ function filterFaq(cat, btn) {
   renderFaq(cat);
 }
 
+
+
+
+// ===== GLOBAL SEARCH =====
+let gsTimeout = null;
+
+function openGSearch() {
+  document.getElementById('gsOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('gsInp').focus(), 100);
+}
+
+function closeGSearch(e) {
+  if (e && e.target !== document.getElementById('gsOverlay')) return;
+  document.getElementById('gsOverlay').classList.remove('active');
+  document.getElementById('gsInp').value = '';
+  document.getElementById('gsResults').style.display = 'none';
+  document.getElementById('gsSuggestions').style.display = 'flex';
+  document.body.style.overflow = '';
+}
+
+function setGSearch(text) {
+  document.getElementById('gsInp').value = text;
+  runGSearch(text);
+}
+
+function handleGSearchKey(e) {
+  if (e.key === 'Escape') closeGSearch();
+}
+
+function runGSearch(query) {
+  clearTimeout(gsTimeout);
+  const q = query.trim().toLowerCase();
+  const sug = document.getElementById('gsSuggestions');
+  const res = document.getElementById('gsResults');
+
+  if (!q) {
+    res.style.display = 'none';
+    sug.style.display = 'flex';
+    return;
+  }
+  sug.style.display = 'none';
+  res.style.display = 'block';
+
+  gsTimeout = setTimeout(() => {
+    const results = { videos:[], articles:[], books:[], faqs:[] };
+
+    // بحث في الفيديوهات
+    PL.forEach(pl => {
+      pl.vids.forEach(v => {
+        if (v.t.toLowerCase().includes(q) || v.d.toLowerCase().includes(q) || pl.title.toLowerCase().includes(q)) {
+          results.videos.push({
+            title: v.t,
+            sub: pl.title,
+            icon: '📹',
+            action: () => { closeGSearch(); showPage('playlists'); setTimeout(()=>{ openVid(pl.id); setTimeout(()=>{ const i=pl.vids.indexOf(v); if(i>=0) playV(i); },300); },300); }
+          });
+        }
+      });
+    });
+
+    // بحث في المقالات
+    ARTICLES.forEach(ch => {
+      ch.articles.forEach(a => {
+        if (a.title.toLowerCase().includes(q) || a.subtitle.toLowerCase().includes(q) || a.summary.toLowerCase().includes(q) || a.tags.some(t=>t.toLowerCase().includes(q))) {
+          results.articles.push({
+            title: a.title,
+            sub: ch.chapterTitle + ' — ' + ch.bookTitle,
+            icon: '📄',
+            action: () => { closeGSearch(); showPage('articles'); setTimeout(()=>openArticle(a.id),300); }
+          });
+        }
+      });
+    });
+
+    // بحث في المقالات المنشورة
+    PUBLISHED_ARTICLES.forEach(a => {
+      if (a.title.toLowerCase().includes(q) || (a.subtitle||'').toLowerCase().includes(q)) {
+        results.articles.push({
+          title: a.title,
+          sub: 'مقال منشور',
+          icon: '📄',
+          action: () => { window.open('articles/'+a.file,'_blank'); closeGSearch(); }
+        });
+      }
+    });
+
+    // بحث في الكتب
+    const books = [
+      {title:'مناقشات فكرية معاصرة لمنكري السنة النبوية المطهرة', sub:'الكتاب الأول — د. هيثم أبو طالب', action:()=>{ closeGSearch(); showPage('library'); }},
+      {title:'بالله نكتفي وبرسوله ﷺ نقتدي', sub:'الكتاب الثاني — د. هيثم أبو طالب', action:()=>{ closeGSearch(); showPage('library'); }},
+    ];
+    books.forEach(b => {
+      if (b.title.toLowerCase().includes(q)) {
+        results.books.push({...b, icon:'📚'});
+      }
+    });
+
+    // بحث في الأسئلة الشائعة
+    if (typeof FAQ !== 'undefined') {
+      FAQ.forEach((f, i) => {
+        if (f.q.toLowerCase().includes(q) || f.a.toLowerCase().includes(q)) {
+          results.faqs.push({
+            title: f.q,
+            sub: {sunnah:'حجية السنة',hadith:'الحديث',fiqh:'الفقه',prophet:'النبي والرسول',quran:'القرآن'}[f.cat]||'سؤال',
+            icon: '❓',
+            action: () => { closeGSearch(); showPage('faq'); setTimeout(()=>{ renderFaq('all'); setTimeout(()=>toggleFaq(i),200); },300); }
+          });
+        }
+      });
+    }
+
+    const total = results.videos.length + results.articles.length + results.books.length + results.faqs.length;
+
+    if (total === 0) {
+      res.innerHTML = `<div class="gsearch-empty">
+        <div class="gsearch-empty-icon">🔍</div>
+        <p>لا توجد نتائج لـ "<strong style="color:var(--gold)">${query}</strong>"</p>
+        <p style="font-size:.78rem;margin-top:.4rem">جرّب كلمات أخرى</p>
+      </div>`;
+      return;
+    }
+
+    let html = '';
+
+    if (results.videos.length) {
+      html += `<div class="gsearch-section-title">📹 فيديوهات (${results.videos.length})</div>`;
+      results.videos.slice(0,6).forEach((r,i) => {
+        html += `<div class="gsearch-item" onclick="gResults_${Date.now()}_v${i}()">
+          <div class="gsearch-item-icon video">${r.icon}</div>
+          <div class="gsearch-item-body">
+            <div class="gsearch-item-title">${hlG(r.title,q)}</div>
+            <div class="gsearch-item-sub">${r.sub}</div>
+          </div>
+          <span class="gsearch-item-badge">فيديو</span>
+        </div>`;
+      });
+    }
+
+    if (results.articles.length) {
+      html += `<div class="gsearch-section-title">📄 مقالات (${results.articles.length})</div>`;
+      results.articles.slice(0,5).forEach((r,i) => {
+        html += `<div class="gsearch-item" onclick="gsAct(${results.videos.length+i})">
+          <div class="gsearch-item-icon article">${r.icon}</div>
+          <div class="gsearch-item-body">
+            <div class="gsearch-item-title">${hlG(r.title,q)}</div>
+            <div class="gsearch-item-sub">${r.sub}</div>
+          </div>
+          <span class="gsearch-item-badge">مقال</span>
+        </div>`;
+      });
+    }
+
+    if (results.books.length) {
+      html += `<div class="gsearch-section-title">📚 كتب</div>`;
+      results.books.forEach((r,i) => {
+        html += `<div class="gsearch-item" onclick="gsAct(${results.videos.length+results.articles.length+i})">
+          <div class="gsearch-item-icon book">${r.icon}</div>
+          <div class="gsearch-item-body">
+            <div class="gsearch-item-title">${hlG(r.title,q)}</div>
+            <div class="gsearch-item-sub">${r.sub}</div>
+          </div>
+          <span class="gsearch-item-badge">كتاب</span>
+        </div>`;
+      });
+    }
+
+    if (results.faqs.length) {
+      html += `<div class="gsearch-section-title">❓ أسئلة شائعة (${results.faqs.length})</div>`;
+      results.faqs.slice(0,4).forEach((r,i) => {
+        html += `<div class="gsearch-item" onclick="gsAct(${results.videos.length+results.articles.length+results.books.length+i})">
+          <div class="gsearch-item-icon faq">${r.icon}</div>
+          <div class="gsearch-item-body">
+            <div class="gsearch-item-title">${hlG(r.title,q)}</div>
+            <div class="gsearch-item-sub">${r.sub}</div>
+          </div>
+          <span class="gsearch-item-badge">سؤال</span>
+        </div>`;
+      });
+    }
+
+    res.innerHTML = html;
+
+    // تخزين الـ actions
+    window._gsActions = [
+      ...results.videos.slice(0,6).map(r=>r.action),
+      ...results.articles.slice(0,5).map(r=>r.action),
+      ...results.books.map(r=>r.action),
+      ...results.faqs.slice(0,4).map(r=>r.action),
+    ];
+
+    // ربط الـ onclick
+    res.querySelectorAll('.gsearch-item').forEach((el,i) => {
+      el.onclick = () => window._gsActions[i] && window._gsActions[i]();
+    });
+
+  }, 200);
+}
+
+function hlG(text, q) {
+  const rx = new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+  return text.replace(rx,'<mark style="background:rgba(201,151,58,.3);border-radius:2px;padding:0 .1rem">$1</mark>');
+}
+
+// Keyboard shortcut: Ctrl+K أو /
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey && e.key==='k') || (e.key==='/' && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName))) {
+    e.preventDefault();
+    openGSearch();
+  }
+  if (e.key==='Escape') closeGSearch();
+});
 
 
 // ===== PWA & SERVICE WORKER =====

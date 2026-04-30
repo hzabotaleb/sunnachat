@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>سنة شات — مناقشات فكرية معاصرة</title>
+    <link>https://sunnachat.com</link>
+    <description>الرد العلمي على شبهات منكري السنة النبوية — د. هيثم أبو طالب</description>
+    <language>ar</language>
+    <managingEditor>hzabotaleb@gmail.com (د. هيثم أبو طالب)</managingEditor>
+    <image>
+      <url>https://sunnachat.com/logo.png</url>
+      <title>سنة شات</title>
+      <link>https://sunnachat.com</link>
+    </image>
+    <atom:link href="https://sunnachat.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Thu, 01 May 2026 00:00:00 +0000</lastBuildDate>
+
+    <!-- ===== أضف محتوى جديداً هنا عند كل تحديث ===== -->
+
+    <item>
+      <title>مقال: خداع المصطلحات في التفريق بين القرآن والكتاب</title>
+      <link>https://sunnachat.com/articles/art_1777319201364.html</link>
+      <description>رد على كتاب محمد شحرور — تحليل علمي للتفريق المزعوم بين مفهوم القرآن والكتاب في القرآن الكريم</description>
+      <pubDate>Sun, 27 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://sunnachat.com/articles/art_1777319201364.html</guid>
+      <category>الرد على شحرور</category>
+    </item>
+
+    <item>
+      <title>كتاب: بالله نكتفي وبرسوله ﷺ نقتدي</title>
+      <link>https://sunnachat.com</link>
+      <description>الكتاب الثاني للدكتور هيثم أبو طالب — رد علمي على دعوى أن القرآن هو المصدر الوحيد للتشريع وعلى شبهات التفريق بين النبي والرسول</description>
+      <pubDate>Mon, 10 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://sunnachat.com/book2</guid>
+      <category>كتب</category>
+    </item>
+
+    <item>
+      <title>كتاب: مناقشات فكرية معاصرة لمنكري السنة النبوية المطهرة</title>
+      <link>https://sunnachat.com</link>
+      <description>الكتاب الأول للدكتور هيثم أبو طالب — الرد على أبرز الشبهات حول حجية السنة النبوية بالأدلة العلمية والشرعية</description>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>https://sunnachat.com/book1</guid>
+      <category>كتب</category>
+    </item>
+
+  </channel>
+</rss>
