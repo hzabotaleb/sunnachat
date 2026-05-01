@@ -345,14 +345,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(15,14,11,0.9
 .art-tag{font-size:.65rem;background:var(--parchment-dark);color:var(--text-muted);padding:.15rem .45rem;border-radius:10px}
 .art-card-footer{margin-top:.75rem;display:flex;justify-content:flex-end}
 .art-read-btn{font-size:.75rem;color:var(--gold-dark);font-weight:700}
-  {
-  file: "اسم الملف: articles/art_1777319201364.html",
-  title: "خداع المصطلحات في التفريق بين القرآن والكتاب (قراءة في مشروع شحرور )",
-  subtitle: "قراءة نقدية لكتاب ( الكتاب والقرآن) - ج ٢",
-  category: "الرد على شحرور",
-  tags: ["خداع المص", "شحرور2"],
-  date: "2026-05-01"
-},
 /* Article full view */
 .art-full{display:none;position:fixed;inset:0;z-index:300;background:var(--parchment);overflow-y:auto}
 .art-full.active{display:block}
@@ -1277,12 +1269,12 @@ function getT() { return TRANSLATIONS[currentLang]; }
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
   window.scrollTo(0,0);
-  // Close menu on mobile
   document.getElementById('navLinks').classList.remove('open');
-  // Trigger reveal
   setTimeout(()=>observe(),100);
+  // إخفاء شريط المساعد عند فتح صفحة المساعد
+  const askBar = document.getElementById('askBar');
+  if (askBar) askBar.style.display = id==='assistant' ? 'none' : 'flex';
 }
 
 function toggleMenu(){
@@ -2767,36 +2759,15 @@ document.addEventListener('keydown', e => {
 // ===== ASK BAR =====
 function closeAskBar() {
   const bar = document.getElementById('askBar');
-  if (bar) {
-    bar.style.transform = 'translateY(100%)';
-    bar.style.transition = 'transform .3s ease';
-    setTimeout(() => bar.style.display = 'none', 300);
-    document.body.classList.remove('ask-visible');
-    // نُظهره مجدداً بعد 10 دقائق
-    setTimeout(() => {
-      if (bar) {
-        bar.style.display = 'flex';
-        bar.style.transform = 'translateY(0)';
-        document.body.classList.add('ask-visible');
-      }
-    }, 600000);
-  }
+  if (!bar) return;
+  bar.style.transform = 'translateY(100%)';
+  bar.style.transition = 'transform .3s ease';
+  setTimeout(() => { bar.style.display = 'none'; }, 300);
+  setTimeout(() => {
+    bar.style.display = 'flex';
+    bar.style.transform = 'translateY(0)';
+  }, 600000);
 }
-
-// إخفاء الشريط عند فتح المساعد مباشرة
-const _origShowPage = showPage;
-function showPage(id) {
-  _origShowPage(id);
-  const bar = document.getElementById('askBar');
-  if (id === 'assistant' && bar) {
-    bar.style.display = 'none';
-    document.body.classList.remove('ask-visible');
-  }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  document.body.classList.add('ask-visible');
-});
 
 // ===== PWA & SERVICE WORKER =====
 let deferredInstallPrompt = null;

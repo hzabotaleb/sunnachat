@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✍️ محرر المقالات — سنة شات</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#c9973a;--gold-light:#e8c068;--gold-dark:#8b6420;--ink:#0f0e0b;--green:#1a3d2b;--border:#333;--bg:#141210;--panel:#1a1714;--text:rgba(255,255,255,.85)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+
+/* TOP BAR */
+.top{background:var(--ink);border-bottom:1px solid rgba(201,151,58,.2);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;position:sticky;top:0;z-index:100;flex-shrink:0}
+.top-logo{font-family:'Amiri',serif;color:var(--gold-light);font-size:1rem}
+.top-actions{display:flex;gap:.5rem}
+.tbtn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);padding:.35rem .85rem;border-radius:6px;cursor:pointer;font-size:.8rem;font-family:'Cairo',sans-serif;transition:all .2s}
+.tbtn:hover{background:rgba(255,255,255,.13);color:white}
+.tbtn.gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--ink);border:none;font-weight:700}
+.tbtn.gold:hover{background:var(--gold-light)}
+
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:260px 1fr 1fr;flex:1;height:calc(100vh - 52px);overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{background:var(--panel);border-left:1px solid var(--border);overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.75rem}
+.field label{font-size:.72rem;color:rgba(255,255,255,.4);letter-spacing:.06em;display:block;margin-bottom:.3rem}
+.field input,.field select,.field textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:.5rem .7rem;color:white;font-family:'Cairo',sans-serif;font-size:.82rem;outline:none;transition:border-color .2s;direction:rtl}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold)}
+.field textarea{resize:vertical;min-height:72px}
+.field select option{background:#1a1714}
+.tags-wrap{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.4rem}
+.tag{background:rgba(201,151,58,.12);border:1px solid rgba(201,151,58,.2);color:var(--gold-light);padding:.18rem .5rem;border-radius:12px;font-size:.7rem;cursor:pointer}
+.tag:hover{background:rgba(201,151,58,.25)}
+.tag-row{display:flex;gap:.4rem}
+.tag-inp{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:.4rem .6rem;color:white;font-size:.75rem;font-family:'Cairo',sans-serif;outline:none;direction:rtl}
+.tag-inp:focus{border-color:var(--gold)}
+.tag-add{background:var(--gold-dark);border:none;color:white;padding:.4rem .7rem;border-radius:6px;cursor:pointer;font-size:.75rem;font-family:'Cairo',sans-serif}
+.divider{height:1px;background:rgba(255,255,255,.07);margin:.25rem 0}
+.saved-list{display:flex;flex-direction:column;gap:.3rem}
+.saved-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:.5rem .65rem;cursor:pointer;transition:all .18s}
+.saved-item:hover{background:rgba(201,151,58,.08);border-color:rgba(201,151,58,.2)}
+.saved-item-title{font-size:.8rem;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.saved-item-meta{font-size:.65rem;color:rgba(255,255,255,.3);margin-top:.15rem}
+.saved-item-btns{display:flex;gap:.3rem;margin-top:.35rem}
+.sib{background:none;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);padding:.15rem .45rem;border-radius:4px;cursor:pointer;font-size:.65rem;font-family:'Cairo',sans-serif;transition:all .15s}
+.sib:hover{border-color:var(--gold);color:var(--gold-light)}
+.sib.del:hover{border-color:#e74c3c;color:#e74c3c}
+.new-btn{background:rgba(201,151,58,.08);border:1px dashed rgba(201,151,58,.25);color:var(--gold);padding:.55rem;border-radius:6px;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.8rem;transition:all .2s;width:100%}
+.new-btn:hover{background:rgba(201,151,58,.15)}
+
+/* EDITOR */
+.editor-col{display:flex;flex-direction:column;border-left:1px solid var(--border);overflow:hidden}
+.toolbar{background:rgba(0,0,0,.3);border-bottom:1px solid rgba(255,255,255,.06);padding:.4rem .75rem;display:flex;gap:.25rem;flex-wrap:wrap;align-items:center;flex-shrink:0}
+.tb{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.65);width:30px;height:26px;border-radius:5px;cursor:pointer;font-size:.82rem;display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:serif}
+.tb:hover{background:rgba(201,151,58,.2);border-color:var(--gold);color:var(--gold-light)}
+.tb-sep{width:1px;height:18px;background:rgba(255,255,255,.1);margin:0 .2rem}
+.tb-sel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.65);padding:.18rem .45rem;border-radius:5px;font-size:.75rem;font-family:'Cairo',sans-serif;cursor:pointer;outline:none}
+.tb-sel option{background:#141210}
+.tb-special{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:rgba(255,255,255,.5);padding:.18rem .5rem;border-radius:5px;cursor:pointer;font-size:.72rem;font-family:'Cairo',sans-serif;transition:all .15s;white-space:nowrap}
+.tb-special.q{border-color:rgba(64,145,108,.3);color:#a8d5b5}
+.tb-special.q:hover{background:rgba(64,145,108,.15)}
+.tb-special.h{border-color:rgba(41,128,185,.3);color:#b8cce4}
+.tb-special.h:hover{background:rgba(41,128,185,.15)}
+.wc{color:rgba(255,255,255,.3);font-size:.7rem;margin-right:auto}
+.editor{flex:1;overflow-y:auto}
+#ed{min-height:100%;padding:2rem 1.75rem;outline:none;font-family:'Amiri',serif;font-size:1.1rem;line-height:2;color:rgba(255,255,255,.88);direction:rtl;text-align:right;caret-color:var(--gold)}
+#ed:empty::before{content:attr(data-ph);color:rgba(255,255,255,.2);pointer-events:none}
+#ed h1{font-size:1.8rem;color:var(--gold-light);margin:1.5rem 0 .75rem}
+#ed h2{font-size:1.4rem;color:var(--gold);margin:1.25rem 0 .5rem;border-bottom:1px solid rgba(201,151,58,.2);padding-bottom:.3rem}
+#ed h3{font-size:1.15rem;color:rgba(255,255,255,.9);margin:1rem 0 .4rem;font-weight:700}
+#ed p{margin-bottom:1rem}
+#ed blockquote{border-right:3px solid var(--gold);margin:1rem 0;padding:.5rem 1rem;background:rgba(201,151,58,.07);color:rgba(255,255,255,.7);font-style:italic}
+#ed strong{color:var(--gold-light)}
+#ed .qr{color:#a8d5b5;font-size:1.15rem;margin:.75rem 0;padding:.5rem 1rem;border-right:3px solid #40916c;background:rgba(64,145,108,.08)}
+#ed .hd{color:#b8cce4;font-size:1.05rem;margin:.75rem 0;padding:.5rem 1rem;border-right:3px solid #2980b9;background:rgba(41,128,185,.07)}
+#ed ul,#ed ol{margin:.75rem 0 .75rem 1.5rem;padding-right:1rem}
+#ed li{margin-bottom:.3rem}
+
+/* PREVIEW */
+.preview-col{background:#faf6ee;color:#1c1a14;overflow-y:auto;display:flex;flex-direction:column}
+.preview-hdr{background:rgba(240,232,213,.9);border-bottom:1px solid #d4b896;padding:.4rem 1rem;font-size:.72rem;color:#6b5e42;letter-spacing:.06em;flex-shrink:0}
+#pv{padding:2rem 1.75rem;font-family:'Amiri',serif;font-size:1rem;line-height:2;direction:rtl;flex:1}
+#pv h1{font-size:1.7rem;color:#1a3d2b;margin:1.5rem 0 .75rem}
+#pv h2{font-size:1.3rem;color:#2d6a4f;margin:1.25rem 0 .5rem;border-bottom:1px solid #d4b896;padding-bottom:.3rem}
+#pv h3{font-size:1.1rem;color:#1c1a14;margin:1rem 0 .4rem;font-weight:700}
+#pv p{margin-bottom:1.25rem;text-align:justify}
+#pv blockquote{border-right:3px solid #c9973a;margin:1.5rem 0;padding:.75rem 1.25rem;background:rgba(201,151,58,.06);color:#6b5e42;font-style:italic}
+#pv strong{color:#1a3d2b}
+#pv .qr{color:#1a4a2e;font-size:1.15rem;margin:1.5rem 0;padding:1rem 1.5rem;border-right:3px solid #40916c;background:rgba(64,145,108,.06);border-radius:0 8px 8px 0}
+#pv .hd{color:#1a3a5c;font-size:1.05rem;margin:1.5rem 0;padding:1rem 1.5rem;border-right:3px solid #2980b9;background:rgba(41,128,185,.05);border-radius:0 8px 8px 0}
+#pv ul,#pv ol{margin:1rem 0 1rem 1.5rem;padding-right:1.25rem}
+#pv li{margin-bottom:.5rem}
+
+/* MODAL */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal.open{display:flex}
+.modal-box{background:#1a1714;border:1px solid rgba(201,151,58,.25);border-radius:12px;padding:1.75rem;max-width:700px;width:90%;max-height:80vh;overflow-y:auto}
+.modal-title{font-family:'Amiri',serif;color:var(--gold-light);font-size:1.1rem;margin-bottom:1rem}
+.modal-code{background:#0d0c09;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:1rem;font-family:monospace;font-size:.75rem;color:#a8d5b5;white-space:pre-wrap;word-break:break-all;max-height:50vh;overflow-y:auto;direction:ltr;text-align:left;line-height:1.5}
+.modal-actions{display:flex;gap:.6rem;margin-top:1rem;justify-content:flex-end}
+.modal-filename{background:rgba(255,255,255,.05);border-radius:6px;padding:.4rem .75rem;font-size:.75rem;color:var(--gold);margin-bottom:.5rem;font-family:monospace;direction:ltr;text-align:left}
+
+/* STATUSBAR */
+.status{background:rgba(0,0,0,.4);border-top:1px solid rgba(255,255,255,.05);padding:.25rem 1rem;font-size:.68rem;color:rgba(255,255,255,.3);display:flex;justify-content:space-between;flex-shrink:0}
+
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar,.preview-col{display:none}}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top">
+  <div class="top-logo">✍️ محرر المقالات — سنة شات</div>
+  <div class="top-actions">
+    <button class="tbtn" onclick="togglePreview()" id="pvToggle">👁 إخفاء المعاينة</button>
+    <button class="tbtn" onclick="saveArticle()">💾 حفظ (Ctrl+S)</button>
+    <button class="tbtn gold" onclick="exportArticle()">📥 تصدير HTML</button>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <button class="new-btn" onclick="newArticle()">＋ مقال جديد</button>
+
+    <div class="field">
+      <label>عنوان المقال *</label>
+      <input type="text" id="f-title" placeholder="أدخل العنوان...">
+    </div>
+    <div class="field">
+      <label>العنوان الفرعي</label>
+      <input type="text" id="f-sub" placeholder="وصف مختصر...">
+    </div>
+    <div class="field">
+      <label>التصنيف</label>
+      <select id="f-cat">
+        <option value="sunnah-authority">حجية السنة</option>
+        <option value="hadith-criticism">نقد المرويات</option>
+        <option value="hadith-quran">تعارض الأحاديث والقرآن</option>
+        <option value="consensus">مخالفة الإجماع</option>
+        <option value="quran-legislation">القرآن والتشريع</option>
+        <option value="prophet-messenger">النبي والرسول</option>
+        <option value="shahrour">الرد على شحرور</option>
+        <option value="other">موضوع آخر</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>الكتاب المصدر</label>
+      <select id="f-book">
+        <option value="0">مقال مستقل</option>
+        <option value="1">مناقشات فكرية معاصرة</option>
+        <option value="2">بالله نكتفي وبرسوله نقتدي</option>
+        <option value="3">خداع المصطلحات (قادم)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>الكلمات المفتاحية</label>
+      <div class="tags-wrap" id="tags-list"></div>
+      <div class="tag-row">
+        <input type="text" class="tag-inp" id="tag-inp" placeholder="أضف كلمة..." onkeydown="if(event.key==='Enter')addTag()">
+        <button class="tag-add" onclick="addTag()">+</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>ملخص (يظهر في قائمة المقالات)</label>
+      <textarea id="f-summary" rows="3" placeholder="ملخص قصير..."></textarea>
+    </div>
+
+    <div class="divider"></div>
+    <div style="font-size:.72rem;color:rgba(255,255,255,.35);letter-spacing:.06em;margin-bottom:.4rem">المقالات المحفوظة</div>
+    <div class="saved-list" id="saved-list"></div>
+  </div>
+
+  <!-- EDITOR -->
+  <div class="editor-col">
+    <div class="toolbar">
+      <select class="tb-sel" onchange="fmt('formatBlock',this.value);this.value=''">
+        <option value="">تنسيق...</option>
+        <option value="h1">عنوان رئيسي</option>
+        <option value="h2">عنوان ثانوي</option>
+        <option value="h3">عنوان فرعي</option>
+        <option value="p">نص عادي</option>
+        <option value="blockquote">اقتباس</option>
+      </select>
+      <div class="tb-sep"></div>
+      <button class="tb" onclick="fmt('bold')" title="عريض"><b>B</b></button>
+      <button class="tb" onclick="fmt('italic')" title="مائل"><i>I</i></button>
+      <button class="tb" onclick="fmt('underline')" title="تسطير"><u>U</u></button>
+      <div class="tb-sep"></div>
+      <button class="tb" onclick="fmt('insertUnorderedList')" title="قائمة">≡</button>
+      <button class="tb" onclick="fmt('insertOrderedList')" title="مرقمة">①</button>
+      <div class="tb-sep"></div>
+      <button class="tb" onclick="fmt('justifyRight')" title="يمين">⇥</button>
+      <button class="tb" onclick="fmt('justifyFull')" title="ضبط">⇿</button>
+      <div class="tb-sep"></div>
+      <button class="tb" onclick="fmt('foreColor','#c9973a')" title="ذهبي" style="color:#c9973a">A</button>
+      <button class="tb" onclick="fmt('foreColor','#40916c')" title="أخضر" style="color:#40916c">A</button>
+      <button class="tb" onclick="fmt('removeFormat')" title="مسح تنسيق">✕</button>
+      <div class="tb-sep"></div>
+      <button class="tb-special q" onclick="ins('qr')" title="آية قرآنية">📖 آية</button>
+      <button class="tb-special h" onclick="ins('hd')" title="حديث شريف">📜 حديث</button>
+      <div class="tb-sep"></div>
+      <button class="tb" onclick="fmt('undo')" title="تراجع">↩</button>
+      <button class="tb" onclick="fmt('redo')" title="إعادة">↪</button>
+      <span class="wc" id="wc">0 كلمة</span>
+    </div>
+    <div class="editor">
+      <div id="ed" contenteditable="true"
+        data-ph="ابدأ الكتابة هنا... استخدم الأدوات أعلاه للتنسيق"
+        oninput="onInput()"
+        onkeydown="onKey(event)"
+        spellcheck="false"></div>
+    </div>
+    <div class="status">
+      <span id="st-msg">جاهز</span>
+      <span id="st-saved"></span>
+    </div>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview-col" id="pv-col">
+    <div class="preview-hdr">👁 معاينة النشر — كما سيظهر في الموقع</div>
+    <div id="pv"></div>
+  </div>
+
+</div>
+
+<!-- EXPORT MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-title">📥 تصدير المقال — جاهز للرفع على GitHub</div>
+    <p style="color:rgba(255,255,255,.45);font-size:.8rem;margin-bottom:.75rem;line-height:1.7">
+      ارفع هذا الملف على GitHub في مجلد <code style="background:rgba(255,255,255,.07);padding:.1rem .3rem;border-radius:3px;font-size:.75rem">articles/</code>
+    </p>
+    <div class="modal-filename" id="m-filename"></div>
+    <div class="modal-code" id="m-code"></div>
+    <div class="modal-actions">
+      <button class="tbtn" onclick="closeModal()">إغلاق</button>
+      <button class="tbtn" onclick="copyCode()">📋 نسخ الكود</button>
+      <button class="tbtn gold" onclick="downloadFile()">⬇ تحميل الملف مباشرة</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== STATE =====
+let articles = JSON.parse(localStorage.getItem('sc_arts') || '[]');
+let curId = null;
+let tags = [];
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  renderSaved();
+  updateWC();
+  const last = localStorage.getItem('sc_last_art');
+  if (last && articles.find(a => a.id === last)) loadArticle(last);
+});
+
+// ===== NEW =====
+function newArticle() {
+  saveCurrent();
+  curId = 'art_' + Date.now();
+  tags = [];
+  ['f-title','f-sub','f-summary'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f-cat').value = 'sunnah-authority';
+  document.getElementById('f-book').value = '0';
+  document.getElementById('ed').innerHTML = '';
+  document.getElementById('pv').innerHTML = '';
+  renderTags();
+  renderSaved();
+  setMsg('مقال جديد ✦');
+  document.getElementById('f-title').focus();
+}
+
+// ===== SAVE =====
+function saveArticle() {
+  const title = document.getElementById('f-title').value.trim();
+  if (!title) { alert('يرجى إدخال عنوان المقال'); return; }
+  if (!curId) curId = 'art_' + Date.now();
+  const art = {
+    id: curId,
+    title,
+    subtitle: document.getElementById('f-sub').value,
+    summary: document.getElementById('f-summary').value,
+    category: document.getElementById('f-cat').value,
+    book: document.getElementById('f-book').value,
+    tags: [...tags],
+    content: document.getElementById('ed').innerHTML,
+    date: new Date().toISOString(),
+    wc: getWC()
+  };
+  const idx = articles.findIndex(a => a.id === curId);
+  if (idx >= 0) articles[idx] = art; else articles.unshift(art);
+  localStorage.setItem('sc_arts', JSON.stringify(articles));
+  localStorage.setItem('sc_last_art', curId);
+  renderSaved();
+  setMsg('تم الحفظ ✓');
+  document.getElementById('st-saved').textContent = 'آخر حفظ: ' + new Date().toLocaleTimeString('ar-SA');
+}
+
+function saveCurrent() {
+  if (curId && document.getElementById('f-title').value.trim()) saveArticle();
+}
+
+// ===== LOAD =====
+function loadArticle(id) {
+  saveCurrent();
+  const art = articles.find(a => a.id === id);
+  if (!art) return;
+  curId = id;
+  tags = art.tags || [];
+  document.getElementById('f-title').value = art.title || '';
+  document.getElementById('f-sub').value = art.subtitle || '';
+  document.getElementById('f-summary').value = art.summary || '';
+  document.getElementById('f-cat').value = art.category || 'sunnah-authority';
+  document.getElementById('f-book').value = art.book || '0';
+  document.getElementById('ed').innerHTML = art.content || '';
+  document.getElementById('pv').innerHTML = art.content || '';
+  renderTags(); renderSaved();
+  localStorage.setItem('sc_last_art', id);
+  setMsg('تم التحميل: ' + art.title);
+  updateWC();
+}
+
+// ===== DELETE =====
+function deleteArticle(id) {
+  if (!confirm('هل تريد حذف هذا المقال؟')) return;
+  articles = articles.filter(a => a.id !== id);
+  localStorage.setItem('sc_arts', JSON.stringify(articles));
+  if (curId === id) { curId = null; newArticle(); }
+  renderSaved();
+}
+
+// ===== RENDER SAVED =====
+function renderSaved() {
+  const list = document.getElementById('saved-list');
+  if (!articles.length) {
+    list.innerHTML = '<div style="color:rgba(255,255,255,.25);font-size:.75rem;text-align:center;padding:.75rem">لا توجد مقالات بعد</div>';
+    return;
+  }
+  list.innerHTML = articles.map(a => `
+    <div class="saved-item ${a.id===curId?'':''}">
+      <div class="saved-item-title" onclick="loadArticle('${a.id}')">${a.title||'بدون عنوان'}</div>
+      <div class="saved-item-meta">${new Date(a.date||Date.now()).toLocaleDateString('ar-SA')} · ${a.wc||0} كلمة</div>
+      <div class="saved-item-btns">
+        <button class="sib" onclick="loadArticle('${a.id}')">تحرير</button>
+        <button class="sib" onclick="exportById('${a.id}')">تصدير</button>
+        <button class="sib del" onclick="deleteArticle('${a.id}')">حذف</button>
+      </div>
+    </div>`).join('');
+}
+
+// ===== TAGS =====
+function renderTags() {
+  document.getElementById('tags-list').innerHTML = tags.map(t =>
+    `<span class="tag" onclick="removeTag('${t}')">${t} ×</span>`).join('');
+}
+function addTag() {
+  const inp = document.getElementById('tag-inp');
+  const v = inp.value.trim();
+  if (v && !tags.includes(v)) { tags.push(v); renderTags(); }
+  inp.value = '';
+}
+function removeTag(t) { tags = tags.filter(x => x !== t); renderTags(); }
+
+// ===== FORMATTING =====
+function fmt(cmd, val) {
+  document.getElementById('ed').focus();
+  document.execCommand(cmd, false, val || null);
+  updatePreview();
+}
+function ins(type) {
+  document.getElementById('ed').focus();
+  const templates = {
+    qr: '<div class="qr" contenteditable="true">﴿ اكتب الآية الكريمة هنا ﴾ [سورة — الآية]</div><p><br></p>',
+    hd: '<div class="hd" contenteditable="true">قال رسول الله ﷺ: (اكتب الحديث هنا) — رواه [المصدر]، وهو [صحيح/حسن/ضعيف]</div><p><br></p>'
+  };
+  document.execCommand('insertHTML', false, templates[type]);
+  updatePreview();
+}
+function onKey(e) {
+  if ((e.ctrlKey||e.metaKey) && e.key==='s') { e.preventDefault(); saveArticle(); }
+}
+function onInput() { updatePreview(); setMsg('جارٍ التحرير...'); }
+function updatePreview() {
+  document.getElementById('pv').innerHTML = document.getElementById('ed').innerHTML;
+  updateWC();
+}
+function getWC() {
+  return (document.getElementById('ed').innerText||'').trim().split(/\s+/).filter(w=>w).length;
+}
+function updateWC() {
+  document.getElementById('wc').textContent = getWC().toLocaleString('ar-SA') + ' كلمة';
+}
+function setMsg(m) { document.getElementById('st-msg').textContent = m; }
+
+// ===== TOGGLE PREVIEW =====
+function togglePreview() {
+  const col = document.getElementById('pv-col');
+  const btn = document.getElementById('pvToggle');
+  const isHidden = col.style.display === 'none';
+  col.style.display = isHidden ? 'flex' : 'none';
+  col.style.flexDirection = 'column';
+  btn.textContent = isHidden ? '👁 إخفاء المعاينة' : '👁 إظهار المعاينة';
+}
+
+// ===== EXPORT =====
+const CAT_NAMES = {
+  'sunnah-authority':'حجية السنة','hadith-criticism':'نقد المرويات',
+  'hadith-quran':'تعارض الأحاديث والقرآن','consensus':'مخالفة الإجماع',
+  'quran-legislation':'القرآن والتشريع','prophet-messenger':'النبي والرسول',
+  'shahrour':'الرد على شحرور','other':'مقالات'
+};
+const BOOK_NAMES = {
+  '0':'مقال مستقل','1':'مناقشات فكرية معاصرة',
+  '2':'بالله نكتفي وبرسوله نقتدي','3':'خداع المصطلحات'
+};
+
+function generateHTML(art) {
+  const readMin = Math.ceil((art.wc||100)/200);
+  return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${art.title} — سنة شات</title>
+<meta name="description" content="${(art.summary||art.subtitle||'').slice(0,160)}">
+<meta property="og:title" content="${art.title} — سنة شات">
+<meta property="og:description" content="${(art.summary||art.subtitle||'').slice(0,200)}">
+<meta property="og:image" content="https://sunnachat.com/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#c9973a;--gold-light:#e8c068;--gold-dark:#8b6420;--parchment:#faf6ee;--parchment-dark:#f0e8d5;--green-deep:#1a3d2b;--green-mid:#2d6a4f;--text-main:#1c1a14;--text-muted:#6b5e42;--border:#d4b896;--ink:#0f0e0b}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Cairo',sans-serif;background:var(--parchment);color:var(--text-main)}
+nav{background:rgba(15,14,11,.96);padding:0 2rem;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:1px solid var(--gold-dark)}
+.nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.nav-logo img{width:36px;height:36px;border-radius:50%;object-fit:contain}
+.nav-logo-text{font-family:'Amiri',serif;color:var(--gold-light);font-size:1.1rem}
+.nav-back{color:rgba(255,255,255,.6);text-decoration:none;font-size:.82rem;display:flex;align-items:center;gap:.4rem;padding:.35rem .8rem;border:1px solid rgba(255,255,255,.15);border-radius:6px;transition:all .2s}
+.nav-back:hover{color:var(--gold-light);border-color:var(--gold)}
+.art-hero{background:linear-gradient(180deg,var(--green-deep) 0%,#0d1f16 60%,var(--parchment) 100%);padding:4rem 2rem 3.5rem;text-align:center}
+.art-cat{display:inline-block;border:1px solid var(--gold);color:var(--gold-light);padding:.25rem 1rem;border-radius:20px;font-size:.75rem;letter-spacing:.1em;margin-bottom:1.25rem;background:rgba(201,151,58,.08)}
+.art-title{font-family:'Amiri',serif;font-size:clamp(1.6rem,4vw,2.5rem);color:white;line-height:1.3;margin-bottom:.75rem;max-width:800px;margin-left:auto;margin-right:auto}
+.art-subtitle{color:rgba(255,255,255,.55);font-size:1rem;max-width:600px;margin:.5rem auto 1.5rem}
+.art-meta{display:flex;gap:1.25rem;justify-content:center;flex-wrap:wrap;font-size:.78rem;color:rgba(255,255,255,.45)}
+.art-body{max-width:760px;margin:0 auto;padding:3rem 2rem}
+.art-body h1{font-family:'Amiri',serif;font-size:1.8rem;color:var(--green-deep);margin:2rem 0 1rem;line-height:1.3}
+.art-body h2{font-family:'Amiri',serif;font-size:1.4rem;color:var(--green-mid);margin:1.75rem 0 .75rem;border-bottom:1px solid var(--border);padding-bottom:.4rem}
+.art-body h3{font-size:1.15rem;color:var(--text-main);margin:1.5rem 0 .5rem;font-weight:700}
+.art-body p{margin-bottom:1.25rem;font-size:1.05rem;line-height:2;text-align:justify}
+.art-body blockquote{border-right:3px solid var(--gold);margin:1.5rem 0;padding:.75rem 1.25rem;background:rgba(201,151,58,.06);color:var(--text-muted);font-style:italic;border-radius:0 6px 6px 0}
+.art-body strong{color:var(--green-deep);font-weight:700}
+.art-body .qr{color:var(--green-deep);font-family:'Amiri',serif;font-size:1.2rem;direction:rtl;margin:1.5rem 0;padding:1rem 1.5rem;border-right:3px solid #40916c;background:rgba(64,145,108,.06);border-radius:0 8px 8px 0;line-height:2.2}
+.art-body .hd{color:#1a3a5c;font-family:'Amiri',serif;font-size:1.1rem;direction:rtl;margin:1.5rem 0;padding:1rem 1.5rem;border-right:3px solid #2980b9;background:rgba(41,128,185,.05);border-radius:0 8px 8px 0;line-height:2}
+.art-body ul,.art-body ol{margin:1rem 0 1rem 1.5rem;padding-right:1.25rem}
+.art-body li{margin-bottom:.5rem;font-size:1.05rem;line-height:1.9}
+.art-share{background:var(--parchment-dark);border-top:1px solid var(--border);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:center;gap:.75rem;flex-wrap:wrap}
+.share-lbl{font-size:.82rem;color:var(--text-muted)}
+.sbtn{display:inline-flex;align-items:center;gap:.35rem;padding:.4rem .9rem;border-radius:6px;font-size:.78rem;font-weight:600;font-family:'Cairo',sans-serif;cursor:pointer;border:none;text-decoration:none;transition:all .2s}
+.sbtn-wa{background:#25D366;color:white}
+.sbtn-tg{background:#229ED9;color:white}
+.sbtn-tw{background:#000;color:white}
+.sbtn-cp{background:rgba(201,151,58,.12);color:var(--gold-dark);border:1px solid rgba(201,151,58,.3) !important}
+.art-nav{text-align:center;padding:2rem}
+.back-btn{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--ink);padding:.65rem 1.5rem;border-radius:8px;font-weight:700;text-decoration:none;font-size:.9rem;transition:all .2s}
+.back-btn:hover{background:var(--gold-light);transform:translateY(-1px)}
+footer{background:var(--ink);color:rgba(255,255,255,.4);text-align:center;padding:1.5rem;font-size:.78rem;border-top:1px solid rgba(201,151,58,.2)}
+.ft-logo{font-family:'Amiri',serif;color:var(--gold-light);margin-bottom:.3rem;font-size:1.1rem}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../logo.png" alt="سنة شات" onerror="this.style.display='none'">
+    <span class="nav-logo-text">سنة شات</span>
+  </a>
+  <a href="../index.html" class="nav-back">← العودة للموقع</a>
+</nav>
+<div class="art-hero">
+  <span class="art-cat">${CAT_NAMES[art.category]||'مقال'}</span>
+  <h1 class="art-title">${art.title}</h1>
+  ${art.subtitle?`<p class="art-subtitle">${art.subtitle}</p>`:''}
+  <div class="art-meta">
+    <span>✍ د. هيثم أبو طالب</span>
+    <span>📅 ${new Date(art.date||Date.now()).toLocaleDateString('ar-SA',{year:'numeric',month:'long',day:'numeric'})}</span>
+    ${art.book!=='0'?`<span>📚 ${BOOK_NAMES[art.book]}</span>`:''}
+    <span>⏱ ${readMin} دقيقة قراءة</span>
+  </div>
+</div>
+<div class="art-body">${art.content}</div>
+<div class="art-share">
+  <span class="share-lbl">شارك المقال:</span>
+  <a class="sbtn sbtn-wa" href="https://wa.me/?text=${encodeURIComponent(art.title+'%0Ahttps://sunnachat.com/articles/'+art.id+'.html')}" target="_blank">واتساب</a>
+  <a class="sbtn sbtn-tg" href="https://t.me/share/url?url=${encodeURIComponent('https://sunnachat.com/articles/'+art.id+'.html')}&text=${encodeURIComponent(art.title)}" target="_blank">تيليغرام</a>
+  <a class="sbtn sbtn-tw" href="https://twitter.com/intent/tweet?text=${encodeURIComponent(art.title)}&url=${encodeURIComponent('https://sunnachat.com/articles/'+art.id+'.html')}" target="_blank">تويتر</a>
+  <button class="sbtn sbtn-cp" onclick="navigator.clipboard.writeText('https://sunnachat.com/articles/'+location.pathname.split('/').pop()).then(()=>{this.textContent='✅ تم النسخ!';setTimeout(()=>this.textContent='📋 نسخ الرابط',2000)})">📋 نسخ الرابط</button>
+</div>
+<div class="art-nav">
+  <a href="../index.html" class="back-btn">← العودة للموقع الرئيسي</a>
+</div>
+<footer>
+  <div class="ft-logo">سنة شات</div>
+  <p>مناقشات فكرية معاصرة — د. هيثم أبو طالب</p>
+</footer>
+</body>
+</html>`;
+}
+
+let currentExportArt = null;
+
+function exportArticle() {
+  saveArticle();
+  const art = articles.find(a => a.id === curId);
+  if (!art) { alert('احفظ المقال أولاً'); return; }
+  showExport(art);
+}
+
+function exportById(id) {
+  const art = articles.find(a => a.id === id);
+  if (!art) return;
+  showExport(art);
+}
+
+function showExport(art) {
+  currentExportArt = art;
+  const filename = art.id + '.html';
+  const html = generateHTML(art);
+  document.getElementById('m-filename').textContent = 'articles/' + filename;
+  document.getElementById('m-code').textContent = html;
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+function copyCode() {
+  const code = document.getElementById('m-code').textContent;
+  navigator.clipboard.writeText(code).then(() => setMsg('تم نسخ الكود ✓'));
+}
+
+function downloadFile() {
+  if (!currentExportArt) return;
+  const html = generateHTML(currentExportArt);
+  const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = currentExportArt.id + '.html';
+  a.click();
+  URL.revokeObjectURL(url);
+  setMsg('تم تحميل الملف ✓');
+}
+
+// Auto-save
+setInterval(() => {
+  if (curId && document.getElementById('f-title').value.trim()) saveArticle();
+}, 30000);
+</script>
+</body>
+</html>
