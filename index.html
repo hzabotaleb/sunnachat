@@ -1401,10 +1401,26 @@ const PUBLISHED_ARTICLES = [
   // أضف مقالات جديدة هنا بنفس الشكل
 ];
 
-function renderPublished() {
+async function loadArticlesIndex() {
+  try {
+    const r = await fetch('/articles/index.json?t=' + Date.now());
+    if (!r.ok) return null;
+    return await r.json();
+  } catch(e) {
+    return null;
+  }
+}
+
+async function renderPublished() {
+  // تحميل index.json إن وُجد
+  const fromIndex = await loadArticlesIndex();
+  const allPub = fromIndex
+    ? [...(fromIndex.articles||[]), ...PUBLISHED_ARTICLES.filter(p => !(fromIndex.articles||[]).find(f=>f.file===p.file))]
+    : PUBLISHED_ARTICLES;
+
   const grid = document.getElementById('publishedGrid');
   const section = document.getElementById('publishedArticlesSection');
-  if (!PUBLISHED_ARTICLES.length) return;
+  if (!allPub.length) return;
   section.style.display = 'block';
   const catNames = {
     'sunnah-authority':'حجية السنة','hadith-criticism':'نقد المرويات',
@@ -1412,7 +1428,7 @@ function renderPublished() {
     'quran-legislation':'القرآن والتشريع','prophet-messenger':'النبي والرسول',
     'shahrour':'الرد على شحرور','other':'مقالات'
   };
-  grid.innerHTML = PUBLISHED_ARTICLES.map(a => `
+  grid.innerHTML = allPub.map(a => `
     <div class="art-card">
       <h3 class="art-card-title" style="cursor:pointer" onclick="window.open('articles/${a.file}','_blank')">${a.title}</h3>
       <div class="art-card-sub">${a.subtitle || ''}</div>

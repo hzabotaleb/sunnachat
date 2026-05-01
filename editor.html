@@ -236,9 +236,18 @@ body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-h
     </p>
     <div class="modal-filename" id="m-filename"></div>
     <div class="modal-code" id="m-code"></div>
+    <div style="background:rgba(201,151,58,.08);border:1px solid rgba(201,151,58,.2);border-radius:8px;padding:.85rem 1rem;margin-bottom:.75rem">
+      <div style="font-size:.78rem;color:var(--gold-light);font-weight:700;margin-bottom:.4rem">📋 خطوات رفع المقال على GitHub:</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.55);line-height:1.9">
+        <b style="color:rgba(255,255,255,.7)">١.</b> اضغط <b style="color:var(--gold)">"⬇ تحميل الملف"</b> — يُحمَّل ملف HTML<br>
+        <b style="color:rgba(255,255,255,.7)">٢.</b> اضغط <b style="color:var(--gold)">"📋 نسخ بيانات الفهرس"</b> — تنسخ بيانات JSON<br>
+        <b style="color:rgba(255,255,255,.7)">٣.</b> ارفع HTML على GitHub في مجلد <code style="background:rgba(255,255,255,.08);padding:.1rem .3rem;border-radius:3px">articles/</code><br>
+        <b style="color:rgba(255,255,255,.7)">٤.</b> افتح <code style="background:rgba(255,255,255,.08);padding:.1rem .3rem;border-radius:3px">articles/index.json</code> وأضف البيانات المنسوخة
+      </div>
+    </div>
     <div class="modal-actions">
       <button class="tbtn" onclick="closeModal()">إغلاق</button>
-      <button class="tbtn" onclick="copyCode()">📋 نسخ الكود</button>
+      <button class="tbtn" onclick="copyIndexEntry()" id="copy-index-btn">📋 نسخ بيانات الفهرس</button>
       <button class="tbtn gold" onclick="downloadFile()">⬇ تحميل الملف مباشرة</button>
     </div>
   </div>
@@ -552,6 +561,26 @@ function downloadFile() {
   a.click();
   URL.revokeObjectURL(url);
   setMsg('تم تحميل الملف ✓');
+}
+
+function copyIndexEntry() {
+  if (!currentExportArt) return;
+  const a = currentExportArt;
+  const entry = {
+    file: a.id + '.html',
+    title: a.title,
+    subtitle: a.subtitle || '',
+    category: a.category,
+    tags: a.tags,
+    date: new Date(a.date).toISOString().split('T')[0]
+  };
+  const json = JSON.stringify(entry, null, 2);
+  const msg = `// أضف هذا السطر داخل "articles" في ملف articles/index.json:\n${json},`;
+  navigator.clipboard.writeText(msg).then(() => {
+    const btn = document.getElementById('copy-index-btn');
+    btn.textContent = '✅ تم النسخ!';
+    setTimeout(() => btn.textContent = '📋 نسخ بيانات الفهرس', 2000);
+  });
 }
 
 // Auto-save
