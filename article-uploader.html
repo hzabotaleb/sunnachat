@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>رفع مقالة — سنة شات</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#c9973a;--gold-light:#e8c068;--gold-dark:#8b6420;
+  --ink:#0f0e0b;--parchment:#faf6ee;--parchment-dark:#f0e8d5;
+  --green-deep:#1a3d2b;--green-mid:#2d6a4f;--green-light:#40916c;
+  --text-main:#1c1a14;--text-muted:#6b5e42;
+  --border:#d4b896;--shadow:rgba(139,100,32,0.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--parchment);color:var(--text-main);min-height:100vh}
+
+/* NAV */
+.nav{
+  background:var(--ink);
+  padding:.8rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(201,151,58,.3);
+}
+.nav-logo{font-family:'Amiri',serif;color:var(--gold);font-size:1.4rem;font-weight:700}
+.nav-back{
+  color:rgba(255,255,255,.7);font-size:.85rem;text-decoration:none;
+  display:flex;align-items:center;gap:.4rem;
+  transition:color .2s;
+}
+.nav-back:hover{color:var(--gold)}
+
+/* HERO */
+.hero{
+  background:linear-gradient(135deg,var(--green-deep) 0%,#0d2218 50%,var(--ink) 100%);
+  padding:3rem 2rem 2.5rem;
+  text-align:center;
+  border-bottom:2px solid rgba(201,151,58,.3);
+}
+.hero-tag{
+  display:inline-block;
+  background:rgba(201,151,58,.15);border:1px solid rgba(201,151,58,.4);
+  color:var(--gold);font-size:.78rem;padding:.3rem .9rem;
+  border-radius:20px;margin-bottom:1rem;letter-spacing:.05em;
+}
+.hero h1{font-family:'Amiri',serif;color:var(--gold);font-size:2rem;margin-bottom:.5rem}
+.hero p{color:rgba(255,255,255,.6);font-size:.9rem}
+
+/* MAIN */
+.container{max-width:800px;margin:0 auto;padding:2rem 1.5rem 4rem}
+
+/* CARD */
+.card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:2rem;
+  box-shadow:0 4px 20px var(--shadow);
+  margin-bottom:1.5rem;
+}
+.card-title{
+  font-size:1rem;font-weight:700;color:var(--green-deep);
+  margin-bottom:1.2rem;padding-bottom:.6rem;
+  border-bottom:2px solid var(--gold);
+  display:flex;align-items:center;gap:.5rem;
+}
+
+/* FORM */
+.field{margin-bottom:1.2rem}
+label{
+  display:block;font-size:.82rem;font-weight:600;
+  color:var(--text-muted);margin-bottom:.4rem;
+}
+label span.req{color:#c0392b;margin-right:.2rem}
+input[type=text],select,textarea{
+  width:100%;padding:.65rem .9rem;
+  border:1.5px solid var(--border);border-radius:8px;
+  font-family:'Cairo',sans-serif;font-size:.9rem;
+  color:var(--text-main);background:#fafaf8;
+  transition:border-color .2s,box-shadow .2s;
+  outline:none;
+}
+input[type=text]:focus,select:focus,textarea:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(201,151,58,.15);
+}
+textarea{resize:vertical;min-height:120px;line-height:1.7}
+#bodyEditor{min-height:300px;font-size:.9rem}
+
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:600px){.field-row{grid-template-columns:1fr}}
+
+/* TAGS INPUT */
+.tags-wrap{
+  display:flex;flex-wrap:wrap;gap:.4rem;
+  padding:.5rem .7rem;min-height:44px;
+  border:1.5px solid var(--border);border-radius:8px;
+  background:#fafaf8;cursor:text;
+  transition:border-color .2s,box-shadow .2s;
+}
+.tags-wrap:focus-within{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(201,151,58,.15);
+}
+.tag-pill{
+  background:rgba(201,151,58,.15);color:var(--gold-dark);
+  border:1px solid rgba(201,151,58,.4);
+  border-radius:12px;padding:.15rem .65rem;
+  font-size:.78rem;display:flex;align-items:center;gap:.3rem;
+}
+.tag-pill button{
+  background:none;border:none;color:var(--gold-dark);
+  cursor:pointer;font-size:.9rem;line-height:1;padding:0;
+}
+#tagInput{
+  border:none;background:none;outline:none;
+  font-family:'Cairo',sans-serif;font-size:.85rem;
+  flex:1;min-width:100px;padding:.15rem 0;
+}
+
+/* TOOLBAR */
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:.3rem;
+  padding:.5rem;background:var(--parchment-dark);
+  border:1.5px solid var(--border);border-radius:8px 8px 0 0;
+  border-bottom:none;
+}
+.tbtn{
+  background:none;border:1px solid transparent;border-radius:5px;
+  padding:.3rem .55rem;font-size:.82rem;cursor:pointer;
+  color:var(--text-muted);transition:all .15s;
+  font-family:'Cairo',sans-serif;
+}
+.tbtn:hover{
+  background:#fff;border-color:var(--border);
+  color:var(--green-deep);
+}
+.tbtn.active{background:var(--gold);color:#fff;border-color:var(--gold)}
+#bodyEditor{
+  border-radius:0 0 8px 8px!important;
+  border-top:none!important;
+}
+
+/* SUBMIT */
+.submit-btn{
+  width:100%;padding:.85rem;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:var(--ink);border:none;border-radius:10px;
+  font-family:'Cairo',sans-serif;font-size:1rem;font-weight:700;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+}
+.submit-btn:hover{
+  background:linear-gradient(135deg,var(--gold-light),var(--gold));
+  transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(201,151,58,.4);
+}
+
+/* OUTPUT */
+.output-section{display:none}
+.output-section.show{display:block}
+.output-tabs{display:flex;gap:.5rem;margin-bottom:.5rem}
+.otab{
+  padding:.4rem 1rem;border-radius:20px;font-size:.8rem;font-weight:600;
+  border:1.5px solid var(--border);background:#fff;color:var(--text-muted);
+  cursor:pointer;transition:all .15s;font-family:'Cairo',sans-serif;
+}
+.otab.active{background:var(--green-deep);color:#fff;border-color:var(--green-deep)}
+.output-box{
+  background:var(--ink);color:#e8d5b0;
+  border-radius:8px;padding:1.2rem;
+  font-family:'Courier New',monospace;font-size:.78rem;
+  line-height:1.6;overflow-x:auto;white-space:pre-wrap;
+  word-break:break-all;max-height:350px;overflow-y:auto;
+  position:relative;
+}
+.copy-btn{
+  position:absolute;top:.6rem;left:.6rem;
+  background:rgba(201,151,58,.2);border:1px solid rgba(201,151,58,.4);
+  color:var(--gold);border-radius:6px;padding:.3rem .7rem;
+  font-size:.75rem;cursor:pointer;font-family:'Cairo',sans-serif;
+  transition:all .15s;
+}
+.copy-btn:hover{background:var(--gold);color:var(--ink)}
+
+/* INSTRUCTIONS */
+.steps{list-style:none;counter-reset:steps}
+.steps li{
+  counter-increment:steps;
+  padding:.6rem .8rem .6rem 0;
+  border-bottom:1px solid var(--parchment-dark);
+  font-size:.85rem;display:flex;align-items:flex-start;gap:.7rem;
+}
+.steps li:last-child{border-bottom:none}
+.steps li::before{
+  content:counter(steps);
+  background:var(--gold);color:var(--ink);
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.72rem;font-weight:700;flex-shrink:0;margin-top:1px;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:1.5rem;right:1.5rem;
+  background:var(--green-deep);color:#fff;
+  padding:.7rem 1.2rem;border-radius:8px;
+  font-size:.85rem;transform:translateY(80px);opacity:0;
+  transition:all .3s;z-index:999;
+  border:1px solid rgba(201,151,58,.4);
+}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* PREVIEW */
+.preview-box{
+  border:1.5px solid var(--border);border-radius:8px;
+  padding:1.5rem;background:#fff;
+  font-size:.9rem;line-height:1.8;
+  max-height:400px;overflow-y:auto;
+}
+.preview-box h1,h2,h3{color:var(--green-deep);margin:.8rem 0 .4rem}
+.preview-box p{margin:.4rem 0}
+.preview-box strong{color:var(--gold-dark)}
+.preview-box em{color:var(--text-muted)}
+.preview-box blockquote{
+  border-right:3px solid var(--gold);
+  padding:.5rem 1rem;margin:.5rem 0;
+  background:rgba(201,151,58,.05);color:var(--text-muted);
+}
+
+/* ALERT */
+.alert{
+  padding:.8rem 1rem;border-radius:8px;
+  font-size:.82rem;margin-bottom:1rem;
+  display:flex;align-items:flex-start;gap:.5rem;
+}
+.alert-info{background:rgba(201,151,58,.1);border:1px solid rgba(201,151,58,.3);color:var(--gold-dark)}
+.alert-warning{background:rgba(180,83,9,.08);border:1px solid rgba(180,83,9,.2);color:#92400e}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">🕌 سنة شات</div>
+  <a href="/" class="nav-back">← العودة للموقع</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">✍️ لوحة النشر</div>
+  <h1>رفع مقالة جديدة</h1>
+  <p>اكتب مقالتك هنا وسيتم توليد ملف HTML جاهز للرفع على الموقع</p>
+</div>
+
+<div class="container">
+
+  <!-- ALERT -->
+  <div class="alert alert-info">
+    ℹ️ سيتم توليد ملف HTML للمقالة وسطر JSON — قم برفعهما على GitHub أو مجلد الموقع
+  </div>
+
+  <!-- FORM -->
+  <div class="card">
+    <div class="card-title">📝 بيانات المقالة</div>
+
+    <div class="field-row">
+      <div class="field">
+        <label><span class="req">*</span> عنوان المقالة</label>
+        <input type="text" id="fTitle" placeholder="مثال: الرد على شبهة...">
+      </div>
+      <div class="field">
+        <label>العنوان الفرعي</label>
+        <input type="text" id="fSubtitle" placeholder="توضيح أو ملخص موجز">
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label><span class="req">*</span> التصنيف</label>
+        <select id="fCategory">
+          <option value="sunnah-authority">حجية السنة</option>
+          <option value="hadith-criticism">نقد المرويات</option>
+          <option value="hadith-quran">تعارض الأحاديث والقرآن</option>
+          <option value="consensus">مخالفة الإجماع</option>
+          <option value="quran-legislation">القرآن والتشريع</option>
+          <option value="prophet-messenger">النبي والرسول</option>
+          <option value="shahrour">الرد على شحرور</option>
+          <option value="other">عام</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>التاريخ</label>
+        <input type="text" id="fDate" placeholder="مثال: 2026-05-10">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>الوسوم (Tags) — اضغط Enter بعد كل وسم</label>
+      <div class="tags-wrap" id="tagsWrap" onclick="document.getElementById('tagInput').focus()">
+        <input type="text" id="tagInput" placeholder="أضف وسماً...">
+      </div>
+    </div>
+  </div>
+
+  <!-- EDITOR -->
+  <div class="card">
+    <div class="card-title">✍️ محتوى المقالة</div>
+    <div class="alert alert-warning" style="margin-bottom:1rem">
+      ⚡ يمكنك استخدام HTML البسيط: &lt;h2&gt; للعناوين، &lt;p&gt; للفقرات، &lt;strong&gt; للتمييز، &lt;blockquote&gt; للاقتباس
+    </div>
+    <div class="toolbar">
+      <button class="tbtn" onclick="ins('<h2>','</h2>')">H2</button>
+      <button class="tbtn" onclick="ins('<h3>','</h3>')">H3</button>
+      <button class="tbtn" onclick="ins('<p>','</p>')">P</button>
+      <button class="tbtn" onclick="ins('<strong>','</strong>')"><b>B</b></button>
+      <button class="tbtn" onclick="ins('<em>','</em>')"><i>I</i></button>
+      <button class="tbtn" onclick="ins('<blockquote>','</blockquote>')">❝</button>
+      <button class="tbtn" onclick="ins('<br>','')">↵</button>
+      <button class="tbtn" onclick="ins('<ul>\n<li>','</li>\n</ul>')">قائمة</button>
+      <button class="tbtn" onclick="togglePreview()" id="previewToggle">👁 معاينة</button>
+    </div>
+    <textarea id="bodyEditor" placeholder="اكتب محتوى المقالة هنا... يمكنك استخدام HTML مثل:&#10;<h2>عنوان قسم</h2>&#10;<p>فقرة نصية هنا</p>&#10;<blockquote>نص اقتباس</blockquote>"></textarea>
+
+    <div id="previewArea" style="display:none;margin-top:1rem">
+      <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:.5rem">📖 معاينة المحتوى:</div>
+      <div class="preview-box" id="previewContent"></div>
+    </div>
+  </div>
+
+  <!-- GENERATE -->
+  <button class="submit-btn" onclick="generate()">
+    ⚙️ توليد ملفات النشر
+  </button>
+
+  <!-- OUTPUT -->
+  <div class="output-section" id="outputSection" style="margin-top:1.5rem">
+    <div class="card">
+      <div class="card-title">📦 ملفات جاهزة للرفع</div>
+
+      <div class="output-tabs">
+        <button class="otab active" onclick="switchTab('html')">📄 ملف HTML</button>
+        <button class="otab" onclick="switchTab('json')">🗂 سطر index.json</button>
+        <button class="otab" onclick="switchTab('instr')">📋 خطوات الرفع</button>
+      </div>
+
+      <div id="tabHtml">
+        <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:.5rem">
+          احفظ هذا الملف باسم: <strong id="fileNameDisplay" style="color:var(--green-deep)"></strong>
+        </div>
+        <div class="output-box" style="position:relative">
+          <button class="copy-btn" onclick="copyOut('htmlOut')">📋 نسخ</button>
+          <code id="htmlOut"></code>
+        </div>
+        <button class="submit-btn" style="margin-top:.8rem;max-width:200px" onclick="downloadHtml()">⬇️ تحميل HTML</button>
+      </div>
+
+      <div id="tabJson" style="display:none">
+        <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:.5rem">
+          أضف هذا السطر داخل مصفوفة <code>"articles"</code> في ملف <strong>articles/index.json</strong>:
+        </div>
+        <div class="output-box" style="position:relative">
+          <button class="copy-btn" onclick="copyOut('jsonOut')">📋 نسخ</button>
+          <code id="jsonOut"></code>
+        </div>
+      </div>
+
+      <div id="tabInstr" style="display:none">
+        <ol class="steps">
+          <li>احفظ ملف HTML (زر التحميل أعلاه) باسم <strong id="fileNameInstr" style="color:var(--green-deep)"></strong></li>
+          <li>ارفع الملف في مجلد <code>articles/</code> على GitHub أو الخادم</li>
+          <li>افتح ملف <code>articles/index.json</code> وأضف السطر من تبويب "سطر index.json"</li>
+          <li>احفظ <code>index.json</code> — ستظهر المقالة تلقائياً في الموقع</li>
+          <li>تحقق من المقالة في قسم "مقالات منشورة" في الصفحة الرئيسية</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== TAGS =====
+let tags = [];
+document.getElementById('tagInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ',') {
+    e.preventDefault();
+    const val = e.target.value.trim();
+    if (val && !tags.includes(val)) {
+      tags.push(val);
+      renderTags();
+    }
+    e.target.value = '';
+  }
+});
+function renderTags() {
+  const wrap = document.getElementById('tagsWrap');
+  const inp = document.getElementById('tagInput');
+  wrap.querySelectorAll('.tag-pill').forEach(t => t.remove());
+  tags.forEach((t, i) => {
+    const pill = document.createElement('span');
+    pill.className = 'tag-pill';
+    pill.innerHTML = `${t}<button onclick="removeTag(${i})">×</button>`;
+    wrap.insertBefore(pill, inp);
+  });
+}
+function removeTag(i) {
+  tags.splice(i, 1);
+  renderTags();
+}
+
+// ===== TOOLBAR =====
+function ins(before, after) {
+  const ta = document.getElementById('bodyEditor');
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const sel = ta.value.substring(start, end);
+  ta.value = ta.value.substring(0, start) + before + sel + after + ta.value.substring(end);
+  ta.focus();
+  ta.selectionStart = start + before.length;
+  ta.selectionEnd = start + before.length + sel.length;
+}
+
+// ===== PREVIEW =====
+let previewOn = false;
+function togglePreview() {
+  previewOn = !previewOn;
+  const area = document.getElementById('previewArea');
+  const btn = document.getElementById('previewToggle');
+  if (previewOn) {
+    area.style.display = 'block';
+    document.getElementById('previewContent').innerHTML = document.getElementById('bodyEditor').value;
+    btn.classList.add('active');
+  } else {
+    area.style.display = 'none';
+    btn.classList.remove('active');
+  }
+}
+document.getElementById('bodyEditor').addEventListener('input', () => {
+  if (previewOn) {
+    document.getElementById('previewContent').innerHTML = document.getElementById('bodyEditor').value;
+  }
+});
+
+// ===== GENERATE =====
+let generatedFileName = '';
+let generatedHtml = '';
+
+function generate() {
+  const title = document.getElementById('fTitle').value.trim();
+  const subtitle = document.getElementById('fSubtitle').value.trim();
+  const category = document.getElementById('fCategory').value;
+  const date = document.getElementById('fDate').value.trim() || new Date().toISOString().split('T')[0];
+  const body = document.getElementById('bodyEditor').value.trim();
+
+  if (!title) { showToast('⚠️ العنوان مطلوب'); return; }
+  if (!body) { showToast('⚠️ محتوى المقالة مطلوب'); return; }
+
+  const fileId = 'art_' + Date.now();
+  generatedFileName = fileId + '.html';
+
+  const catNames = {
+    'sunnah-authority':'حجية السنة','hadith-criticism':'نقد المرويات',
+    'hadith-quran':'تعارض الأحاديث والقرآن','consensus':'مخالفة الإجماع',
+    'quran-legislation':'القرآن والتشريع','prophet-messenger':'النبي والرسول',
+    'shahrour':'الرد على شحرور','other':'مقالات'
+  };
+
+  const tagsHtml = tags.map(t => `<span class="tag">${t}</span>`).join('');
+  const tagsJson = JSON.stringify(tags);
+
+  generatedHtml = `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${title} — سنة شات</title>
+<meta name="description" content="${subtitle || title}">
+<meta property="og:title" content="${title}">
+<meta property="og:description" content="${subtitle || title}">
+<meta property="og:url" content="https://sunnachat.com/articles/${generatedFileName}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#c9973a;--gold-light:#e8c068;--gold-dark:#8b6420;--ink:#0f0e0b;--parchment:#faf6ee;--green-deep:#1a3d2b;--text-main:#1c1a14;--text-muted:#6b5e42;--border:#d4b896}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Cairo',sans-serif;background:var(--parchment);color:var(--text-main);line-height:1.9}
+nav{background:var(--ink);padding:.8rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,151,58,.3)}
+.logo{font-family:'Amiri',serif;color:var(--gold);font-size:1.3rem;text-decoration:none}
+.back{color:rgba(255,255,255,.6);font-size:.85rem;text-decoration:none}
+.back:hover{color:var(--gold)}
+.hero{background:linear-gradient(135deg,var(--green-deep),#0d2218 60%,var(--ink));padding:3.5rem 2rem 3rem;text-align:center;border-bottom:2px solid rgba(201,151,58,.3)}
+.hero-cat{display:inline-block;background:rgba(201,151,58,.15);border:1px solid rgba(201,151,58,.4);color:var(--gold);font-size:.75rem;padding:.25rem .8rem;border-radius:15px;margin-bottom:1rem}
+.hero h1{font-family:'Amiri',serif;color:var(--gold);font-size:clamp(1.5rem,4vw,2.2rem);line-height:1.4;margin-bottom:.6rem}
+.hero .sub{color:rgba(255,255,255,.6);font-size:.9rem;max-width:600px;margin:0 auto .8rem}
+.hero .meta{color:rgba(255,255,255,.35);font-size:.78rem}
+.tags{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem;margin-top:.8rem}
+.tag{background:rgba(201,151,58,.12);border:1px solid rgba(201,151,58,.3);color:var(--gold);font-size:.72rem;padding:.2rem .65rem;border-radius:12px}
+article{max-width:720px;margin:3rem auto;padding:0 1.5rem 4rem}
+article h2{font-family:'Amiri',serif;font-size:1.4rem;color:var(--green-deep);margin:2rem 0 .8rem;padding-right:1rem;border-right:3px solid var(--gold)}
+article h3{font-size:1.1rem;color:var(--green-deep);margin:1.5rem 0 .6rem}
+article p{margin:.8rem 0;text-align:justify}
+article strong{color:var(--gold-dark)}
+article em{color:var(--text-muted)}
+article blockquote{border-right:4px solid var(--gold);padding:.8rem 1.2rem;margin:1.2rem 0;background:rgba(201,151,58,.06);border-radius:0 6px 6px 0;color:var(--text-muted);font-style:italic}
+article ul,article ol{padding-right:1.5rem;margin:.6rem 0}
+article li{margin:.35rem 0}
+.footer-share{background:var(--ink);padding:1.5rem 2rem;text-align:center;margin-top:2rem;border-top:1px solid rgba(201,151,58,.2)}
+.footer-share p{color:rgba(255,255,255,.5);font-size:.82rem;margin-bottom:.8rem}
+.share-btns{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap}
+.share-btn{display:flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:20px;font-size:.78rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;font-family:'Cairo',sans-serif;transition:transform .15s}
+.share-btn:hover{transform:translateY(-1px)}
+.share-tw{background:#1da1f2;color:#fff}
+.share-wa{background:#25d366;color:#fff}
+.share-cp{background:rgba(201,151,58,.2);color:var(--gold);border:1px solid rgba(201,151,58,.4)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">🕌 سنة شات</a>
+  <a href="/" class="back">← الرئيسية</a>
+</nav>
+<div class="hero">
+  <div class="hero-cat">${catNames[category] || 'مقال'}</div>
+  <h1>${title}</h1>
+  ${subtitle ? `<p class="sub">${subtitle}</p>` : ''}
+  <div class="meta">📅 ${date} &nbsp;|&nbsp; ✍️ د. هيثم أبو طالب</div>
+  <div class="tags">${tagsHtml}</div>
+</div>
+<article>
+${body}
+</article>
+<div class="footer-share">
+  <p>أفاد المقال؟ شاركه مع من ينتفع</p>
+  <div class="share-btns">
+    <a class="share-btn share-tw" href="https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=https://sunnachat.com/articles/${generatedFileName}" target="_blank">🐦 تويتر</a>
+    <a class="share-btn share-wa" href="https://wa.me/?text=${encodeURIComponent(title + ' — https://sunnachat.com/articles/' + generatedFileName)}" target="_blank">💬 واتساب</a>
+    <button class="share-btn share-cp" onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✅ تم النسخ'">🔗 نسخ الرابط</button>
+  </div>
+</div>
+<script>document.querySelectorAll('a[href^="http"]').forEach(a=>a.setAttribute('target','_blank'));<\/script>
+</body>
+</html>`;
+
+  const jsonLine = JSON.stringify({
+    file: generatedFileName,
+    title: title,
+    subtitle: subtitle || undefined,
+    category: category,
+    tags: tags,
+    date: date
+  }, null, 2);
+
+  document.getElementById('htmlOut').textContent = generatedHtml;
+  document.getElementById('jsonOut').textContent = jsonLine + ',';
+  document.getElementById('fileNameDisplay').textContent = generatedFileName;
+  document.getElementById('fileNameInstr').textContent = generatedFileName;
+  document.getElementById('outputSection').classList.add('show');
+
+  // Scroll to output
+  document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+  showToast('✅ تم توليد الملفات بنجاح');
+}
+
+// ===== TABS =====
+function switchTab(tab) {
+  document.querySelectorAll('.otab').forEach((t,i) => {
+    t.classList.toggle('active', ['html','json','instr'][i] === tab);
+  });
+  document.getElementById('tabHtml').style.display = tab === 'html' ? 'block' : 'none';
+  document.getElementById('tabJson').style.display = tab === 'json' ? 'block' : 'none';
+  document.getElementById('tabInstr').style.display = tab === 'instr' ? 'block' : 'none';
+}
+
+// ===== DOWNLOAD =====
+function downloadHtml() {
+  if (!generatedHtml) return;
+  const blob = new Blob([generatedHtml], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = generatedFileName;
+  a.click();
+  showToast('⬇️ جاري تحميل الملف...');
+}
+
+// ===== COPY =====
+function copyOut(id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => showToast('✅ تم النسخ'));
+}
+
+// ===== TOAST =====
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// Auto-set today's date
+document.getElementById('fDate').value = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
