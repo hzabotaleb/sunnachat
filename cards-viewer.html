@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">عرض البطاقات — سنة شات</title>
+<meta name="description" id="pageDesc" content="سلسلة بطاقات من سنة شات">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+:root{
+  --gold:#c9973a;--gold-light:#e8c068;--gold-dark:#8b6420;
+  --ink:#0f0e0b;--parchment:#faf6ee;--parchment-dark:#f0e8d5;
+  --green-deep:#1a3d2b;--green-mid:#2d6a4f;
+  --text-main:#1c1a14;--text-muted:#6b5e42;
+  --border:#d4b896;--shadow:rgba(139,100,32,.2);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--ink);color:#fff;min-height:100vh;display:flex;flex-direction:column}
+
+/* NAV */
+.nav{background:rgba(0,0,0,.6);backdrop-filter:blur(12px);padding:.7rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,151,58,.25);position:sticky;top:0;z-index:100;flex-shrink:0}
+.nav-logo{font-family:'Amiri',serif;color:var(--gold);font-size:1.2rem;text-decoration:none}
+.nav-title{color:rgba(255,255,255,.7);font-size:.82rem;max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
+.nav-back{color:rgba(255,255,255,.5);font-size:.8rem;text-decoration:none;display:flex;align-items:center;gap:.3rem;transition:color .2s}
+.nav-back:hover{color:var(--gold)}
+
+/* HERO */
+.hero{background:linear-gradient(180deg,rgba(26,61,43,.9) 0%,transparent 100%);padding:2rem 1.5rem 1.5rem;text-align:center;border-bottom:1px solid rgba(201,151,58,.15)}
+.hero-tag{display:inline-block;background:rgba(201,151,58,.15);border:1px solid rgba(201,151,58,.4);color:var(--gold);font-size:.72rem;padding:.22rem .75rem;border-radius:14px;margin-bottom:.6rem}
+.hero h1{font-family:'Amiri',serif;color:var(--gold);font-size:clamp(1.2rem,3.5vw,1.8rem);line-height:1.4;margin-bottom:.4rem}
+.hero p{color:rgba(255,255,255,.5);font-size:.83rem}
+
+/* MAIN VIEWER */
+.viewer-wrap{flex:1;display:flex;flex-direction:column;align-items:center;padding:1.5rem 1rem 0}
+
+/* CANVAS */
+.canvas-container{position:relative;display:flex;align-items:center;justify-content:center;width:100%;max-width:600px}
+#pdfCanvas{
+  border-radius:10px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 1px rgba(201,151,58,.2);
+  max-width:100%;
+  display:block;
+  transition:opacity .25s;
+}
+.page-turning{opacity:0!important}
+
+/* LOADING */
+.loader{
+  width:100%;max-width:600px;aspect-ratio:1/1.2;
+  background:rgba(255,255,255,.04);border-radius:10px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;
+  border:1px solid rgba(201,151,58,.15);
+}
+.loader-spinner{
+  width:44px;height:44px;
+  border:3px solid rgba(201,151,58,.2);
+  border-top-color:var(--gold);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader p{color:rgba(255,255,255,.4);font-size:.83rem}
+
+/* CONTROLS */
+.controls{
+  width:100%;max-width:600px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem 0;gap:.8rem;
+  border-top:1px solid rgba(255,255,255,.06);
+  margin-top:1rem;
+}
+.ctrl-btn{
+  background:rgba(201,151,58,.12);
+  border:1px solid rgba(201,151,58,.3);
+  color:var(--gold);
+  padding:.5rem 1.3rem;border-radius:8px;
+  font-family:'Cairo',sans-serif;font-size:.88rem;font-weight:600;
+  cursor:pointer;transition:all .2s;user-select:none;
+}
+.ctrl-btn:hover:not(:disabled){background:var(--gold);color:var(--ink);transform:scale(1.03)}
+.ctrl-btn:disabled{opacity:.25;cursor:not-allowed}
+.counter{text-align:center;flex:1}
+.counter .cur-num{font-family:'Amiri',serif;color:var(--gold);font-size:1.6rem;line-height:1}
+.counter .total-num{color:rgba(255,255,255,.35);font-size:.78rem;margin-top:.1rem}
+
+/* PROGRESS */
+.progress-wrap{width:100%;max-width:600px;margin-bottom:.6rem}
+.progress-track{height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light));border-radius:2px;transition:width .3s ease}
+
+/* DOTS */
+.dots-wrap{display:flex;justify-content:center;gap:.35rem;flex-wrap:wrap;padding:.5rem 1rem 1rem;max-width:600px;width:100%}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.15);border:none;cursor:pointer;transition:all .2s;padding:0}
+.dot.active{background:var(--gold);transform:scale(1.5)}
+.dot:hover{background:rgba(201,151,58,.5)}
+
+/* ZOOM */
+.zoom-wrap{display:flex;align-items:center;gap:.4rem}
+.zoom-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);width:28px;height:28px;border-radius:6px;font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.zoom-btn:hover{background:rgba(201,151,58,.2);color:var(--gold);border-color:rgba(201,151,58,.4)}
+.zoom-level{color:rgba(255,255,255,.35);font-size:.72rem;min-width:36px;text-align:center}
+
+/* SHARE */
+.share-section{width:100%;max-width:600px;padding:1rem 0 2.5rem;border-top:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;gap:.7rem}
+.share-section p{color:rgba(255,255,255,.35);font-size:.78rem}
+.share-btns{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+.share-btn{display:flex;align-items:center;gap:.35rem;padding:.4rem .95rem;border-radius:18px;font-size:.78rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;font-family:'Cairo',sans-serif;transition:transform .15s}
+.share-btn:hover{transform:translateY(-1px)}
+.sh-tw{background:#1da1f2;color:#fff}
+.sh-wa{background:#25d366;color:#fff}
+.sh-cp{background:rgba(201,151,58,.15);color:var(--gold);border:1px solid rgba(201,151,58,.35)}
+
+/* THUMBNAIL STRIP */
+.thumb-strip{display:flex;gap:.4rem;overflow-x:auto;padding:.5rem 1rem 1rem;max-width:100%;scrollbar-width:thin;scrollbar-color:rgba(201,151,58,.3) transparent}
+.thumb-strip::-webkit-scrollbar{height:4px}
+.thumb-strip::-webkit-scrollbar-track{background:transparent}
+.thumb-strip::-webkit-scrollbar-thumb{background:rgba(201,151,58,.3);border-radius:2px}
+.thumb{width:52px;height:52px;border-radius:6px;border:2px solid transparent;cursor:pointer;overflow:hidden;flex-shrink:0;transition:all .2s;background:rgba(255,255,255,.05)}
+.thumb.active{border-color:var(--gold);transform:scale(1.1)}
+.thumb canvas{width:100%!important;height:100%!important;object-fit:cover}
+
+/* ERROR */
+.error-box{width:100%;max-width:600px;background:rgba(192,57,43,.12);border:1px solid rgba(192,57,43,.3);border-radius:10px;padding:2rem;text-align:center}
+.error-box p{color:rgba(255,100,80,.8);font-size:.88rem;margin-bottom.5rem}
+
+/* KEYBOARD HINT */
+.kbd-hint{color:rgba(255,255,255,.2);font-size:.7rem;text-align:center;padding:.4rem;display:none}
+@media(min-width:600px){.kbd-hint{display:block}}
+
+/* FULLSCREEN */
+.fs-btn{background:none;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);padding:.35rem .6rem;border-radius:6px;cursor:pointer;font-size:.75rem;transition:all .15s}
+.fs-btn:hover{color:var(--gold);border-color:rgba(201,151,58,.4)}
+
+@media(max-width:480px){
+  .hero{padding:1.2rem 1rem 1rem}
+  .controls{padding:.7rem 0}
+  .ctrl-btn{padding:.45rem .9rem;font-size:.82rem}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">🕌 سنة شات</a>
+  <div class="nav-title" id="navTitle">جاري التحميل...</div>
+  <a href="/" class="nav-back">← رجوع</a>
+</nav>
+
+<div class="hero" id="heroSection" style="display:none">
+  <div class="hero-tag">🃏 سلسلة بطاقات</div>
+  <h1 id="heroTitle"></h1>
+  <p id="heroDesc"></p>
+</div>
+
+<div class="viewer-wrap">
+
+  <!-- LOADER -->
+  <div class="loader" id="loader">
+    <div class="loader-spinner"></div>
+    <p>جاري تحميل البطاقات...</p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap" id="progressWrap" style="display:none">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <!-- CANVAS -->
+  <div class="canvas-container" id="canvasContainer" style="display:none">
+    <canvas id="pdfCanvas"></canvas>
+  </div>
+
+  <!-- ZOOM + FULLSCREEN -->
+  <div style="width:100%;max-width:600px;display:flex;justify-content:flex-start;align-items:center;gap:.5rem;margin-top:.5rem" id="zoomBar" style="display:none">
+    <div class="zoom-wrap">
+      <button class="zoom-btn" onclick="changeZoom(-0.2)" title="تصغير">−</button>
+      <span class="zoom-level" id="zoomLevel">100%</span>
+      <button class="zoom-btn" onclick="changeZoom(0.2)" title="تكبير">+</button>
+    </div>
+    <button class="fs-btn" onclick="toggleFullscreen()">⛶ ملء الشاشة</button>
+    <div class="kbd-hint" style="margin-right:auto">← → للتنقل • Space للتالي</div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls" id="ctrlBar" style="display:none">
+    <button class="ctrl-btn" id="prevBtn" onclick="changePage(-1)" disabled>→ السابق</button>
+    <div class="counter">
+      <div class="cur-num" id="curPage">1</div>
+      <div class="total-num" id="totalPages">من ١</div>
+    </div>
+    <button class="ctrl-btn" id="nextBtn" onclick="changePage(1)">التالي ←</button>
+  </div>
+
+  <!-- DOTS -->
+  <div class="dots-wrap" id="dotsWrap" style="display:none"></div>
+
+  <!-- THUMBNAIL STRIP -->
+  <div class="thumb-strip" id="thumbStrip" style="display:none"></div>
+
+  <!-- ERROR -->
+  <div class="error-box" id="errorBox" style="display:none">
+    <p>⚠️ تعذّر تحميل الملف. تأكد من صحة الرابط وأن الملف عام (Public).</p>
+  </div>
+
+  <!-- SHARE -->
+  <div class="share-section" id="shareSection" style="display:none">
+    <p>أفادتك السلسلة؟ شاركها</p>
+    <div class="share-btns">
+      <a class="share-btn sh-tw" id="shareTw" href="#" target="_blank">🐦 تويتر</a>
+      <a class="share-btn sh-wa" id="shareWa" href="#" target="_blank">💬 واتساب</a>
+      <button class="share-btn sh-cp" onclick="navigator.clipboard.writeText(location.href);this.textContent='✅ تم'">🔗 نسخ الرابط</button>
+    </div>
+  </div>
+
+</div><!-- /viewer-wrap -->
+
+<script>
+// ===== CONFIG (يُعدَّل لكل سلسلة) =====
+// يمكن تمرير الإعدادات عبر URL params مثلاً:
+// cards.html?pdf=Rابط_PDF&title=العنوان&desc=الوصف
+const params = new URLSearchParams(location.search);
+const CONFIG = {
+  pdfUrl:   params.get('pdf')   || '',
+  title:    params.get('title') || 'سلسلة بطاقات',
+  desc:     params.get('desc')  || '',
+  category: params.get('cat')   || 'سلسلة'
+};
+
+// ===== SETUP =====
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let pdfDoc = null;
+let currentPage = 1;
+let totalPages = 0;
+let zoomScale = 1.4;
+let renderTask = null;
+
+// Apply config to UI
+document.getElementById('pageTitle').textContent = CONFIG.title + ' — سنة شات';
+document.getElementById('pageDesc').setAttribute('content', CONFIG.desc || CONFIG.title);
+document.getElementById('navTitle').textContent = CONFIG.title;
+
+if (CONFIG.title) {
+  document.getElementById('heroTitle').textContent = CONFIG.title;
+  document.getElementById('heroDesc').textContent = CONFIG.desc;
+  document.getElementById('heroSection').style.display = 'block';
+}
+
+// Share links
+const pageUrl = encodeURIComponent(location.href);
+const pageTitle = encodeURIComponent(CONFIG.title);
+document.getElementById('shareTw').href = `https://twitter.com/intent/tweet?text=${pageTitle}&url=${pageUrl}`;
+document.getElementById('shareWa').href = `https://wa.me/?text=${pageTitle}%20${pageUrl}`;
+
+// ===== LOAD PDF =====
+async function loadPDF(url) {
+  if (!url) {
+    showError();
+    return;
+  }
+  try {
+    const loadingTask = pdfjsLib.getDocument({ url, cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/', cMapPacked: true });
+    pdfDoc = await loadingTask.promise;
+    totalPages = pdfDoc.numPages;
+
+    // Hide loader, show viewer
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('canvasContainer').style.display = 'flex';
+    document.getElementById('progressWrap').style.display = 'block';
+    document.getElementById('ctrlBar').style.display = 'flex';
+    document.getElementById('zoomBar').style.display = 'flex';
+    document.getElementById('shareSection').style.display = 'flex';
+
+    document.getElementById('totalPages').textContent = `من ${toArabicNumerals(totalPages)}`;
+
+    // Build dots (max 20)
+    buildDots();
+
+    // Build thumbnails
+    await buildThumbs();
+
+    // Render first page
+    await renderPage(1);
+
+  } catch(e) {
+    console.error(e);
+    showError();
+  }
+}
+
+// ===== RENDER =====
+async function renderPage(num) {
+  if (renderTask) { try { renderTask.cancel(); } catch(e){} }
+
+  currentPage = num;
+  document.getElementById('curPage').textContent = toArabicNumerals(num);
+  document.getElementById('prevBtn').disabled = num <= 1;
+  document.getElementById('nextBtn').disabled = num >= totalPages;
+
+  const pct = (num / totalPages * 100).toFixed(1);
+  document.getElementById('progressFill').style.width = pct + '%';
+
+  // Update dots
+  document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i === num-1));
+  // Update thumbs
+  document.querySelectorAll('.thumb').forEach((t,i) => {
+    t.classList.toggle('active', i === num-1);
+    if (i === num-1) t.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
+  });
+
+  const canvas = document.getElementById('pdfCanvas');
+  canvas.classList.add('page-turning');
+
+  const page = await pdfDoc.getPage(num);
+  const viewport = page.getViewport({ scale: zoomScale * window.devicePixelRatio });
+
+  canvas.width = viewport.width;
+  canvas.height = viewport.height;
+  canvas.style.width = (viewport.width / window.devicePixelRatio) + 'px';
+  canvas.style.height = (viewport.height / window.devicePixelRatio) + 'px';
+
+  const ctx = canvas.getContext('2d');
+  renderTask = page.render({ canvasContext: ctx, viewport });
+
+  try {
+    await renderTask.promise;
+    canvas.classList.remove('page-turning');
+  } catch(e) {
+    if (e.name !== 'RenderingCancelledException') console.error(e);
+  }
+}
+
+// ===== THUMBNAILS =====
+async function buildThumbs() {
+  const strip = document.getElementById('thumbStrip');
+  if (totalPages > 30) return; // skip for large docs
+  strip.style.display = 'flex';
+
+  for (let i = 1; i <= totalPages; i++) {
+    const page = await pdfDoc.getPage(i);
+    const viewport = page.getViewport({ scale: 0.15 });
+    const thumbCanvas = document.createElement('canvas');
+    thumbCanvas.width = viewport.width;
+    thumbCanvas.height = viewport.height;
+    await page.render({ canvasContext: thumbCanvas.getContext('2d'), viewport }).promise;
+
+    const thumb = document.createElement('div');
+    thumb.className = 'thumb' + (i === 1 ? ' active' : '');
+    thumb.title = `صفحة ${i}`;
+    thumb.onclick = () => changePage(i - currentPage);
+    thumb.appendChild(thumbCanvas);
+    strip.appendChild(thumb);
+  }
+}
+
+// ===== DOTS =====
+function buildDots() {
+  if (totalPages > 20) return;
+  const wrap = document.getElementById('dotsWrap');
+  wrap.style.display = 'flex';
+  for (let i = 0; i < totalPages; i++) {
+    const dot = document.createElement('button');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', `صفحة ${i+1}`);
+    dot.onclick = () => renderPage(i+1);
+    wrap.appendChild(dot);
+  }
+}
+
+// ===== NAVIGATION =====
+function changePage(delta) {
+  const target = currentPage + delta;
+  if (target < 1 || target > totalPages) return;
+  renderPage(target);
+}
+
+// ===== ZOOM =====
+function changeZoom(delta) {
+  zoomScale = Math.max(0.6, Math.min(3, zoomScale + delta));
+  document.getElementById('zoomLevel').textContent = Math.round(zoomScale / 1.4 * 100) + '%';
+  renderPage(currentPage);
+}
+
+// ===== KEYBOARD =====
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft' || e.key === ' ') { e.preventDefault(); changePage(1); }
+  if (e.key === 'ArrowRight') { e.preventDefault(); changePage(-1); }
+  if (e.key === '+') changeZoom(0.2);
+  if (e.key === '-') changeZoom(-0.2);
+});
+
+// ===== TOUCH SWIPE =====
+let touchStartX = 0;
+document.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX, { passive: true });
+document.addEventListener('touchend', e => {
+  const dx = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(dx) > 50) changePage(dx > 0 ? 1 : -1);
+}, { passive: true });
+
+// ===== FULLSCREEN =====
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+// ===== ERROR =====
+function showError() {
+  document.getElementById('loader').style.display = 'none';
+  document.getElementById('errorBox').style.display = 'block';
+}
+
+// ===== ARABIC NUMERALS =====
+function toArabicNumerals(n) {
+  return n.toString().replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+}
+
+// ===== START =====
+if (CONFIG.pdfUrl) {
+  loadPDF(CONFIG.pdfUrl);
+} else {
+  // Demo mode — show instructions
+  document.getElementById('loader').innerHTML = `
+    <div style="text-align:center;padding:1rem">
+      <div style="font-size:2.5rem;margin-bottom:1rem">📄</div>
+      <p style="color:rgba(255,255,255,.5);font-size:.85rem;line-height:1.8;max-width:320px">
+        أضف رابط PDF في الـ URL:<br>
+        <code style="color:var(--gold);font-size:.78rem;background:rgba(201,151,58,.1);padding:.2rem .5rem;border-radius:4px;display:inline-block;margin-top:.4rem">
+          cards-viewer.html?pdf=رابط_PDF&title=العنوان
+        </code>
+      </p>
+    </div>`;
+}
+</script>
+</body>
+</html>
