@@ -1,0 +1,10 @@
+name = "sunnachat-ai-proxy"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+kv_namespaces = [
+  { binding = "RATE_LIMIT", id = "7bcf359fb44949d5a912ce8d37670ae9" }
+]
+
+[ai]
+binding = "AI"

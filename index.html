@@ -827,14 +827,6 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;paddi
         <p style="color:rgba(255,255,255,.45);margin-top:.65rem;font-size:.88rem;line-height:1.7" id="asst-sub">اسأل عن حجية السنة — ونقد الأحاديث — والرد على منكري السنة — والمذاهب الفقهية</p>
         <div class="sec-div"></div>
       </div>
-      <div class="api-panel" id="apiPanel" style="display:none">
-        <h4>🔑 إعداد مفتاح OpenRouter API (مجاني)</h4>
-        <p>أدخل مفتاحك من <a href="https://openrouter.ai/keys" target="_blank" style="color:var(--gold)">openrouter.ai</a> — مجاني تماماً — يُحفظ في متصفحك فقط ولا يُرسل لأي خادم.</p>
-        <div class="api-row">
-          <input type="password" id="apiKeyInput" class="api-inp" placeholder="sk-or-..." dir="ltr">
-          <button class="api-save" onclick="saveKey()">حفظ ✓</button>
-        </div>
-      </div>
       <div class="chat-win">
         <div class="chat-msgs" id="chatMsgs">
           <div class="cm">
@@ -1673,17 +1665,8 @@ function askAboutArticle(){
     },300);
   }
 }
-const ORKEY='AIzaSyC_VrEMinzDeaJr4PDNs7sVzkALJvtZlMw';
-let hist=[],apiKey=ORKEY;
-document.getElementById('apiPanel').style.display='none';
-
-function saveKey(){
-  const k=document.getElementById('apiKeyInput').value.trim();
-  if(!k.startsWith('sk-or-')){alert('يرجى إدخال مفتاح صحيح يبدأ بـ sk-or-');return;}
-  apiKey=k;localStorage.setItem('sc_ak',k);
-  document.getElementById('apiPanel').style.display='none';
-  addMsg('bot','✅ تم حفظ المفتاح! المساعد الذكي جاهز الآن.');
-}
+let hist=[];
+const AI_PROXY_URL='https://sunnachat-ai-proxy.hbdentcore.workers.dev';
 
 function sysPrompt(){
   return `أنت مساعد علمي إسلامي متخصص في موقع "سنة شات" للدكتور هيثم زكريا أبو طالب.
@@ -2297,29 +2280,22 @@ function remTyping(){const e=document.getElementById('typin');if(e)e.remove();}
 async function sendMsg(){
   const inp=document.getElementById('chatInp');
   const txt=inp.value.trim();if(!txt)return;
-  if(!apiKey){
-    document.getElementById('apiPanel').style.display='block';
-    document.getElementById('apiPanel').scrollIntoView({behavior:'smooth'});
-    addMsg('bot','⚠️ يرجى إدخال مفتاح OpenRouter API أولاً.');return;
-  }
   inp.value='';inp.style.height='auto';
   document.getElementById('sqWrap').style.display='none';
   addMsg('user',txt);hist.push({role:'user',content:txt});
   const btn=document.getElementById('sendBtn');btn.disabled=true;
   addTyping();
   try{
-    const geminiMsgs=hist.slice(0,-1).map(m=>({role:m.role==='assistant'?'model':'user',parts:[{text:m.content}]}));
-    geminiMsgs.push({role:'user',parts:[{text:txt}]});
-    const r=await fetch('https://api.mistral.ai/v1/chat/completions',{
+    const r=await fetch(AI_PROXY_URL,{
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer QJlsfAvvCEFMWBnyruF7AwjzeyuU3N8T'},
-      body:JSON.stringify({model:'mistral-small-latest',messages:[{role:'system',content:sysPrompt()},...hist],max_tokens:1000})
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({systemPrompt:sysPrompt(),messages:hist})
     });
     const data=await r.json();remTyping();
-    if(data.error){addMsg('bot','خطأ: '+(data.error.message||''));btn.disabled=false;return;}
-    const reply=data.choices?.[0]?.message?.content||'عذراً، لم أتمكن من الإجابة.';
+    if(!r.ok||data.error){addMsg('bot','خطأ: '+(data.error||'')); hist.pop(); btn.disabled=false;return;}
+    const reply=data.reply||'عذراً، لم أتمكن من الإجابة.';
     addMsg('bot',reply);hist.push({role:'assistant',content:reply});
-  }catch(e){remTyping();addMsg('bot','⚠️ خطأ: '+e.message);}
+  }catch(e){remTyping();addMsg('bot','⚠️ خطأ: '+e.message); hist.pop();}
   btn.disabled=false;
 }
 function askQ(q){document.getElementById('chatInp').value=q;sendMsg();}
